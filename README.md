@@ -12,62 +12,62 @@ JIANG Léon
 
  
 Table des matières :	
-1.	Rappel du contexte et des besoins	3
-1.1	Contexte	4
-1.2	Besoins identifiés	4
-2.	Périmètre du projet	5
-2.1	Fonctionnalités à réaliser	6
-2.2	Hors périmètre	6
-3.	Spécifications générales et détaillées	7
-3.1	Modélisation des fonctionnalités (UML)	7
-3.2	Charte graphique	8
-3.2.1	Logo	8
-3.2.2	Palette de couleurs	8
-3.3	Maquettes du site (interfaces graphiques)	9
-3.3.1	Page d’accueil	9
-3.3.2	Page d’inscription	10
-3.3.3	Page de connexion	11
-3.3.4	Page « Mon compte »	12
-3.3.5	Page de « Recherche / Résultats » et « Réserver un voyage »	15
-3.3.6	Page « Publier un trajet »	17
-3.3.7	Page de contact	17
-3.3.8	Page FAQ	18
-3.3.9	Page expliquant la sécurité des utilisateurs	19
-3.3.10	Page Backoffice (admin)	24
-3.4	Schéma de navigation	25
+1.	Rappel du contexte et des besoins	
+	1.1	Contexte	
+	1.2	Besoins identifiés	
+2.	Périmètre du projet	
+	2.1	Fonctionnalités à réaliser	
+	2.2	Hors périmètre	
+3.	Spécifications générales et détaillées	
+	3.1	Modélisation des fonctionnalités (UML)	
+	3.2	Charte graphique	
+		3.2.1	Logo	
+		3.2.2	Palette de couleurs	
+	3.3	Maquettes du site (interfaces graphiques)	
+		3.3.1	Page d’accueil	
+		3.3.2	Page d’inscription	
+		3.3.3	Page de connexion	
+		3.3.4	Page « Mon compte »	
+		3.3.5	Page de « Recherche / Résultats » et « Réserver un voyage »	
+		3.3.6	Page « Publier un trajet »	
+		3.3.7	Page de contact	
+		3.3.8	Page FAQ	
+		3.3.9	Page expliquant la sécurité des utilisateurs	
+		3.3.10	Page Backoffice (admin)	
+	3.4	Schéma de navigation	
 
  
 Table des figures :	
-Figure 1: Modélisation UML	7
-Figure 2: Logo Caramba	8
-Figure 3: Charte graphique	8
-Figure 4: Page d'accueil site web Caramba	9
-Figure 5: Page d'inscription Caramba	10
-Figure 6: Page de connexion Caramba	11
-Figure 7: Page Mon compte (section)	12
-Figure 8: Page Mon compte (section Mes trajets)	13
-Figure 9: Page Mon compte (section Paiements et factures)	13
-Figure 10: Page Mon compte (section Paramètres du compte)	14
-Figure 11: Page Mon compte (section Avis)	15
-Figure 12: Page recherche	15
-Figure 13: Filtre de la page recherche	16
-Figure 14: Réservation d'un trajet	16
-Figure 15: Page contact	17
-Figure 16: Page FAQ	18
-Figure 17: Page à propos de la sécurité de nos utilisateurs	19
-Figure 18: Zoom sur la section "Votre sécurité avant tout"	19
-Figure 19: Schémas de navigation	25
+Figure 1: Modélisation UML	
+Figure 2: Logo Caramba	
+Figure 3: Charte graphique	
+Figure 4: Page d'accueil site web Caramba	
+Figure 5: Page d'inscription Caramba	
+Figure 6: Page de connexion Caramba	
+Figure 7: Page Mon compte (section)	
+Figure 8: Page Mon compte (section Mes trajets)	
+Figure 9: Page Mon compte (section Paiements et factures)	
+Figure 10: Page Mon compte (section Paramètres du compte)
+Figure 11: Page Mon compte (section Avis)	
+Figure 12: Page recherche	
+Figure 13: Filtre de la page recherche	
+Figure 14: Réservation d'un trajet	
+Figure 15: Page contact	
+Figure 16: Page FAQ	
+Figure 17: Page à propos de la sécurité de nos utilisateurs	
+Figure 18: Zoom sur la section "Votre sécurité avant tout"	
+Figure 19: Schémas de navigation	
 
 Table des Tableaux :
-Tableau 1: Périmètre du projet	5
+Tableau 1: Périmètre du projet	
 
 	
 1.	Rappel du contexte et des besoins 
-1.1	Contexte
+	1.1	Contexte
 Le covoiturage est devenu un moyen de transport à la fois économique et plus respectueux de l’environnement, et on voit bien qu’il prend de plus en plus d’importance aujourd’hui. Beaucoup de gens continuent pourtant à se déplacer seuls en voiture, ce qui augmente les coûts et la pollution.
 Avec ce projet, on veut proposer une solution numérique simple pour mettre en contact les conducteurs et les passagers qui souhaitent partager un trajet, que ce soit pour les trajets du quotidien comme le domicile-travail ou pour des déplacements plus ponctuels.
 Le site aura pour but de rendre ces échanges plus faciles tout en gardant 3 priorités : la sécurité, la confiance et la simplicité d’utilisation.
-1.2	Besoins identifiés 
+	1.2	Besoins identifiés 
 Le projet répond à plusieurs besoins concrets :
 •	Faciliter la recherche et la mise en relation entre conducteurs et passagers.
 •	Réduire les coûts de transport en partageant les frais.
@@ -97,14 +97,14 @@ Page À propos
 Backoffice administrateur (gestion utilisateur, FAQ, CGU, Mentions légales)	
 
  
-2.1	Fonctionnalités à réaliser
+	2.1	Fonctionnalités à réaliser
 Le site Caramba s’appuie sur plusieurs fonctionnalités essentielles liées au covoiturage.
 Un conducteur peut publier un trajet en précisant le lieu de départ, la destination, la date, l’heure et le nombre de places disponibles.
 Les passagers peuvent ensuite chercher un trajet qui correspond à leurs critères et envoyer une demande de réservation au conducteur. Il aura 24h pour accepter ou refuser, après ce délai la demande expire automatiquement.
 Le système empêche aussi qu’un passager réserve deux trajets sur le même créneau, pour éviter les doublons. Une fois le trajet terminé, un système d’avis et de notes permettra d’évaluer les utilisateurs et de renforcer la confiance entre membres.
 Des pages complémentaires viennent compléter le tout : FAQ, Contact, CGU, Mentions légales, À propos, ainsi qu’un espace administrateur (backoffice) pour gérer les comptes et le contenu.
 Ces fonctionnalités représentent le cœur du projet. Elles couvrent les besoins essentiels du covoiturage, tout en restant simples à comprendre et à mettre en place.
-2.2	Hors périmètre 
+	2.2	Hors périmètre 
 Certaines fonctionnalités jugées intéressantes mais non réalisables dans cette version ont été mises de côté :
 •	Paiement en ligne : les transactions se feront directement entre conducteurs et passagers, sans passer par la plateforme.
 •	Messagerie interne : une fois la réservation validée, les utilisateurs auront accès aux coordonnées (numéro ou e-mail) pour échanger directement, donc pas besoin de messagerie intégrée pour cette version.
@@ -113,69 +113,69 @@ Certaines fonctionnalités jugées intéressantes mais non réalisables dans cet
  
 3.	Spécifications générales et détaillées
 Cette partie présente la modélisation des principales fonctionnalités du site ainsi que les éléments visuels qui aident à comprendre le fonctionnement global de l’application. On y trouve le diagramme UML, la charte graphique, le schéma de navigation et les maquettes graphiques, qui montrent le parcours de l’utilisateur et la manière dont les pages s’enchaînent les unes avec les autres.
-3.1	Modélisation des fonctionnalités (UML)
+	3.1	Modélisation des fonctionnalités (UML)
 Le diagramme ci-dessous montre les principaux cas d’utilisation de notre site de covoiturage. 
 Il met en avant les rôles des utilisateurs et les actions possibles pour chacun, pour mieux visualiser les différentes fonctionnalités du site.
  
 Figure 1: Modélisation UML 
-3.2	Charte graphique
+	3.2	Charte graphique
 La charte graphique de notre site Caramba a été conçue pour refléter les valeurs principales de notre projet : simplicité, convivialité et écoresponsabilité.
 L’objectif ici est d’offrir une interface qui est à la fois claire, moderne et accueillante, afin de rendre la navigation agréable pour tous les utilisateurs.
-3.2.1	Logo
+	3.2.1	Logo
  
 Figure 2: Logo Caramba
 Le logo montre une route ouverte vers un horizon, un symbole qui évoque à la fois le voyage et le partage. Et le cercle autour vient renforcer cette idée de communauté et d’un espace accueillant pour tous.
-3.2.2	Palette de couleurs
+	3.2.2	Palette de couleurs
  
 Figure 3: Charte graphique
 Les couleurs qu’on a choisies pour notre site sont douces et naturelles, elles rappellent la détente, la confiance pour les tons roses et la dimension écologique du projet pour le vert.
  
-3.3	Maquettes du site (interfaces graphiques)
+	3.3	Maquettes du site (interfaces graphiques)
 Les maquettes ci-dessous ont été faites sur Figma. Elles montrent les pages principales du site et donnent une première idée de son apparence. Le but, c’était surtout de visualiser la structure et l’ergonomie prévue pour l’utilisateur avant de passer au développement.
 Elles nous ont aussi servi à garder une cohérence dans la charte graphique et à vérifier que tout restait harmonieux entre les pages.
 
-3.3.1	Page d’accueil
+		3.3.1	Page d’accueil
  
 Figure 4: Page d'accueil site web Caramba
 L’utilisateur peut effectuer une recherche de trajet dès son arrivée sur le site et accéder rapidement aux pages « Démarrer un covoiturage », « FAQ », « Connexion » et cliquer directement sur son profil une fois connecté via la barre de navigation.
 
 
 
-3.3.2	Page d’inscription
+		3.3.2	Page d’inscription
  
 Figure 5: Page d'inscription Caramba
 L’utilisateur peut créer un compte en entrant ses informations personnelles, puis choisir son rôle, conducteur ou passager. Pour les conducteurs, un permis de conduire est bien sûr requis.
-3.3.3	Page de connexion
+		3.3.3	Page de connexion
  
 Figure 6: Page de connexion Caramba
 
 L’utilisateur peut se connecter à son compte en entrant son adresse e-mail ou son nom d’utilisateur, ainsi que son mot de passe.
  
-3.3.4	Page « Mon compte »
+		3.3.4	Page « Mon compte »
 La page « Mon compte » permet de référencer toutes les informations les plus pertinentes pour l’utilisateurs. Vous pouvez trouver ci-dessous les différentes sections relatives à cette page. 
-3.3.4.1	A propos :
+		3.3.4.1	A propos :
  
 Figure 7: Page Mon compte (section)
 Dans la partie « A propos » l’utilisateur pourra mettre toutes ces informations comme une description, si oui ou non la personne dispose d’un permis et de son type, le type de voiture, ainsi que les préférences de voyage (musique, sujet de discussion, ect). Toutes ces informations seront visibles publiquement (uniquement pour les utilisateurs de Caramba). 
  
-3.3.4.2	Mes trajets
+		3.3.4.2	Mes trajets
  
 Figure 8: Page Mon compte (section Mes trajets)
 Dans la section « Mes trajets » nous pourrons retrouver tous les cours/trajets effectués ou prochainement réalisés (la couleur verte représentant les voyages terminés et en rose les prochain départ). Cette partie permettra de faire un mini bilan de tous les trajets que la personne a pu faire (cette section sera privée). 
-3.3.4.3	Paiement et facture : 
+		3.3.4.3	Paiement et facture : 
  
 Figure 9: Page Mon compte (section Paiements et factures)
 Ici, le consommateur pourra retrouver le montant de tous ces trajets réalisés (Ces informations resteront privées). 
-3.3.4.4	Paramètres du compte 
+		3.3.4.4	Paramètres du compte 
  
 Figure 10: Page Mon compte (section Paramètres du compte)
 Les personnes utilisant le site (Caramba) pourra changer à tout moment leurs identifiants (adresse mail ainsi que numéro de téléphone) et changer son mot de passe (Ces informations resteront privées). 
  
-3.3.4.5	Avis :
+		3.3.4.5	Avis :
  
 Figure 11: Page Mon compte (section Avis)
 L’utilisateur pourra émettre des avis sur les différents voyages qu’il a pu réaliser. Ces avis seront répertoriés dans la section « Avis » de la page « Mon Compte » (Ces informations resteront privées). 
-3.3.5	Page de « Recherche / Résultats » et « Réserver un voyage »
+		3.3.5	Page de « Recherche / Résultats » et « Réserver un voyage »
  
 Figure 12: Page recherche
 Cette page permettra aux consommateurs de réaliser une rechercher sur 4 points (Lieu de départ et d’arriver, la date ainsi que le nombre de passagers). En plus cette rechercher les utilisateurs pourront filtrer les résultats grâce ce cette section. 
@@ -185,21 +185,21 @@ Via ce tableau ils auront la possible d’affiner les résultats via ces différ
 Après avoir filtré les résultats nous nous retrouvons avec une liste comme ci-dessous où il sera répertorié les différents trajets, les conducteurs avec la note (représenté par des étoiles) ainsi que le nombre de place disponible. Afin de réserver un voyage le consommateur n’aura qu’à cliquer sur le bouton prévu à cet effet. 
  
 Figure 14: Réservation d'un trajet
-3.3.6	Page « Publier un trajet »
+		3.3.6	Page « Publier un trajet »
 Ici l’utilisateur pourra Publier un trajet et de fixer lui-même le prix du voyage ainsi que le nombre de place disponible. 
 
-3.3.7	Page de contact
+		3.3.7	Page de contact
  
 Figure 15: Page contact
 L’utilisateur peut contacter l’équipe Caramba en remplissant un petit formulaire avec son nom, son e-mail et son message, pour demander de l’aide ou obtenir plus d’informations.
-3.3.8	Page FAQ
+		3.3.8	Page FAQ
  
 Figure 16: Page FAQ
 Cette page rassemble les questions les plus fréquentes des utilisateurs sur le site, la réservation de trajets ou l’inscription, pour apporter des réponses simples et rapides.
 
 
 
-3.3.9	Page expliquant la sécurité des utilisateurs 
+		3.3.9	Page expliquant la sécurité des utilisateurs 
 
  
 Figure 17: Page à propos de la sécurité de nos utilisateurs
@@ -214,7 +214,7 @@ Cette maquette n’est pas encore finalisée, les espaces blancs et le vide à c
 Nous voulions récupérer quelques documents personnels comme un document d’identité ainsi que le permis de conduire (si l’utilisateur souhaite être conducteur) via France Connect avec les API. Cependant nous avons appris que ces API étaient privées et que l’on devait avoir une habilitation. Nous avons donc choisi de faire tout nous-même : l’utilisateur rentras sa pièce d’identité ou passeport ainsi que son permis de conduire (facultatif) en prenant en photos ses documents. Il ne pourra pas les télécharger via son appareil électronique pour vérifier qu’il les a bien sur lui et éviter au maximum les documents trafiqués. 
 De plus via France connect nous aurions pu savoir si l’utilisateur est toujours autorisé à conduire. Nous aurions pu savoir si son permis avait été suspendu ou enlever en cas de problèmes sur la route. Nous avons donc décidé de mettre en place un dispositif ou toutes les semaines le conducteur doit rentrer manuellement son permis de conduire (photo recto et verso). De nouveau, les photos ne pourront pas être déposé depuis sa galerie, il devra reprendre en photo son document et accepter les risques qu’il encoure en cas de fraude. 
 
-3.3.10	Page Condition Général d’Utilisation
+		3.3.10	Page Condition Général d’Utilisation
 
 Cette page a pour objectif de définir les conditions dans lesquelles les utilisateurs peuvent accéder et utiliser la plateforme Caramba. Elle apparaitra en bas de chaque page sous forme de lien sous le nom de “CGU” :
  Le site peut modifier les présentes CGU à tout moment. Les utilisateurs seront informés des changements et devront accepter la nouvelle version pour continuer à utiliser le service.
@@ -235,7 +235,7 @@ Sur cette page nous avons informé l’utilisateur :
 
 
  
-3.3.11	Page Backoffice (admin)
+		3.3.11	Page Backoffice (admin)
 Cette page aura pour rôle de permettre aux responsables du site Caramba de gérer le contenu et les utilisateurs de la plateforme. Il s’agit d’un espace réservé et accessible uniquement aux personnes ayant un rôle administrateur, afin d’assurer la modération, la sécurité et la mise à jour des informations présentes sur le site.  Les administrateurs auront comme droit :
 •	La possibilité de gérer tous les comptes (passager et conducteur)
 •	Modifier la partie CGU, FAQ et les mentions légales
@@ -255,7 +255,7 @@ o	Suivi des signalements
 •	Gestion de la messagerie 
 o	Accès aux messages envoyés depuis la page « Contact » et la possibilité d’y répondre 
 La maquette du backoffice n’a pas encore été finalisée sur Figma par manque de temps, cependant son développement est prévu dans les futures versions du projet.  L’objectif est de créer une page claire, simple et cohérente avec notre charte graphique.  
-3.4	 Schéma de navigation
+	3.4	 Schéma de navigation
 Le schéma ci-dessous montre l’enchaînement logique des pages du site. Il aide à visualiser la façon dont les utilisateurs naviguent entre les différentes interfaces.
  
 Figure 19: Schémas de navigation
