@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<!-- Onglet du site -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caramba</title>
+  <link rel="icon" type="png" href="img/logo_site.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Barre de navigation du dessus -->
+  <header class="navbar">
+    <div class="logo-section">
+      <img src="img/logo.png" alt="Logo" class="logo">
+      <h1 class="site-title">Caramba</h1>
+    </div>
+    <nav class="nav-links">
+      <a href="#">Accueil</a>
+      <a href="#">Démarrer un covoiturage</a>
+      <a href="#">FAQ</a>
+    </nav>
+    <div class="user-section">
+      <button class="log-btn">Connexion</button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Encadrer recherche de trajet -->
+    <section class="search-box">
+      <label>Ville de départ</label>
+      <div class="input-field">
+        <img src="img/Pin.png" alt="icon" class="icon">
+        <input type="text" placeholder="Départ">
+      </div>
+
+      <label>Ville d’arrivée</label>
+      <div class="input-field">
+        <img src="img/Pin.png" alt="icon" class="icon">
+        <input type="text" placeholder="Arrivée">
+      </div>
+      
+      <label>Date de départ</label>
+      <div class="input-field">
+        <input type="date" id="dateDepart">
+      </div>
+
+      <label>Nombre de passagers</label>
+      <div class="input-field passengers">
+        <img src="img/user.png" alt="icon" class="icon">
+        <input type="number" min="1" max="6" value="1" id="passengers">
+        <span>Passagé(e)</span>
+      </div>
+
+      <button class="search-btn">Rechercher</button>
+    </section>
+
+    <section class="hero-text">
+      <h1>Réservez malin,<br>Choisissez Caramba</h1>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css"
+</head>
+<body>
+    <!-- Barre de navigation du dessus -->
+    <header class="navbar">
+    <div class="logo-section">
+      <img src="img/logo.png" alt="Logo" class="logo">
+      <h1 class="site-title">Caramba</h1>
+    </div>
+    <nav class="nav-links">
+      <a href="#">Accueil</a>
+      <a href="#">Démarrer un covoiturage</a>
+      <a href="#">FAQ</a>
+    </nav>
+    <div class="user-section">
+      <button class="log-btn">Connexion</button>
+    </div>
+    </header>
+
+    <!--formulaire pour l'inscription-->
+    <main class="register-content">
+    <h1 class="h1_register">Créé un nouveau compte</h1>
+    <form class="card" action="#" method="post">
+    <div class="grid">
+        <div class="col-1">
+            <label>Prénom :*</label>
+            <div class="input-field">
+                <input type="text" placeholder="Jean" required>
+            </div>
+        </div>
+        <div class="col-1">
+            <label>Nom :*</label>
+            <div class="input-field">
+                <input type="texte" placeholder="Dupont" required>
+            </div>
+        </div>
+        <div class="col-2">
+            <label>Sexe :*</label>
+            <div class="seg" role="group">
+                <input type="radio" name="sexe" id="homme" value="Homme">
+                <label for="homme">Homme</label>
+                <input type="radio" name="sexe" id="femme" value="Femme">
+                <label for="femme">Femme</label>
+            </div>
+        </div>
+        <div class="col-2">
+            <label>Date de naissance :*</label>
+            <div class="input-field">
+                <input type="date" name="naissance" id="dateNaissance" placeholder="JJ/MM/AAAA" required>
+            </div>
+        </div>
+        <div class="col-2">
+            <label>Numéro de téléphone :*</label>
+            <div class="input-field">
+                <input type="tel" name="tel" id="tel" placeholder="06 12 34 56 78" required>
+            </div>
+        </div>
+        <div class="col-2">
+            <label>Région :*</label>
+            <div class="input-field">
+                <select required>
+                    <option>Ile-de-France</option>
+                    <option>Auvergne-Rhône-Alpes</option>
+                    <option>Occitanie</option>
+                    <option>Provence-Alpes-Côte d’Azur</option>
+                    <option>Nouvelle-Aquitaine</option>
+                    <option>Hauts-de-France</option>
+                    <option>Grand Est</option>
+                    <option>Bretagne</option>
+                    <option>Normandie</option>
+                    <option>Pays de la Loire</option>
+                    <option>Bourgogne-Franche-Comté</option>
+                    <option>Centre-Val de Loire</option>
+                    <option>Corse</option>
+                    <option>Outre-mer</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2">
+            <label>Je veux être conducteur :*</label>
+            <div class="seg" role="group" aria-label="Conducteur">
+                <input type="radio" name="driver" id="driver-yes" value="Oui">
+                <label for="driver-yes">Oui, je conduis</label>
+                <input type="radio" name="driver" id="driver-no" value="Non">
+                <label for="driver-no">Non, je ne conduis pas</label>
+            </div>
+        </div>
+        <div class="col-2 fiel">
+            <label>Ajouté preuve d'identité (Carte d'identité ou titre de séjour) :*</label>
+            <label class="file">
+                <span>Ajouter un fichier</span>
+                <input type="file" name="idfile" id="idfile" accept="image/*,.pdf" required>
+            </label>
+        </div>
+        <div class="col-2 fiel">
+            <label>Ajouté permis (si conducteur) :</label>
+            <label class="file">
+                <span>Ajouter un fichier</span>
+                <input type="file" name="driverfile" id="driverfile" accept="image/*,.pdf">
+            </label>
+        </div>
+        <div class="col-2">
+            <label>Nom d'utilisateur :*</label>
+            <div class="input-field">
+                <input type="text" name="username" id="username" placeholder="Username" required>
+            </div>
+        </div>
+        <div class="col-2">
+            <label>Email :*</label>
+            <div class="input-field">
+                <input type="email" name="email" id="email" placeholder="email@domain.com" required>
+            </div>
+        </div>
+        <div class="col-2">
+            <label>Mot de passe :*</label>
+            <div class="input-field">
+                <input type="password" name="password" id="password" placeholder="Password" required minlength="8">
+            </div>
+        </div>
+        <div class="col-2">
+            <label>Confirmation du mot de passe :*</label>
+            <div class="input-field">
+                <input type="password" name="password2" id="password2" placeholder="Password" required minlength="8">
+            </div>
+        </div>
+        <div class="col-3 checks">
+            <label>
+                <input type="checkbox" required>
+                J'ai lu et j'accepte les conditions générales d'utilisation
+            </label>
+            <label>
+                <input type="checkbox">
+                Je souhaite qu'on m'informe par mail des nouveautés
+            </label>
+        </div>
+        <div class="col-3 foot">
+            Déjà membre ? <a href="#">Connexion</a>
+        </div>
+        <div class="col-2 actions">
+            <button class="submit" type="submit">Soumettre</button>
+        </div>
+    </div>
+    </form>
+  </main>
+
+</body>
+</html>
