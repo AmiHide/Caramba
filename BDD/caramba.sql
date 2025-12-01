@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 30 nov. 2025 à 22:11
--- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
+-- Généré le : lun. 01 déc. 2025 à 11:25
+-- Version du serveur : 10.4.22-MariaDB
+-- Version de PHP : 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,7 +36,7 @@ CREATE TABLE `avis` (
   `commentaire` text DEFAULT NULL,
   `date_avis` datetime DEFAULT current_timestamp(),
   `auteur_role` enum('conducteur','passager') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `avis`
@@ -60,7 +60,7 @@ CREATE TABLE `faq` (
   `id` int(11) NOT NULL,
   `question` varchar(255) NOT NULL,
   `reponse` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `faq`
@@ -85,7 +85,7 @@ CREATE TABLE `notifications` (
   `message` varchar(255) NOT NULL,
   `is_read` tinyint(1) DEFAULT 0,
   `created_at` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -100,7 +100,7 @@ CREATE TABLE `pages_legales` (
   `contenu` text NOT NULL,
   `date_modif` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `pages_legales`
@@ -140,7 +140,7 @@ CREATE TABLE `reservations` (
   `date_reservation` datetime DEFAULT current_timestamp(),
   `statut` enum('en_attente','acceptee','refusee') NOT NULL DEFAULT 'en_attente',
   `expire_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `reservations`
@@ -173,19 +173,18 @@ CREATE TABLE `trajets` (
   `places_disponibles` int(11) NOT NULL,
   `description` text DEFAULT NULL,
   `date_publication` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `trajets`
 --
 
 INSERT INTO `trajets` (`id`, `conducteur_id`, `depart`, `arrivee`, `date_depart`, `heure_depart`, `prix`, `places_disponibles`, `description`, `date_publication`) VALUES
-(9, 15, 'Aix-en-Provence', 'Ajaccio', '2025-11-20', '15:00:00', 25.00, 1, 'peu de place dans le coffre (1 valise max)', '2025-11-20 13:59:49'),
-(11, 15, 'Paris', 'Lyon', '2025-11-23', '13:00:00', 45.00, 0, '', '2025-11-22 10:59:57'),
-(12, 15, 'Vitry-sur-Seine', 'Reims', '2025-11-24', '11:00:00', 40.00, 1, '', '2025-11-23 12:02:03'),
-(14, 15, 'Alfortville', 'Besançon', '2025-11-25', '00:17:00', 20.00, 0, '', '2025-11-24 19:11:58'),
-(18, 15, 'Paris', 'Brest', '2025-11-28', '12:00:00', 40.00, 1, '', '2025-11-27 17:50:43'),
-(30, 15, 'Vitry-sur-Seine', 'Le Blanc-Mesnil', '2025-12-01', '12:00:00', 25.00, 2, '', '2025-11-30 21:57:35');
+(9, 15, 'Aix-en-Provence', 'Ajaccio', '2025-11-20', '15:00:00', '25.00', 1, 'peu de place dans le coffre (1 valise max)', '2025-11-20 13:59:49'),
+(11, 15, 'Paris', 'Lyon', '2025-11-23', '13:00:00', '45.00', 0, '', '2025-11-22 10:59:57'),
+(12, 15, 'Vitry-sur-Seine', 'Reims', '2025-11-24', '11:00:00', '40.00', 1, '', '2025-11-23 12:02:03'),
+(14, 15, 'Alfortville', 'Besançon', '2025-11-25', '00:17:00', '20.00', 0, '', '2025-11-24 19:11:58'),
+(18, 15, 'Paris', 'Brest', '2025-11-28', '12:00:00', '40.00', 1, '', '2025-11-27 17:50:43');
 
 -- --------------------------------------------------------
 
@@ -222,7 +221,7 @@ CREATE TABLE `users` (
   `numero_verifie` tinyint(1) NOT NULL DEFAULT 0,
   `code_tel` varchar(6) DEFAULT NULL,
   `code_expire` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `users`
@@ -243,7 +242,7 @@ INSERT INTO `users` (`id`, `nom`, `email`, `mot_de_passe`, `date_inscription`, `
 CREATE TABLE `villes` (
   `id` int(11) NOT NULL,
   `nom` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `villes`
