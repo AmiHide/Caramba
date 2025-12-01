@@ -58,7 +58,6 @@
                 <span class="badge badge-superdriver"
                     style="display:inline-flex; align-items:center; gap:6px;">
                     
-                    <!-- Ton SVG Super Driver -->
                     <svg viewBox="0 0 24 24" width="16" height="16"
                         xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <g>
