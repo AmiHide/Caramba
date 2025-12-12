@@ -16,7 +16,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <nav class="nav-links">
         <a href="index.php?page=home">Accueil</a>
-        <a href="index.php?page=recherche">Démarrer un covoiturage</a>
+        <a href="index.php?page=recherche">Rechercher un covoiturage</a>
         <a href="index.php?page=faq">FAQ</a>
     </nav>
 

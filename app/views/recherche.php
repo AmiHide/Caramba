@@ -26,21 +26,16 @@
 
         <div class="field">
             <label>Départ</label>
-            <div class="geo-wrapper">
-                <input type="text" name="depart" id="departInput" class="city-input" 
-                       placeholder="Ville de départ" autocomplete="off"
-                       value="<?= htmlspecialchars($depart) ?>" required>
-                
-                <button type="button" id="btn-geo" class="geo-icon" title="Me géolocaliser">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="8" x2="12" y2="16"></line>
-                        <line x1="8" y1="12" x2="16" y2="12"></line>
-                        <circle cx="12" cy="12" r="3"></circle>
-                    </svg>
-                </button>
-            </div>
+            <input type="text" name="depart" id="departInput" class="city-input" 
+                placeholder="Ville de départ" autocomplete="off"
+                value="<?= htmlspecialchars($depart) ?>" required 
+                style="width: 100%; padding-right: 40px;">
             <div id="departList" class="autocomplete-list"></div>
+            <?php include __DIR__ . '/../controllers/auto_list_ville.php'; ?>
+            <script>
+                setupAutocomplete("departInput", "departList"); 
+                setupAutocomplete("arriveeInput", "arriveeList"); 
+            </script>
         </div>
 
         <div class="field">
@@ -49,6 +44,11 @@
                    placeholder="Ville d'arrivée" autocomplete="off"
                    value="<?= htmlspecialchars($arrivee) ?>" required>
             <div id="arriveeList" class="autocomplete-list"></div>
+            <?php include __DIR__ . '/../controllers/auto_list_ville.php'; ?>
+            <script>
+                setupAutocomplete("departInput", "departList"); 
+                setupAutocomplete("arriveeInput", "arriveeList"); 
+            </script>
         </div>
 
         <div class="field date-field">
@@ -280,65 +280,6 @@ window.autocompleteVilles = [
 <script src="js/autocomplete.js"></script>
 
 <script src="/Caramba/public/js/preventCache.js"></script>
-
-<script>
-document.querySelector(".btn-search").addEventListener("click", function () {
-    document.getElementById("loader").classList.remove("hidden");
-
-    // petit délai pour laisser le loader s'afficher avant redirection
-    setTimeout(() => {
-        this.closest("form").submit();
-    }, 150);
-});
-</script>
-<script>
-document.getElementById('btn-geo').addEventListener('click', function() {
-    const input = document.getElementById('departInput');
-    
-    // Vérifier si le navigateur supporte la géolocalisation
-    if (!navigator.geolocation) {
-        alert("La géolocalisation n'est pas supportée par votre navigateur.");
-        return;
-    }
-
-    // Animation de chargement simple (opacité)
-    this.style.opacity = '0.5';
-
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-
-            // Appel à l'API OpenStreetMap (Nominatim)
-            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
-                .then(response => response.json())
-                .then(data => {
-                    // On cherche la ville, ou le village, ou la municipalité
-                    const city = data.address.city || data.address.town || data.address.village || data.address.municipality;
-                    
-                    if (city) {
-                        input.value = city;
-                        // Simuler un événement 'input' pour déclencher l'autocomplete si besoin
-                        input.dispatchEvent(new Event('input')); 
-                    } else {
-                        alert("Impossible de déterminer votre ville.");
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur:', error);
-                    alert("Erreur lors de la récupération de l'adresse.");
-                })
-                .finally(() => {
-                    this.style.opacity = '1'; // Rétablir l'opacité
-                });
-        },
-        () => {
-            alert("Impossible de récupérer votre position. Veuillez vérifier vos autorisations.");
-            this.style.opacity = '1';
-        }
-    );
-});
-</script>
 
 </body>
 </html>
