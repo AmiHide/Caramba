@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Publier un trajet - Caramba</title>
-    <link rel="stylesheet" href="/Caramba/public/css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
      <!-- Flatpickr (calendrier) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -152,8 +152,8 @@ document.addEventListener("DOMContentLoaded", function() {
     setupAutocomplete("ville-arrivee", "suggestions-arrivee");
 </script>
 
-<script src="/Caramba/public/js/preventCache.js"></script>
-<script src="/Caramba/public/js/flashMessages.js"></script>
+<script src="public/js/preventCache.js"></script>
+<script src="public/js/flashMessages.js"></script>
 
 <?php include __DIR__ . '/footer.php'; ?>
 

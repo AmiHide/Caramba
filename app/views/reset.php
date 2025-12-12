@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang='fr'>
 <head>
-<meta charset='UTF-8'>
-<title>Réinitialiser mot de passe</title>
-<link rel='stylesheet' href='css/style.css'>
+    <meta charset='UTF-8'>
+    <title>Réinitialiser mot de passe</title>
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 <body>
 

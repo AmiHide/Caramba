@@ -4,10 +4,9 @@ class RechercheController
 {
     public function index()
     {
-        // Récup toutes les villes
         $villes = Ville::getAll();
 
-        // Variables de recherche
+        // Vars recherche
         $depart    = $_GET['depart']    ?? "";
         $arrivee   = $_GET['arrivee']   ?? "";
         $date      = $_GET['date']      ?? "";
@@ -25,9 +24,13 @@ class RechercheController
             "animaux"   => $_GET["animaux"] ?? null,
         ];
 
-        // Si tous les champs obligatoires sont remplis : recherche
         $trajets = [];
-        if ($depart && $arrivee && $date) {
+
+        if (!$depart && !$arrivee && !$date) {
+            $trajets = Trajet::getAllFuture();
+        }
+
+        elseif ($depart && $arrivee && $date) {
             $trajets = Trajet::search($filters);
         }
 

@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Caramba</title>
-  <link rel="icon" type="png" href="img/logo_site.png">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="icon" type="image/png" href="public/img/logo_site.png">
+  <link rel="stylesheet" href="public/css/style.css">
+  <link rel="stylesheet" href="public/css/responsive.css">
       <!-- Flatpickr (calendrier) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -26,14 +26,14 @@
     
       <label>Ville de départ</label>
       <div class="input-field">
-        <img src="img/Pin.png" alt="icon" class="icon">
+        <img src="public/img/Pin.png" alt="icon" class="icon">
         <input type="text" name="depart" id="departInput" class="city-input" placeholder="Départ" autocomplete="off" required>
         <div id="departList" class="autocomplete-list"></div>
       </div>
 
       <label>Ville d'arrivée</label>
       <div class="input-field">
-        <img src="img/Pin.png" alt="icon" class="icon">
+        <img src="public/img/Pin.png" alt="icon" class="icon">
         <input type="text" name="arrivee" id="arriveeInput" class="city-input" placeholder="Arrivée" autocomplete="off" required>
         <div id="arriveeList" class="autocomplete-list"></div>
       </div>
@@ -59,7 +59,7 @@
 
       <label>Nombre de passagers</label>
       <div class="input-field passengers">
-        <img src="img/user.png" alt="icon" class="icon">
+        <img src="public/img/user.png" alt="icon" class="icon">
         <input type="number" min="1" max="6" value="1" name="passagers" id="passengers" required>
         <span>Passager</span>
       </div>
@@ -80,19 +80,19 @@
 
   <div class="avantage-container">
     <div class="avantage">
-      <img src="img/tirelire.png" alt="avt" class="avt">
+      <img src="public/img/tirelire.png" alt="avt" class="avt">
       <h3>Des économies :</h3>
       <p>Pas la peine de casser votre tirelire.</p>
     </div>
 
     <div class="avantage">
-      <img src="img/voyage_convi.png" alt="avt" class="avt">
+      <img src="public/img/voyage_convi.png" alt="avt" class="avt">
       <h3>Un voyage convivial :</h3>
       <p>Voyagez dans un cadre agréable.</p>
     </div>
 
     <div class="avantage">
-      <img src="img/Ecologie.png" alt="avt" class="avt">
+      <img src="public/img/Ecologie.png" alt="avt" class="avt">
       <h3>Écologie :</h3>
       <p>Protégez la planète en covoiturant.</p>
     </div>
@@ -120,7 +120,7 @@
         </div>
 
         <div class="about-image">
-          <img src="img/Caramba-logo-text.png" alt="Logo">
+          <img src="public/img/Caramba-logo-text.png" alt="Logo">
         </div>
       </div>  
     </section>
@@ -138,8 +138,8 @@
             $displayNom = $prenom . ' ' . $nomComplet;
 
             $avatar = !empty($av['auteur_avatar'])
-                ? "uploads/avatars/{$av['auteur_avatar']}"
-                : "uploads/avatars/user-icon.png";
+                ? "public/uploads/avatars/{$av['auteur_avatar']}"
+                : "public/uploads/avatars/user-icon.png";
             ?>
 
             <div class="avis-card">
@@ -223,8 +223,8 @@ window.autocompleteVilles = [
 ];
 </script>
 
-<script src="js/autocomplete.js"></script>
-<script src="js/preventCache.js"></script>
+<script src="public/js/autocomplete.js"></script>
+<script src="public/js/preventCache.js"></script>
 
 </body>
 </html>

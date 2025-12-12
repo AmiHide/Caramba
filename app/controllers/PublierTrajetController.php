@@ -11,14 +11,14 @@ class PublierTrajetController
 
         $userId = $_SESSION['user']['id'];
 
-        // Vérifier conducteur
+        // Vérif conducteur
         if (!Trajet::isConducteurAllowed($userId)) {
             $_SESSION['flash_error'] = "Vous devez être conducteur pour publier un trajet.";
             header("Location: index.php?page=profil");
             exit;
         }
 
-        // Vérifier profil complet
+        // Vérif profil complet
         if (!Trajet::isProfilConducteurComplet($userId)) {
             $_SESSION['flash_error'] = "Votre profil conducteur est incomplet. Complétez vos informations avant de publier un trajet.";
             header("Location: index.php?page=profil");

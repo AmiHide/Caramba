@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>À propos - Caramba</title>
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="/Caramba/public/css/aboutPage.css">
+    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="public/css/aboutPage.css">
 
 </head>
 
@@ -73,7 +73,7 @@
 
 <?php include __DIR__ . '/footer.php'; ?>
 
-<script src="/Caramba/public/js/preventCache.js"></script>
+<script src="public/js/preventCache.js"></script>
 
 </body>
 </html>

@@ -2,22 +2,26 @@
 session_start();
 
 // Chargement de la BDD
-require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../app/helpers/date.php';
+require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/app/helpers/date.php';
 
 // auto loading des modèles 
 spl_autoload_register(function($class) {
-    if (file_exists(__DIR__ . '/../app/models/' . $class . '.php')) {
-        require_once __DIR__ . '/../app/models/' . $class . '.php';
+    if (file_exists(__DIR__ . '/app/models/' . $class . '.php')) {
+        require_once __DIR__ . '/app/models/' . $class . '.php';
     }
-    if (file_exists(__DIR__ . '/../app/controllers/' . $class . '.php')) {
-        require_once __DIR__ . '/../app/controllers/' . $class . '.php';
+    if (file_exists(__DIR__ . '/app/controllers/' . $class . '.php')) {
+        require_once __DIR__ . '/app/controllers/' . $class . '.php';
     }
 });
 
 $page = $_GET['page'] ?? 'home';
 
-
+// accéder à "/" sans avoir ?page=home
+if ($page === '' || $page === 'index') {
+    header("Location: index.php?page=home");
+    exit;
+}
 
 if ($page === 'forgot') {
     $controller = new ForgotController();
@@ -37,12 +41,6 @@ if ($page === 'home') {
     exit;
 }
 
-// accéder à "/" sans avoir ça : ?page=home
-if ($page === '' || $page === 'index') {
-    header("Location: index.php?page=home");
-    exit;
-}
-
 if ($page === 'register') {
     $controller = new RegisterController();
     $controller->index();
@@ -56,7 +54,7 @@ if ($page === 'connexion') {
 }
 
 if ($page === 'clear_notifications') {
-    require __DIR__ . '/../app/controllers/ClearNotificationsController.php';
+    require __DIR__ . '/app/controllers/ClearNotificationsController.php';
     (new ClearNotificationsController())->index();
     exit;
 }
@@ -131,12 +129,10 @@ if ($page === 'about') {
     exit;
 }
 
-
 if ($page === 'mestrajets') {
     (new MesTrajetsController())->index();
     exit;
 }
-
 
 if ($page === 'reponse_reservation') {
     (new ReponseReservationController())->index();
@@ -179,9 +175,6 @@ if ($page === 'supprimer_trajet') {
     exit;
 }
 
-
-
-
 if ($page === 'verifnum') {
     $controller = new VerifyPhoneController();
     $controller->form();
@@ -205,8 +198,6 @@ if ($page === 'verifnum_check') {
     $controller->check();
     exit;
 }
-
-
 
 // En cas d'erreur ou si aucune route existe
 echo "Page inconnue.";

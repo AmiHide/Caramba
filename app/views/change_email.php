@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Modifier mon e-mail</title>
-    <link rel="stylesheet" href="/Caramba/public/css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 <body>
 

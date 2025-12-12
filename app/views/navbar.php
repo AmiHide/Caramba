@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
     <a href="index.php?page=home" class="logo-link">
         <div class="logo-section">
-            <img src="img/Caramba-logo.png" alt="Logo" class="logo">
+            <img src="public/img/Caramba-logo.png" alt="Logo" class="logo">
             <h1 class="site-title">Caramba</h1>
         </div>
     </a>
@@ -91,7 +91,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="profile-dropdown">
                     <div class="profile-header">
 
-                        <img src="uploads/avatars/<?= htmlspecialchars($_SESSION['user']['avatar']) ?>"
+                        <img src="public/uploads/avatars/<?= htmlspecialchars($_SESSION['user']['avatar']) ?>"
                              alt="Avatar" class="avatar">
 
                         <div class="user-text">

@@ -4354,7 +4354,7 @@ textarea {
     transition: color 0.2s;
 }
 .admin-link:hover {
-    color: #e67e22;
+    color: var(--color-rose-2);
     text-decoration: underline;
 }
 
@@ -5434,9 +5434,6 @@ textarea {
     height: 63px;
     pointer-events: none; 
 }
-
-
-
 
 
 

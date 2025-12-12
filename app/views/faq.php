@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>FAQ - Caramba</title>
-    <link rel="stylesheet" href="/Caramba/public/css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 <body>
 
@@ -29,7 +29,7 @@
 
 <?php include __DIR__ . '/footer.php'; ?>
 
-<script src="/Caramba/public/js/faqToggle.js"></script>
-<script src="/Caramba/public/js/preventCache.js"></script>
+<script src="public/js/faqToggle.js"></script>
+<script src="public/js/preventCache.js"></script>
 </body>
 </html>

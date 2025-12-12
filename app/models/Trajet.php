@@ -320,4 +320,22 @@ class Trajet
         $stmt = $pdo->prepare("DELETE FROM trajets WHERE id = ?");
         return $stmt->execute([$id]);
     }
+
+
+    public static function getAllFuture()
+    {
+    global $pdo;
+
+    $sql = "
+        SELECT t.*, u.nom, u.avatar
+        FROM trajets t
+        JOIN users u ON u.id = t.conducteur_id
+        WHERE CONCAT(t.date_depart, ' ', t.heure_depart) > NOW()
+          AND t.places_disponibles > 0
+        ORDER BY t.date_depart ASC, t.heure_depart ASC
+    ";
+
+    return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }   
+
 }

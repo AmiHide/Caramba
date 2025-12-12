@@ -63,7 +63,7 @@ class LaisserAvisController
         }
 
         
-        //côté passager(s) vers le conducteur
+        //côté passagers vers le conducteur
         else {
             $stmt = $pdo->prepare("
                 SELECT u.id AS conducteur_id, u.nom
@@ -82,7 +82,7 @@ class LaisserAvisController
 
             $cible_id = $cible["conducteur_id"];
 
-            // Vérifie si déjà noté
+            // vérif si déjà noté
             $check = $pdo->prepare("
                 SELECT id FROM avis
                 WHERE trajet_id = ? AND conducteur_id = ? AND passager_id = ? AND auteur_role = 'passager'

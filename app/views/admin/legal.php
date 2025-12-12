@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Administration - CGU & Mentions légales</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 
 <body>
@@ -146,11 +146,11 @@
   </div>
 </div>
 
-<script src="/Caramba/public/js/deleteConfirm.js"></script>
-<script src="/Caramba/public/js/adminTabs.js"></script>
-<script src="/Caramba/public/js/editableTitle.js"></script>
-<script src="/Caramba/public/js/preventCache.js"></script>
-<script src="/Caramba/public/js/flashMessages.js"></script>
+<script src="public/js/deleteConfirm.js"></script>
+<script src="public/js/adminTabs.js"></script>
+<script src="public/js/editableTitle.js"></script>
+<script src="public/js/preventCache.js"></script>
+<script src="public/js/flashMessages.js"></script>
 
 
 <?php include __DIR__ . '/../footer.php'; ?>

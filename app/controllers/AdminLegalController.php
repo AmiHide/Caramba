@@ -22,7 +22,7 @@ class AdminLegalController
                 if (LegalPage::addSection($section, $titre, $contenu)) {
                     $_SESSION['flash_success'] = "Nouvelle section ajoutée avec succès.";
                 } else {
-                    $_SESSION['flash_error'] = "Erreur lors de l’ajout de la section.";
+                    $_SESSION['flash_error'] = "Erreur lors de l'ajout de la section.";
                 }
             }
 

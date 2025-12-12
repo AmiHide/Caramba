@@ -34,16 +34,15 @@ class VoirProfilController
         $ins = new DateTime($profil['date_inscription']);
         $texte_membre_depuis = "Membre depuis " . $mois_fr[$ins->format('m')] . " " . $ins->format('Y');
 
-        // Historique rapide
+        // historique rapide
         $history = Trajet::getPublicHistory($id);
         $total_trajets = Trajet::countTrajetsConducteur($id);
 
-        // Stats avis
+        //stats avis
         $rating = Avis::getStats($id);
         $note_moyenne = $rating['moyenne'] ? number_format($rating['moyenne'], 1, ',', '') : null;
         $total_avis = (int)$rating['total'];
 
-        // Liste avis
         $avis_liste = Avis::getList($id);
 
         $profil['is_superdriver'] = User::isSuperDriver($profil['id']);

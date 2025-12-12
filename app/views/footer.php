@@ -6,7 +6,7 @@
         <div class="footer-col brand">
             <h3>Caramba</h3>
             <a href="https://www.instagram.com/caramba_officiel/" class="social-icon">
-                <img src="img/insta.png" alt="Instagram">
+                <img src="public/img/insta.png" alt="Instagram">
             </a>
         </div>
 

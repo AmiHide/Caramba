@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CGU & Mentions légales - Caramba</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 
 <body>
@@ -51,7 +51,7 @@
 </main>
 
 <?php include __DIR__ . '/footer.php'; ?>
-<script src="/Caramba/public/js/preventCache.js"></script>
+<script src="public/js/preventCache.js"></script>
 
 </body>
 </html>

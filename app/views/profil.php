@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mon compte - Caramba</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 
 <body>
@@ -40,7 +40,7 @@
     <section class="account-card account-header-card">
 
         <div class="account-avatar-block">
-            <img src="uploads/avatars/<?= htmlspecialchars($user['avatar']) ?>"
+            <img src="public/uploads/avatars/<?= htmlspecialchars($user['avatar']) ?>"
                  alt="Avatar" class="account-avatar">
 
             <form method="post" enctype="multipart/form-data" class="avatar-form">
@@ -314,7 +314,7 @@
                     <?php if (!empty($user['preuve_identite'])): ?>
                         <div class="doc-status doc-valid">Déjà envoyée</div>
 
-                        <a href="<?= htmlspecialchars($user['preuve_identite']) ?>"
+                        <a href="public/<?= htmlspecialchars($user['preuve_identite']) ?>"
                            class="doc-view" target="_blank">
                             Voir le document
                         </a>
@@ -355,7 +355,7 @@
                             <?= $canReupload ? "⚠ Permis expiré ou refusé" : "Permis envoyé" ?>
                         </div>
 
-                        <a href="<?= htmlspecialchars($user['permis']) ?>" class="doc-view" target="_blank">
+                        <a href="public/<?= htmlspecialchars($user['permis']) ?>" class="doc-view" target="_blank">
 
                             Voir le permis
                         </a>
@@ -485,9 +485,9 @@
 
 <?php include __DIR__ . '/footer.php'; ?>
 
-<script src="/Caramba/public/js/prefButtons.js"></script>
-<script src="/Caramba/public/js/flashMessages.js"></script>
-<script src="/Caramba/public/js/preventCache.js"></script>
+<script src="public/js/prefButtons.js"></script>
+<script src="public/js/flashMessages.js"></script>
+<script src="public/js/preventCache.js"></script>
 
 </body>
 </html>

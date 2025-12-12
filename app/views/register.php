@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Créer un compte – Caramba</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Créer un compte - Caramba</title>
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 
 <body>
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-<script src="/Caramba/public/js/flashMessages.js"></script>
+<script src="public/js/flashMessages.js"></script>
 
 
 </body>

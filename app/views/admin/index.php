@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Administration - Caramba</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 <body>
 
@@ -65,7 +65,7 @@
                         <td><?= htmlspecialchars($u['email']) ?></td>
                         <td>
                             <?php if (!empty($u['permis'])): ?>
-                            <a href="<?= htmlspecialchars($u['permis']) ?>" 
+                            <a href="public/<?= htmlspecialchars($u['permis']) ?>" 
                                class="admin-icon" target="_blank" title="Voir le permis">
                                 <svg width="20" height="20" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="9" cy="9" r="7"></circle>

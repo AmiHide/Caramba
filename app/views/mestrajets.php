@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mes trajets - Caramba</title>
-    <link rel="stylesheet" href="/Caramba/public/css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 
 <body>
@@ -68,7 +68,7 @@
                     <div class="left">
 
     <a href="index.php?page=voirprofil&id=<?= $r['conducteur_id'] ?>" class="driver-link vertical">
-        <img src="uploads/avatars/<?= htmlspecialchars($r['conducteur_avatar']) ?>" class="trajet-avatar">
+        <img src="public/uploads/avatars/<?= htmlspecialchars($r['conducteur_avatar']) ?>" class="trajet-avatar">
 
         <?php
             $prenom_conducteur = explode(' ', trim($r['conducteur_nom']))[0];
@@ -166,7 +166,7 @@
                                     <div class="passenger-left">
 
                                     <a href="index.php?page=voirprofil&id=<?= $p['passager_id'] ?>" class="driver-link">
-                                        <img src="uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="passenger-avatar">
+                                        <img src="public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="passenger-avatar">
 
                                         <div class="passenger-info">
                                             <?php
@@ -256,7 +256,7 @@
             <div class="trajet-top">
                 <div class="left">
                     <a href="index.php?page=voirprofil&id=<?= $r['conducteur_id'] ?>" class="driver-link vertical">
-    <img src="uploads/avatars/<?= htmlspecialchars($r['conducteur_avatar']) ?>" class="trajet-avatar">
+    <img src="public/uploads/avatars/<?= htmlspecialchars($r['conducteur_avatar']) ?>" class="trajet-avatar">
     
     <?php
         $parts = explode(' ', trim($r['conducteur_nom']));
@@ -303,7 +303,7 @@
         $prenom   = ucfirst(strtolower(array_shift($parts)));
     ?>
         <div class="passager-box">
-            <img src="uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="passager-avatar">
+            <img src="public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="passager-avatar">
             <span class="passager-name"><?= htmlspecialchars($prenom) ?></span>
         </div>
     <?php endforeach; ?>
@@ -343,7 +343,7 @@
                     <?php foreach ($passagers as $p): ?>
                         <div class="mini-passenger">
                         <a href="index.php?page=voirprofil&id=<?= $p['id'] ?>" class="driver-link vertical">
-                            <img src="uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="mini-passenger-avatar">
+                            <img src="public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="mini-passenger-avatar">
                             <?php
                                 $parts = explode(' ', trim($p['nom']));
                                 $prenom = ucfirst(strtolower($parts[0]));
@@ -405,7 +405,7 @@ $foundPassager = false;
         <div class="left">
 
             <a href="index.php?page=voirprofil&id=<?= $r['conducteur_id'] ?>" class="driver-link vertical">
-                <img src="uploads/avatars/<?= htmlspecialchars($r['conducteur_avatar']) ?>" class="trajet-avatar">
+                <img src="public/uploads/avatars/<?= htmlspecialchars($r['conducteur_avatar']) ?>" class="trajet-avatar">
                 <strong><?= htmlspecialchars($displayConducteur) ?></strong>
             </a>
 
@@ -439,7 +439,7 @@ $foundPassager = false;
                     <div class="mini-passenger">
                         <!-- lien vers profil passager -->
                         <a href="index.php?page=voirprofil&id=<?= $p['id'] ?>" class="driver-link vertical">
-                            <img src="uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="mini-avatar">
+                            <img src="public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="mini-avatar">
                             <span><?= htmlspecialchars($display) ?></span>
                         </a>
                     </div>
@@ -500,7 +500,7 @@ $foundPassager = false;
             <div class="mini-passenger">
                 <!-- lien vers profil passager -->
                 <a href="index.php?page=voirprofil&id=<?= $p['id'] ?>" class="driver-link vertical">
-                    <img src="uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="mini-avatar">
+                    <img src="public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="mini-avatar">
                     <span><?= htmlspecialchars($display) ?></span>
                 </a>
             </div>
@@ -528,14 +528,14 @@ $foundPassager = false;
   </div>
 </div>
 
-<script src="/Caramba/public/js/trajetDeleteConfirm.js"></script>
-<script src="/Caramba/public/js/tabs.js"></script>
-<script src="/Caramba/public/js/tabsUnderline.js"></script>
-<script src="/Caramba/public/js/reservationTimers.js"></script>
-<script src="/Caramba/public/js/showPhone.js"></script>
-<script src="/Caramba/public/js/showDriverPhone.js"></script>
-<script src="/Caramba/public/js/flashMessages.js"></script>
-<script src="/Caramba/public/js/preventCache.js"></script>
+<script src="public/js/trajetDeleteConfirm.js"></script>
+<script src="public/js/tabs.js"></script>
+<script src="public/js/tabsUnderline.js"></script>
+<script src="public/js/reservationTimers.js"></script>
+<script src="public/js/showPhone.js"></script>
+<script src="public/js/showDriverPhone.js"></script>
+<script src="public/js/flashMessages.js"></script>
+<script src="public/js/preventCache.js"></script>
 
 <?php include __DIR__ . '/footer.php'; ?>
 

@@ -9,7 +9,7 @@ class SupprimerTrajetController
             exit;
         }
 
-        // Vérifier si l'ID du trajet est passé
+        // Vérifier si l'id du trajet est passé
         if (!isset($_GET['id']) || empty($_GET['id'])) {
             $_SESSION['flash_error'] = "Aucun trajet spécifié.";
             header("Location: index.php?page=mestrajets");

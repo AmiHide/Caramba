@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recherche - Caramba</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
 
     <!-- Flatpickr (calendrier) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -152,82 +152,133 @@
     </div>
 <?php endif; ?>
 
-        <?php if (!$depart || !$arrivee || !$date): ?>
+        <?php if (!$depart && !$arrivee && !$date) : ?>
 
-            <p class="empty-info">⛔ Veuillez remplir tous les champs pour lancer une recherche.</p>
+            <!-- <p class="empty-info">⛔ Veuillez remplir tous les champs pour lancer une recherche.</p> -->
 
-        <?php else: ?>
+        <?php if (empty($trajets)) : ?>
+        <p class="empty-info">Aucun trajet futur disponible.</p>
+    <?php else: ?>
 
-            <?php if (empty($trajets)): ?>
+        <?php foreach ($trajets as $t): ?>
+            <div class="trajet-card">
 
-                <p class="no-results">Aucun trajet trouvé pour cette recherche…</p>
+                <div class="trajet-left">
+                    <a href="index.php?page=voirprofil&id=<?= $t['conducteur_id'] ?>"
+                       class="driver-link"
+                       style="display:flex; gap:12px; align-items:center; position:relative;">
 
+                        <div class="driver-avatar-wrapper">
+                            <img src="public/uploads/avatars/<?= htmlspecialchars($t['avatar'] ?? 'user-icon.png') ?>"
+                                 class="trajet-avatar">
 
-            <?php else: ?>
-
-                <?php foreach ($trajets as $t): ?>
-
-                    <div class="trajet-card">
-
-                        <div class="trajet-left">
-
-                            <a href="index.php?page=voirprofil&id=<?= $t['conducteur_id'] ?>" 
-                            class="driver-link"
-                            style="display:flex; gap:12px; align-items:center; position:relative;">
-
-                                <div class="driver-avatar-wrapper">
-                                    <img src="uploads/avatars/<?= htmlspecialchars($t['avatar'] ?? 'user-icon.png') ?>" 
-                                        class="trajet-avatar">
-
-                                    <?php if (User::isSuperDriver($t['conducteur_id'])): ?>
-                                        <img src="img/superdriver.svg"
-                                            class="superdriver-overlay"
-                                            alt="Super Driver">
-                                    <?php endif; ?>
-                                </div>
-
-                                <?php
-                                    $prenomTab = explode(' ', trim($t['nom']));
-                                    $prenom = ucfirst(strtolower($prenomTab[0]));
-                                ?>
-
-                                <p class="trajet-driver"><?= htmlspecialchars($prenom) ?></p>
-
-                            </a>
-
-
-                            <p class="trajet-hour">
-                                Heure de départ : <?= substr($t['heure_depart'], 0, 5) ?>
-                            </p>
-
+                            <?php if (User::isSuperDriver($t['conducteur_id'])): ?>
+                                <img src="public/img/superdriver.svg"
+                                     class="superdriver-overlay"
+                                     alt="Super Driver">
+                            <?php endif; ?>
                         </div>
 
-                        <div class="trajet-middle">
-                            <p class="trajet-route">
-                                <?= htmlspecialchars($t['depart']) ?> →
-                                <?= htmlspecialchars($t['arrivee']) ?>
-                            </p>
-                            <p class="trajet-desc"><?= nl2br(htmlspecialchars($t['description'])) ?></p>
+                        <?php
+                            $prenomTab = explode(' ', trim($t['nom']));
+                            $prenom = ucfirst(strtolower($prenomTab[0]));
+                        ?>
+                        <p class="trajet-driver"><?= htmlspecialchars($prenom) ?></p>
+
+                    </a>
+
+                    <p class="trajet-hour">Heure de départ : <?= substr($t['heure_depart'], 0, 5) ?></p>
+                </div>
+
+                <div class="trajet-middle">
+                    <p class="trajet-route">
+                        <?= htmlspecialchars($t['depart']) ?> →
+                        <?= htmlspecialchars($t['arrivee']) ?>
+                    </p>
+                    <p class="trajet-desc"><?= nl2br(htmlspecialchars($t['description'])) ?></p>
+                </div>
+
+                <div class="trajet-right">
+                    <p class="trajet-price"><?= $t['prix'] ?> €</p>
+                    <p class="trajet-places"><?= $t['places_disponibles'] ?> place(s)</p>
+
+                    <a href="index.php?page=reserver&id=<?= $t['id'] ?>"
+                       class="btn-reserver" target="_blank">
+                        Réserver
+                    </a>
+                </div>
+
+            </div>
+        <?php endforeach; ?>
+
+    <?php endif; ?>
+
+
+<?php
+// Cas 2 : l'utilisateur a rempli le formulaire
+else:
+?>
+
+    <?php if (empty($trajets)) : ?>
+        <p class="no-results">Aucun trajet trouvé pour cette recherche…</p>
+    <?php else: ?>
+
+        <?php foreach ($trajets as $t): ?>
+
+            <div class="trajet-card">
+
+                <div class="trajet-left">
+                    <a href="index.php?page=voirprofil&id=<?= $t['conducteur_id'] ?>"
+                       class="driver-link"
+                       style="display:flex; gap:12px; align-items:center; position:relative;">
+
+                        <div class="driver-avatar-wrapper">
+                            <img src="public/uploads/avatars/<?= htmlspecialchars($t['avatar'] ?? 'user-icon.png') ?>"
+                                 class="trajet-avatar">
+
+                            <?php if (User::isSuperDriver($t['conducteur_id'])): ?>
+                                <img src="public/img/superdriver.svg"
+                                     class="superdriver-overlay"
+                                     alt="Super Driver">
+                            <?php endif; ?>
                         </div>
 
-                        <div class="trajet-right">
-                            <p class="trajet-price"><?= $t['prix'] ?> €</p>
-                            <p class="trajet-places"><?= $t['places_disponibles'] ?> place(s)</p>
+                        <?php
+                            $prenomTab = explode(' ', trim($t['nom']));
+                            $prenom = ucfirst(strtolower($prenomTab[0]));
+                        ?>
+                        <p class="trajet-driver"><?= htmlspecialchars($prenom) ?></p>
 
-                            <a href="index.php?page=reserver&id=<?= $t['id'] ?>" 
-                               class="btn-reserver" target="_blank">
-                                Réserver
-                            </a>
+                    </a>
 
-                        </div>
+                    <p class="trajet-hour">Heure de départ : <?= substr($t['heure_depart'], 0, 5) ?></p>
+                </div>
 
-                    </div>
+                <div class="trajet-middle">
+                    <p class="trajet-route">
+                        <?= htmlspecialchars($t['depart']) ?> →
+                        <?= htmlspecialchars($t['arrivee']) ?>
+                    </p>
+                    <p class="trajet-desc"><?= nl2br(htmlspecialchars($t['description'])) ?></p>
+                </div>
 
-                <?php endforeach; ?>
+                <div class="trajet-right">
+                    <p class="trajet-price"><?= $t['prix'] ?> €</p>
+                    <p class="trajet-places"><?= $t['places_disponibles'] ?> place(s)</p>
 
-            <?php endif; ?>
+                    <a href="index.php?page=reserver&id=<?= $t['id'] ?>"
+                       class="btn-reserver" target="_blank">
+                        Réserver
+                    </a>
+                </div>
 
-        <?php endif; ?>
+            </div>
+
+        <?php endforeach; ?>
+
+    <?php endif; ?>
+
+<?php endif; ?>
 
     </section>
 
@@ -266,15 +317,13 @@ window.autocompleteVilles = [
 ];
 </script>
 
-<script src="js/autocomplete.js"></script>
-
-<script src="/Caramba/public/js/preventCache.js"></script>
+<script src="/caramba/public/js/autocomplete.js"></script>
+<script src="/caramba/public/js/preventCache.js"></script>
 
 <script>
 document.querySelector(".btn-search").addEventListener("click", function () {
     document.getElementById("loader").classList.remove("hidden");
 
-    // petit délai pour laisser le loader s'afficher avant redirection
     setTimeout(() => {
         this.closest("form").submit();
     }, 150);

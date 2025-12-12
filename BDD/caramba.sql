@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : jeu. 04 déc. 2025 à 22:16
--- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
+-- Hôte : localhost:3306
+-- Généré le : sam. 06 déc. 2025 à 00:24
+-- Version du serveur : 5.7.24
+-- Version de PHP : 8.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,10 +33,10 @@ CREATE TABLE `avis` (
   `passager_id` int(11) NOT NULL,
   `trajet_id` int(11) NOT NULL,
   `note` tinyint(4) NOT NULL,
-  `commentaire` text DEFAULT NULL,
-  `date_avis` datetime DEFAULT current_timestamp(),
+  `commentaire` text,
+  `date_avis` datetime DEFAULT CURRENT_TIMESTAMP,
   `auteur_role` enum('conducteur','passager') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `avis`
@@ -60,7 +60,7 @@ CREATE TABLE `faq` (
   `id` int(11) NOT NULL,
   `question` varchar(255) NOT NULL,
   `reponse` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `faq`
@@ -83,16 +83,9 @@ CREATE TABLE `notifications` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `message` varchar(255) NOT NULL,
-  `is_read` tinyint(1) DEFAULT 0,
-  `created_at` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `notifications`
---
-
-INSERT INTO `notifications` (`id`, `user_id`, `message`, `is_read`, `created_at`) VALUES
-(16, 16, 'Votre réservation pour Vitry-sur-Seine → Le Blanc-Mesnil a été acceptée.', 0, '2025-12-01 19:45:12');
+  `is_read` tinyint(1) DEFAULT '0',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -105,9 +98,9 @@ CREATE TABLE `pages_legales` (
   `section` enum('cgu','mentions') NOT NULL,
   `titre` varchar(255) NOT NULL,
   `contenu` text NOT NULL,
-  `date_modif` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `date_modif` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `pages_legales`
@@ -143,11 +136,11 @@ CREATE TABLE `reservations` (
   `id` int(11) NOT NULL,
   `trajet_id` int(11) NOT NULL,
   `passager_id` int(11) NOT NULL,
-  `places_reservees` int(11) NOT NULL DEFAULT 1,
-  `date_reservation` datetime DEFAULT current_timestamp(),
+  `places_reservees` int(11) NOT NULL DEFAULT '1',
+  `date_reservation` datetime DEFAULT CURRENT_TIMESTAMP,
   `statut` enum('en_attente','acceptee','refusee') NOT NULL DEFAULT 'en_attente',
   `expire_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `reservations`
@@ -178,20 +171,21 @@ CREATE TABLE `trajets` (
   `heure_depart` time NOT NULL,
   `prix` decimal(5,2) NOT NULL,
   `places_disponibles` int(11) NOT NULL,
-  `description` text DEFAULT NULL,
-  `date_publication` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `description` text,
+  `date_publication` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `trajets`
 --
 
 INSERT INTO `trajets` (`id`, `conducteur_id`, `depart`, `arrivee`, `date_depart`, `heure_depart`, `prix`, `places_disponibles`, `description`, `date_publication`) VALUES
-(9, 15, 'Aix-en-Provence', 'Ajaccio', '2025-11-20', '15:00:00', 25.00, 1, 'peu de place dans le coffre (1 valise max)', '2025-11-20 13:59:49'),
-(11, 15, 'Paris', 'Lyon', '2025-11-23', '13:00:00', 45.00, 0, '', '2025-11-22 10:59:57'),
-(12, 15, 'Vitry-sur-Seine', 'Reims', '2025-11-24', '11:00:00', 40.00, 1, '', '2025-11-23 12:02:03'),
-(14, 15, 'Alfortville', 'Besançon', '2025-11-25', '00:17:00', 20.00, 0, '', '2025-11-24 19:11:58'),
-(18, 15, 'Paris', 'Brest', '2025-11-28', '12:00:00', 40.00, 1, '', '2025-11-27 17:50:43');
+(9, 15, 'Aix-en-Provence', 'Ajaccio', '2025-11-20', '15:00:00', '25.00', 1, 'peu de place dans le coffre (1 valise max)', '2025-11-20 13:59:49'),
+(11, 15, 'Paris', 'Lyon', '2025-11-23', '13:00:00', '45.00', 0, '', '2025-11-22 10:59:57'),
+(12, 15, 'Vitry-sur-Seine', 'Reims', '2025-11-24', '11:00:00', '40.00', 1, '', '2025-11-23 12:02:03'),
+(14, 15, 'Alfortville', 'Besançon', '2025-11-25', '00:17:00', '20.00', 0, '', '2025-11-24 19:11:58'),
+(18, 15, 'Paris', 'Brest', '2025-11-28', '12:00:00', '40.00', 1, '', '2025-11-27 17:50:43'),
+(30, 15, 'Vitry-sur-Seine', 'Le Blanc-Mesnil', '2025-12-01', '12:00:00', '25.00', 2, '', '2025-11-30 21:57:35');
 
 -- --------------------------------------------------------
 
@@ -204,31 +198,31 @@ CREATE TABLE `users` (
   `nom` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL,
   `mot_de_passe` varchar(255) NOT NULL,
-  `date_inscription` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_inscription` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `avatar` varchar(255) NOT NULL DEFAULT 'user-icon.png',
   `sexe` varchar(10) DEFAULT NULL,
   `date_naissance` date DEFAULT NULL,
   `telephone` varchar(20) DEFAULT NULL,
   `region` varchar(100) DEFAULT NULL,
-  `musique` tinyint(1) NOT NULL DEFAULT 1,
-  `fumeur` tinyint(1) NOT NULL DEFAULT 0,
-  `animaux` tinyint(1) NOT NULL DEFAULT 0,
+  `musique` tinyint(1) NOT NULL DEFAULT '1',
+  `fumeur` tinyint(1) NOT NULL DEFAULT '0',
+  `animaux` tinyint(1) NOT NULL DEFAULT '0',
   `voiture_modele` varchar(100) DEFAULT NULL,
   `voiture_couleur` varchar(50) DEFAULT NULL,
   `preuve_identite` varchar(255) DEFAULT NULL,
   `permis` varchar(255) DEFAULT NULL,
   `permis_upload_at` datetime DEFAULT NULL,
   `pseudo` varchar(50) NOT NULL,
-  `conducteur_demande` tinyint(1) DEFAULT 0,
-  `conducteur_valide` tinyint(1) DEFAULT 0,
+  `conducteur_demande` tinyint(1) DEFAULT '0',
+  `conducteur_valide` tinyint(1) DEFAULT '0',
   `role` enum('passager','conducteur','admin') NOT NULL DEFAULT 'passager',
   `reset_token` varchar(255) DEFAULT NULL,
   `reset_expire` datetime DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `numero_verifie` tinyint(1) NOT NULL DEFAULT 0,
+  `description` text,
+  `numero_verifie` tinyint(1) NOT NULL DEFAULT '0',
   `code_tel` varchar(6) DEFAULT NULL,
   `code_expire` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `users`
@@ -236,9 +230,10 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `nom`, `email`, `mot_de_passe`, `date_inscription`, `avatar`, `sexe`, `date_naissance`, `telephone`, `region`, `musique`, `fumeur`, `animaux`, `voiture_modele`, `voiture_couleur`, `preuve_identite`, `permis`, `permis_upload_at`, `pseudo`, `conducteur_demande`, `conducteur_valide`, `role`, `reset_token`, `reset_expire`, `description`, `numero_verifie`, `code_tel`, `code_expire`) VALUES
 (6, 'Administrateur', 'admin@gmail.com', '$2y$10$JBYVeRdwGxIpxt2oJNc3z.IS6iOOPqz71w9x6JA0.KJmTsvz8ZxV6', '2025-11-19 22:50:46', 'user-icon.png', 'Homme', '1995-05-25', '0651457251', 'Ile-de-France', 1, 0, 0, NULL, NULL, 'uploads/id_691e3bb5f0959.png', NULL, NULL, 'Admin', 0, 1, 'admin', NULL, NULL, NULL, 0, NULL, NULL),
-(15, 'jean petit', 'jean@gmail.com', '$2y$10$Q4DtRU1bfXfdHjEPsVdjuuTm6qcoD8auln8s.5Y9FIYXPgNL/Tx5G', '2025-11-20 13:56:53', 'avatar_15_692a14d1cb90b.jpg', NULL, '1995-05-05', '0651457254', 'Ile-de-France', 1, 0, 0, 'Peugeot 208', 'Noir', 'uploads/identite/id_691f1015d97fa.PNG', 'uploads/permis/permis_691f1015d9935.png', '2025-11-24 22:07:46', '', 0, 1, 'conducteur', NULL, NULL, 'Conducteur fiable et ponctuel, j’aime partager la route dans la bonne humeur. Habitué au covoiturage, trajet agréable garanti, j\'aime parler aussi.', 1, NULL, NULL),
+(15, 'jean petit', 'jean@gmail.com', '$2y$10$Q4DtRU1bfXfdHjEPsVdjuuTm6qcoD8auln8s.5Y9FIYXPgNL/Tx5G', '2025-11-20 13:56:53', 'avatar_15_692a14d1cb90b.jpg', NULL, '1995-05-05', '0651457254', 'Ile-de-France', 1, 0, 0, 'Peugeot 208', 'Noir', 'uploads/identite/id_691f1015d97fa.PNG', 'uploads/permis/permis_15_693374af69ffd.png', '2025-12-06 01:12:27', '', 0, 1, 'conducteur', NULL, NULL, 'Conducteur fiable et ponctuel, j’aime partager la route dans la bonne humeur. Habitué au covoiturage, trajet agréable garanti, j\'aime parler aussi.', 1, NULL, NULL),
 (16, 'lucie dupont', 'lucie@gmail.com', '$2y$10$SdZCCfRbVlYMwFynJwksneBfdeJVQXl0L.oMp6.AowlWlPh5yfX1e', '2025-11-20 13:57:33', 'avatar_16_1763852399.jpg', 'Femme', '1997-12-14', '0678134157', 'Ile-de-France', 1, 0, 0, '', '', 'uploads/identite/id_691f103d01fc7.png', '', '2025-11-24 21:26:24', 'lucie5', 0, 0, 'passager', NULL, NULL, 'Passager calme et ponctuel, habitué au covoiturage. J’aime les trajets simples et respectueux, toujours partant pour partager la route en bonne humeur.', 0, NULL, NULL),
-(20, 'thomas dupuis', 'thomas@gmail.com', '$2y$10$rd7T.nzwy6hnW35Q2oyJAOqeM1/NvB7SQRoF/Uiy1s3fNkS9AU03u', '2025-11-22 14:15:11', 'avatar_20_692a28e873040.jpg', 'Homme', '2000-04-30', '0651454241', 'Ile-de-France', 0, 0, 1, NULL, NULL, 'uploads/identite/id_6921b75f500a5.png', '', NULL, 'thomas87', 0, 0, 'passager', NULL, NULL, 'Passager calme, ponctuel et toujours de bonne humeur. J’aime les trajets détendus, discuter si le feeling passe ou laisser chacun tranquille. Respect et convivialité au rendez-vous.', 0, NULL, NULL);
+(20, 'thomas dupuis', 'thomas@gmail.com', '$2y$10$rd7T.nzwy6hnW35Q2oyJAOqeM1/NvB7SQRoF/Uiy1s3fNkS9AU03u', '2025-11-22 14:15:11', 'avatar_20_692a28e873040.jpg', 'Homme', '2000-04-30', '0651454241', 'Ile-de-France', 0, 0, 1, NULL, NULL, 'uploads/identite/id_6921b75f500a5.png', '', NULL, 'thomas87', 0, 0, 'passager', NULL, NULL, 'Passager calme, ponctuel et toujours de bonne humeur. J’aime les trajets détendus, discuter si le feeling passe ou laisser chacun tranquille. Respect et convivialité au rendez-vous.', 0, NULL, NULL),
+(21, 'test fonctionnel', 'test@gmail.com', '$2y$10$r1HhKZRUq5QgOfnwLLs6wu2uuSFADai6LYZvfERxqtZewqacVpQgG', '2025-12-06 00:14:12', 'user-icon.png', 'Homme', '2002-04-30', '0651457287', 'Ile-de-France', 1, 0, 0, NULL, NULL, 'uploads/identite/id_6933755413ff0.png', 'uploads/permis/permis_6933755414226.png', '2025-12-06 01:20:28', 'toto', 0, 1, 'conducteur', NULL, NULL, NULL, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -249,7 +244,7 @@ INSERT INTO `users` (`id`, `nom`, `email`, `mot_de_passe`, `date_inscription`, `
 CREATE TABLE `villes` (
   `id` int(11) NOT NULL,
   `nom` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `villes`
@@ -715,31 +710,31 @@ ALTER TABLE `villes`
 -- AUTO_INCREMENT pour la table `avis`
 --
 ALTER TABLE `avis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT pour la table `faq`
 --
 ALTER TABLE `faq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `pages_legales`
 --
 ALTER TABLE `pages_legales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT pour la table `trajets`
@@ -751,7 +746,7 @@ ALTER TABLE `trajets`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT pour la table `villes`

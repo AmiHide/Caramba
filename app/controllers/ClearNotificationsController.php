@@ -8,7 +8,7 @@ class ClearNotificationsController
 
         $userId = $_SESSION['user']['id'];
         
-        // Effacer TOUS les messages, pas seulement "lu"
+        // delete tous les messages 
         global $pdo;
         $pdo->prepare("DELETE FROM notifications WHERE user_id = ?")->execute([$userId]);
 
