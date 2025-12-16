@@ -1,0 +1,237 @@
+/* ----------- NAVBAR MOBILE ----------- */
+@media(max-width: 768px){
+
+    .nav-links {
+        display: none !important;
+    }
+
+    .burger-btn {
+        display: block !important;
+        font-size: 28px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin-right: 15px;
+    }
+
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 20px !important;
+    }
+
+
+    .mobile-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        z-index: 9999;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .mobile-menu.show {
+        display: flex !important;
+    }
+
+    .mobile-menu a {
+        padding: 12px 0;
+        font-size: 18px;
+        text-align: center;
+        color: #000;
+    }
+}
+
+.burger-btn {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .logout-left {
+        display: none !important;
+    }
+}
+
+
+@media(max-width: 768px){
+
+    .site-title {
+        display: none !important;
+    }
+
+    .logo {
+        width: 45px !important;
+        height: 45px !important;
+    }
+
+    .mobile-profile {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+    }
+
+    .mobile-profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .mobile-profile .mp-name {
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .mobile-profile .mp-id {
+        font-size: 12px;
+        color: #777;
+        margin: 0;
+    }
+}
+@media(max-width: 768px){
+    .search-box {
+        width: 90% !important;
+        margin: auto;
+    }
+}
+
+/* ============================= */
+/* LAYOUT GLOBAL < 900px         */
+/* ============================= */
+@media (max-width: 900px) {
+
+    /* Conteneur recherche = filtres au dessus des résultats */
+    .recherche-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+        padding: 0 15px;
+    }
+
+    .filtres {
+        width: 100%;
+    }
+
+    .resultats {
+        width: 100%;
+    }
+}
+
+/* ============================= */
+/* PROFIL + FORMULAIRES < 768px  */
+/* ============================= */
+@media (max-width: 768px) {
+
+    /* Carte header du compte (avatar + infos) */
+    .account-header-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+    }
+
+    /* Grille 3 colonnes -> 1 seule colonne */
+    .account-grid {
+        grid-template-columns: 1fr;
+        column-gap: 0;
+    }
+
+    /* Marges plus petites pour éviter de scroller horizontalement */
+    .account-container {
+        padding: 0 12px;
+    }
+
+    /* Boutons d’action sur le compte */
+    .account-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+}
+
+/* ============================= */
+/* RÉSERVATION / FICHE TRAJET    */
+/* ============================= */
+@media (max-width: 768px) {
+
+    /* Bloc principal de la réservation */
+    .box {
+        padding: 20px 15px;
+    }
+
+    /* Carte trajet en colonne */
+    .trajet-card-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+    }
+
+    .left-info,
+    .right-info {
+        width: 100%;
+    }
+
+    .trajet-title {
+        text-align: left;
+        font-size: 18px;
+    }
+}
+
+/* ============================= */
+/* PAGE ACCUEIL / SECTIONS       */
+/* ============================= */
+@media (max-width: 768px) {
+
+    /* avantages, about, etc. un peu plus "serrés" */
+    .avantages,
+    .about,
+    .avis-section {
+        padding: 40px 20px !important;
+    }
+
+    .avantage-container {
+        gap: 24px;
+    }
+
+    .about-section h2 {
+        font-size: 22px;
+    }
+
+    .about-section p {
+        font-size: 14px;
+    }
+}
+
+/* ============================= */
+/* DÉTAILS RECHERCHE HEADER      */
+/* ============================= */
+@media (max-width: 768px) {
+
+    .search-header h1 {
+        font-size: 24px;
+        padding: 0 10px;
+    }
+
+    .search-top {
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    .search-top .field {
+        width: 100%;
+    }
+
+    .search-top .field input,
+    .search-top .field select {
+        font-size: 14px;
+    }
+}
+
+
+
