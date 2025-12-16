@@ -442,33 +442,37 @@ return $permisPath;
         return (bool) $stmt->fetch();
     }
 
+    // Remplacez votre méthode insertFromRegister actuelle par celle-ci :
+    // Remplacez votre méthode insertFromRegister actuelle par celle-ci :
     public static function insertFromRegister(array $data): void
     {
-        global $pdo;
+    global $pdo;
 
-        $stmt = $pdo->prepare("
-            INSERT INTO users 
-            (nom, email, mot_de_passe, date_inscription, avatar, sexe, date_naissance, telephone, region, preuve_identite, permis, pseudo, conducteur_demande, conducteur_valide, role)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ");
+    // Ajout de email_token et email_verifie (0 par défaut)
+    $stmt = $pdo->prepare("
+        INSERT INTO users 
+        (nom, email, mot_de_passe, date_inscription, avatar, sexe, date_naissance, telephone, region, preuve_identite, permis, pseudo, conducteur_demande, conducteur_valide, role, email_verifie, email_token)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)
+    ");
 
-        $stmt->execute([
-            $data['nom_complet'],
-            $data['email'],
-            $data['password_hash'],
-            $data['date_inscription'],
-            $data['avatar'],
-            $data['sexe'],
-            $data['naissance'],
-            $data['tel'],
-            $data['region'],
-            $data['preuve_identite'],
-            $data['permis'],
-            $data['pseudo'],
-            $data['conducteur_demande'],
-            $data['conducteur_valide'],
-            $data['role']
-        ]);
+    $stmt->execute([
+        $data['nom_complet'],
+        $data['email'],
+        $data['password_hash'],
+        $data['date_inscription'],
+        $data['avatar'],
+        $data['sexe'],
+        $data['naissance'],
+        $data['tel'],
+        $data['region'],
+        $data['preuve_identite'],
+        $data['permis'],
+        $data['pseudo'],
+        $data['conducteur_demande'],
+        $data['conducteur_valide'],
+        $data['role'],
+        $data['email_token'] // Nouveau champ ajouté
+    ]);
     }
     public static function getHistoriqueRapide(int $userId)
     {
@@ -613,10 +617,28 @@ return $permisPath;
     }
 
 
-public static function isSuperDriver(int $userId): bool
-{
-    $trajetsRealises = Trajet::getTrajetsRealisesConducteur($userId);
+    public static function isSuperDriver(int $userId): bool
+    {
+        $trajetsRealises = Trajet::getTrajetsRealisesConducteur($userId);
 
-    return count($trajetsRealises) >= 5;  
-}
+        return count($trajetsRealises) >= 5;  
+    }
+
+    public static function verifyAccount(string $token): bool
+    {
+        global $pdo;
+
+        // Vérifier si le token existe
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE email_token = ?");
+        $stmt->execute([$token]);
+        $user = $stmt->fetch();
+
+        if ($user) {
+            // Valider le compte et supprimer le token
+            $update = $pdo->prepare("UPDATE users SET email_verifie = 1, email_token = NULL WHERE id = ?");
+            return $update->execute([$user['id']]);
+        }
+
+        return false;
+    }
 }

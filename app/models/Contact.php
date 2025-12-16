@@ -3,14 +3,16 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+// Inclure PHPMailer
+require __DIR__ . '/../../PHPMailer-master/src/Exception.php';
+require __DIR__ . '/../../PHPMailer-master/src/PHPMailer.php';
+require __DIR__ . '/../../PHPMailer-master/src/SMTP.php';
+
 class Contact {
 
     public static function envoyerMail($nom, $email, $message) {
         
-        // Inclure PHPMailer
-        require __DIR__ . '/../../PHPMailer-master/src/Exception.php';
-        require __DIR__ . '/../../PHPMailer-master/src/PHPMailer.php';
-        require __DIR__ . '/../../PHPMailer-master/src/SMTP.php';
+
 
         $mail = new PHPMailer(true);
 
@@ -29,8 +31,11 @@ class Contact {
             $email = htmlspecialchars($email);
             $message = htmlspecialchars($message);
 
-            // Expéditeur vers utilisateur
-            $mail->setFrom($email, $nom);
+            // L'email DOIT partir de votre compte Gmail certifié
+            $mail->setFrom('caramba.assistance@gmail.com', 'Formulaire Contact');
+
+            // On ajoute l'email du client en "Reply-To" pour pouvoir lui répondre
+            $mail->addReplyTo($email, $nom);
 
             // Destinataire vers le mail Caramba
             $mail->addAddress('caramba.assistance@gmail.com');

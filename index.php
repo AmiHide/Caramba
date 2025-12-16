@@ -179,8 +179,11 @@ if ($page === 'supprimer_trajet') {
     exit;
 }
 
-
-
+if ($page === 'verify_email') {
+    require_once __DIR__ . '/app/controllers/VerifyEmailController.php';
+    (new VerifyEmailController())->index();
+    exit;
+}
 
 if ($page === 'verifnum') {
     $controller = new VerifyPhoneController();

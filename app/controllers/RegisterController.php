@@ -96,37 +96,44 @@ class RegisterController
                 }
             }
 
-                if ($error === "") {
-                    $data = [
-                        'nom_complet'        => $prenom . " " . $nom,
-                        'email'              => $email,
-                        'password_hash'      => password_hash($pwd, PASSWORD_BCRYPT),
-                        'date_inscription'   => date("Y-m-d H:i:s"),
-                        'avatar'             => "user-icon.png",
-                        'sexe'               => $sexe,
-                        'naissance'          => $naissance,
-                        'tel'                => $tel,
-                        'region'             => $region,
-                        'preuve_identite'    => $preuvePath,
-                        'permis'             => $permisPath,
-                        'pseudo'             => $pseudo,
-                        'conducteur_demande' => $conducteur_demande,
-                        'conducteur_valide'  => 0,
-                        'role'               => "passager"
-                    ];
+            if ($error === "") {
+                // Génération du token unique
+                $token = bin2hex(random_bytes(32));
 
-                    User::insertFromRegister($data);
+                $data = [
+                    'nom_complet'        => $prenom . " " . $nom,
+                    'email'              => $email,
+                    'password_hash'      => password_hash($pwd, PASSWORD_BCRYPT),
+                    'date_inscription'   => date("Y-m-d H:i:s"),
+                    'avatar'             => "user-icon.png",
+                    'sexe'               => $sexe,
+                    'naissance'          => $naissance,
+                    'tel'                => $tel,
+                    'region'             => $region,
+                    'preuve_identite'    => $preuvePath,
+                    'permis'             => $permisPath,
+                    'pseudo'             => $pseudo,
+                    'conducteur_demande' => $conducteur_demande,
+                    'conducteur_valide'  => 0,
+                    'role'               => "passager",
+                    'email_token'        => $token // On ajoute le token aux données
+                ];
 
-                    if ($conducteur_demande == 1) {
-                        $_SESSION["register_success"] = "Votre compte a été créé avec succès !
-                            Votre demande de rôle conducteur sera vérifiée par un administrateur.";
-                    } else {
-                        $_SESSION["register_success"] = "Votre compte a été créé avec succès ! Bienvenue chez Caramba.";
-                    }
+                // Insertion en base
+                User::insertFromRegister($data);
 
-                    header("Location: index.php?page=register");
-                    exit;
+                // Envoi de l'email
+                require_once __DIR__ . '/../models/Mailer.php';
+                if (Mailer::sendVerification($email, $prenom, $token)) {
+                    $_SESSION["register_success"] = "Compte créé ! Un email de vérification vient de vous être envoyé. Veuillez cliquer sur le lien reçu pour activer votre compte.";
+                } else {
+                    $_SESSION["register_success"] = "Compte créé, mais échec de l'envoi de l'email. Contactez le support.";
                 }
+
+                // On redirige vers la connexion
+                header("Location: index.php?page=connexion");
+                exit;
+            }
             }
 
         }
