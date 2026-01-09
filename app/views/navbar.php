@@ -13,8 +13,13 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
     </a>
 
+    <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu" aria-expanded="false" type="button">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button> 
 
-    <nav class="nav-links">
+    <nav class="nav-links" id="navLinks">
         <a href="index.php?page=home">Accueil</a>
         <a href="index.php?page=recherche">Rechercher un covoiturage</a>
         <a href="index.php?page=faq">FAQ</a>
@@ -135,6 +140,43 @@ if (session_status() === PHP_SESSION_NONE) {
 
     </div>
 </header>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const burger = document.getElementById("burgerBtn");
+  const navLinks = document.getElementById("navLinks");
+
+  if (!burger || !navLinks) return;
+
+  const closeMenu = () => {
+    navLinks.classList.remove("open");
+    burger.classList.remove("active");
+    burger.setAttribute("aria-expanded", "false");
+  };
+
+  burger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = navLinks.classList.toggle("open");
+    burger.classList.toggle("active", isOpen);
+    burger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  });
+
+  navLinks.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", closeMenu);
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!navLinks.classList.contains("open")) return;
+    if (navLinks.contains(e.target) || burger.contains(e.target)) return;
+    closeMenu();
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 1180) closeMenu();
+  });
+});
+</script>
+
 
 <script>
 function toggleNotifMenu() {

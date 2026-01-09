@@ -1,236 +1,360 @@
-/* ----------- NAVBAR MOBILE ----------- */
-@media(max-width: 768px){
+/* =========================
+   BASE (sécurité)
+========================= */
+* { box-sizing: border-box; }
+img { max-width: 100%; height: auto; }
 
-    .nav-links {
-        display: none !important;
-    }
+/* =========================
+   TABLETTE (<= 1024px)
+========================= */
+@media (max-width: 1024px) {
+  .navbar { padding: 1Opx 20px; }
+  .nav-links a { margin: 0 12px; }
 
-    .burger-btn {
-        display: block !important;
-        font-size: 28px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        margin-right: 15px;
-    }
+  .main-content { padding: 70px 30px; gap: 30px; }
+  .avantages, .about, .securite-section { padding: 70px 30px; }
 
-    .navbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 12px 20px !important;
-    }
-
-
-    .mobile-menu {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: white;
-        z-index: 9999;
-        padding: 20px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    .mobile-menu.show {
-        display: flex !important;
-    }
-
-    .mobile-menu a {
-        padding: 12px 0;
-        font-size: 18px;
-        text-align: center;
-        color: #000;
-    }
+  .about-image img { width: 380px; }
+  .search-top { max-width: 95%; }
 }
 
-.burger-btn {
+/* =========================
+   MOBILE (<= 768px)
+========================= */
+@media (max-width: 768px) {
+
+  /* NAVBAR */
+  .navbar {
+    padding: 10px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .site-title {
+    font-size: 20px;
+  }
+
+  .nav-links {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .nav-links a { margin: 0; }
+
+  .user-section { gap: 10px; }
+  .user-text { display: none; } /* optionnel: cache le texte user */
+  .logo { width: 60px; height: 60px; }
+
+  /* HERO (page accueil) */
+  .main-content {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 50px 16px 120px;
+    gap: 20px;
+  }
+
+  .hero-text { top: 0; text-align: center; }
+  .hero-text h1 { font-size: 32px; }
+
+  .search-box {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* Sections */
+  .avantages, .about, .securite-section {
+    padding: 50px 16px;
+  }
+
+  .avantages h2,
+  .about-text h2,
+  .securite-container h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  /* ABOUT */
+  .about-content { flex-direction: column; }
+  .about-text p { max-width: 100%; }
+  .about-image { justify-content: center; }
+  .about-image img { width: 260px; }
+
+  /* SECURITE */
+  .securite-container { flex-direction: column; gap: 25px; }
+  .securite-container .image { text-align: center; }
+  .securite-container img { max-width: 320px; }
+
+  /* AVIS */
+  .avis-card { width: 100%; max-width: 520px; }
+
+  /* PAGE RECHERCHE (barre en haut) */
+  .search-top {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 16px;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .search-top .field { width: 100%; }
+  .search-top select,
+  .search-top input[type="date"],
+  .search-top input[type="number"],
+  .search-top .city-input {
+    width: 100%;
+  }
+
+  .btn-search {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* PAGE RECHERCHE (filtres + résultats) */
+  .recherche-container {
+    flex-direction: column;
+    gap: 18px;
+    padding: 25px 0;
+    width: 100%;
+  }
+
+  .filtres {
+    width: calc(100% - 32px);
+    margin: 0 auto;
+  }
+
+  .resultats {
+    width: calc(100% - 32px);
+    margin: 0 auto;
+  }
+
+  /* Cartes trajet */
+  .trajet-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .trajet-right {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .trajet-middle { margin-left: 0; }
+
+  /* FORMULAIRES largeur fixe -> fluide */
+  .connexion-box,
+  .avis-wrapper,
+  .form-container,
+  .verify-box {
+    width: calc(100% - 32px);
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 28px 18px;
+  }
+
+  /* REGISTER grid OK chez toi, mais on sécurise */
+  .card { padding: 22px; }
+}
+
+/* =========================
+   PETIT MOBILE (<= 480px)
+========================= */
+@media (max-width: 480px) {
+  .hero-text h1 { font-size: 28px; }
+  .search-header h1 { font-size: 26px; }
+
+  .trajet-route { font-size: 16px; }
+  .trajet-price { font-size: 18px; }
+
+  .footer-container { grid-template-columns: 1fr; }
+  .footer-col.brand { grid-column: auto; }
+}
+
+/* ===== HOME - FIX PETITS ECRANS (365px) ===== */
+@media (max-width: 420px) {
+
+  /* Navbar : évite les débordements */
+  .navbar{
+    padding: 10px 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .nav-links{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .nav-links a{ margin: 0; }
+
+  /* HERO : met tout en colonne */
+  .main-content{
+    flex-direction: column;
+    align-items: stretch;
+    padding: 35px 14px 120px; /* moins de padding + place pour la vague */
+    gap: 16px;
+  }
+
+  .hero-text{
+    top: 0;
+    text-align: center;
+  }
+
+  .hero-text h1{
+    font-size: 28px;
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  /* Boîte recherche : 100% largeur */
+  .search-box{
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  /* Champs : pas de débordement */
+  .search-box .input-field{
+    width: 100%;
+  }
+  .search-box .input-field input,
+  .search-box select{
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* sections dessous */
+  .avantages{
+    padding: 40px 14px;
+    text-align: center;
+  }
+  .avantages h2{
+    font-size: 22px;
+    margin-bottom: 25px;
+  }
+
+  .avantage-container{
+    gap: 18px;
+  }
+  .avantage{
+    width: 100%;
+    max-width: 520px;
+    text-align: left;
+  }
+
+  /* About : colonne + image plus petite */
+  .about{
+    padding: 40px 14px;
+    min-height: auto;
+  }
+  .about-content{
+    flex-direction: column;
+    gap: 18px;
+  }
+  .about-image{
+    justify-content: center;
+  }
+  .about-image img{
+    width: 220px;
+  }
+
+  /* Sécurité : colonne */
+  .securite-container{
+    flex-direction: column;
+    gap: 18px;
+  }
+  .securite-container .image{
+    text-align: center;
+  }
+  .securite-container img{
+    max-width: 260px;
+  }
+
+  /* Avis : carte pleine largeur */
+  .avis-card{
+    width: 100%;
+    max-width: 520px;
+  }
+}
+
+
+@media (max-width: 1180px){
+
+  .navbar{
+    position: relative;
+    flex-wrap: nowrap;           /* important : évite que tout passe à la ligne */
+    gap: 10px;
+    padding: 12px 16px;
+  }
+
+  /* bouton burger visible */
+  .burger{
+    display: block;
+    margin-left: auto;
+    order: 2;
+  }
+
+  /* user-section reste à droite (icones, profil...) */
+  .user-section{
+    order: 3;
+    margin-left: 0;
+  }
+
+  /* ✅ cache les liens (et gagne contre le @media 768px) */
+  .nav-links{
+    display: none !important;    /* important : écrase ton @media 768 */
+    position: absolute;
+    top: 100%;
+    left: 12px;
+    right: 12px;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 14px;
+    padding: 12px;
+    margin-top: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    z-index: 9999;
+  }
+
+  .nav-links.open{
+    display: flex !important;
+  }
+
+  .nav-links a{
+    margin: 0;
+    padding: 14px 16px;
+    border-radius: 10px;
+    text-align: left;
+  }
+
+  .nav-links a:hover{
+    background: rgba(0,0,0,0.05);
+  }
+
+  /* animation burger */
+  .burger.active span:nth-child(1){
+    transform: translateY(8px) rotate(45deg);
+  }
+  .burger.active span:nth-child(2){
+    opacity: 0;
+  }
+  .burger.active span:nth-child(3){
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* optionnel : cache texte user */
+  .user-text{
     display: none;
-}
-
-@media (max-width: 768px) {
-    .logout-left {
-        display: none !important;
-    }
-}
-
-
-@media(max-width: 768px){
-
-    .site-title {
-        display: none !important;
-    }
-
-    .logo {
-        width: 45px !important;
-        height: 45px !important;
-    }
-
-    .mobile-profile {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-left: auto;
-    }
-
-    .mobile-profile img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
-    .mobile-profile .mp-name {
-        font-size: 14px;
-        font-weight: 600;
-        margin: 0;
-    }
-
-    .mobile-profile .mp-id {
-        font-size: 12px;
-        color: #777;
-        margin: 0;
-    }
-}
-@media(max-width: 768px){
-    .search-box {
-        width: 90% !important;
-        margin: auto;
-    }
-}
-
-/* ============================= */
-/* LAYOUT GLOBAL < 900px         */
-/* ============================= */
-@media (max-width: 900px) {
-
-    /* Conteneur recherche = filtres au dessus des résultats */
-    .recherche-container {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 24px;
-        padding: 0 15px;
-    }
-
-    .filtres {
-        width: 100%;
-    }
-
-    .resultats {
-        width: 100%;
-    }
-}
-
-/* ============================= */
-/* PROFIL + FORMULAIRES < 768px  */
-/* ============================= */
-@media (max-width: 768px) {
-
-    /* Carte header du compte (avatar + infos) */
-    .account-header-card {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 18px;
-    }
-
-    /* Grille 3 colonnes -> 1 seule colonne */
-    .account-grid {
-        grid-template-columns: 1fr;
-        column-gap: 0;
-    }
-
-    /* Marges plus petites pour éviter de scroller horizontalement */
-    .account-container {
-        padding: 0 12px;
-    }
-
-    /* Boutons d’action sur le compte */
-    .account-actions {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-    }
-}
-
-/* ============================= */
-/* RÉSERVATION / FICHE TRAJET    */
-/* ============================= */
-@media (max-width: 768px) {
-
-    /* Bloc principal de la réservation */
-    .box {
-        padding: 20px 15px;
-    }
-
-    /* Carte trajet en colonne */
-    .trajet-card-top {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 18px;
-    }
-
-    .left-info,
-    .right-info {
-        width: 100%;
-    }
-
-    .trajet-title {
-        text-align: left;
-        font-size: 18px;
-    }
-}
-
-/* ============================= */
-/* PAGE ACCUEIL / SECTIONS       */
-/* ============================= */
-@media (max-width: 768px) {
-
-    /* avantages, about, etc. un peu plus "serrés" */
-    .avantages,
-    .about,
-    .avis-section {
-        padding: 40px 20px !important;
-    }
-
-    .avantage-container {
-        gap: 24px;
-    }
-
-    .about-section h2 {
-        font-size: 22px;
-    }
-
-    .about-section p {
-        font-size: 14px;
-    }
-}
-
-/* ============================= */
-/* DÉTAILS RECHERCHE HEADER      */
-/* ============================= */
-@media (max-width: 768px) {
-
-    .search-header h1 {
-        font-size: 24px;
-        padding: 0 10px;
-    }
-
-    .search-top {
-        padding: 15px;
-        box-sizing: border-box;
-    }
-
-    .search-top .field {
-        width: 100%;
-    }
-
-    .search-top .field input,
-    .search-top .field select {
-        font-size: 14px;
-    }
+  }
 }
 
 
