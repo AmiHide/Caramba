@@ -13,21 +13,41 @@
         <div class="footer-col">
             <h4>Top des trajets :</h4>
             <ul>
-                <li>
-                    <a href="index.php?page=recherche&depart=Paris&arrivee=Toulouse&date=<?= date('Y-m-d') ?>">
-                        Paris → Toulouse
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php?page=recherche&depart=Paris&arrivee=Reims&date=<?= date('Y-m-d') ?>">
-                        Paris → Reims
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php?page=recherche&depart=Paris&arrivee=Bordeaux&date=<?= date('Y-m-d') ?>">
-                        Paris → Bordeaux
-                    </a>
-                </li>
+                <?php
+                // On récupère le top 5 dynamiquement
+                // On vérifie si la classe Trajet est chargée (sécurité)
+                if (class_exists('Trajet')) {
+                    $topTrajets = Trajet::getTopTrajets(5);
+                } else {
+                    $topTrajets = [];
+                }
+                ?>
+
+                <?php if (!empty($topTrajets)): ?>
+                    <?php foreach ($topTrajets as $top): ?>
+                        <li>
+                            <a href="index.php?page=recherche&depart=<?= urlencode($top['depart']) ?>&arrivee=<?= urlencode($top['arrivee']) ?>&date=<?= date('Y-m-d') ?>&passagers=1">
+                                <?= htmlspecialchars($top['depart']) ?> → <?= htmlspecialchars($top['arrivee']) ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li>
+                        <a href="index.php?page=recherche&depart=Paris&arrivee=Toulouse&date=<?= date('Y-m-d') ?>">
+                            Paris → Toulouse
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.php?page=recherche&depart=Paris&arrivee=Reims&date=<?= date('Y-m-d') ?>">
+                            Paris → Reims
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.php?page=recherche&depart=Paris&arrivee=Bordeaux&date=<?= date('Y-m-d') ?>">
+                            Paris → Bordeaux
+                        </a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
 
