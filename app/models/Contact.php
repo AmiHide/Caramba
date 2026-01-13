@@ -49,7 +49,8 @@ class Contact {
             return true;
 
         } catch (Exception $e) {
-            return false;
+            // On renvoie l'erreur précise de PHPMailer
+            return "Erreur Mailer: " . $mail->ErrorInfo;
         }
     }
 }

@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <title>Mes trajets - Caramba</title>
     <link rel="stylesheet" href="/Caramba/public/css/style.css">
+    <style>
+        /* Petit style inline pour l'ID du trajet */
+        .trajet-id-badge {
+            font-size: 0.8em;
+            color: #666;
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 8px;
+            vertical-align: middle;
+            font-weight: normal;
+        }
+    </style>
 </head>
 
 <body>
@@ -29,8 +42,6 @@
     <?php endif; ?>
 
 
-    <!-- Onglets -->
-
     <div class="tabs">
         <button class="tab active" data-target="reservations">
             Mes réservations
@@ -51,9 +62,6 @@
     </div>
 
 
-
-
-    <!-- onglet : MES RÉSERVATIONS -->
     <section id="reservations" class="tab-content active">
 
         <?php if (empty($reservations)): ?>
@@ -66,25 +74,26 @@
                 <div class="trajet-card">
 
                     <div class="left">
+                        <a href="index.php?page=voirprofil&id=<?= $r['conducteur_id'] ?>" class="driver-link vertical">
+                            <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($r['conducteur_avatar']) ?>" class="trajet-avatar">
 
-    <a href="index.php?page=voirprofil&id=<?= $r['conducteur_id'] ?>" class="driver-link vertical">
-        <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($r['conducteur_avatar']) ?>" class="trajet-avatar">
+                            <?php
+                                $prenom_conducteur = explode(' ', trim($r['conducteur_nom']))[0];
+                                $prenom_conducteur = ucfirst(strtolower($prenom_conducteur));
+                            ?>
+                            <strong class="driver-name"><?= htmlspecialchars($prenom_conducteur) ?></strong>
+                        </a>
 
-        <?php
-            $prenom_conducteur = explode(' ', trim($r['conducteur_nom']))[0];
-            $prenom_conducteur = ucfirst(strtolower($prenom_conducteur));
-        ?>
-        <strong class="driver-name"><?= htmlspecialchars($prenom_conducteur) ?></strong>
-    </a>
-
-    <small class="driver-date">
-        <?= htmlspecialchars($r['date_depart']) ?> — <?= htmlspecialchars($r['heure_depart']) ?>
-    </small>
-
-</div>
+                        <small class="driver-date">
+                            <?= htmlspecialchars($r['date_depart']) ?> — <?= htmlspecialchars($r['heure_depart']) ?>
+                        </small>
+                    </div>
 
                     <div class="center">
-                        <h3><?= htmlspecialchars($r['depart']) ?> → <?= htmlspecialchars($r['arrivee']) ?></h3>
+                        <h3>
+                            <span class="trajet-id-badge">#<?= isset($r['trajet_id']) ? $r['trajet_id'] : $r['id'] ?></span>
+                            <?= htmlspecialchars($r['depart']) ?> → <?= htmlspecialchars($r['arrivee']) ?>
+                        </h3>
                         <p><?= htmlspecialchars($r['description']) ?></p>
                     </div>
 
@@ -99,6 +108,33 @@
                         <?php else: ?>
                             <span class="status no">🔴 Refusée</span>
                         <?php endif; ?>
+
+                        <?php
+                            $departObj = new DateTime($r['date_depart'] . ' ' . $r['heure_depart']);
+                            $nowObj = new DateTime();
+                            $diff = $nowObj->diff($departObj);
+                            
+                            // Logique : annulable si le trajet est futur ET (plus de 24h avant OU encore en attente)
+                            $isCancelable = false;
+                            if ($departObj > $nowObj) {
+                                if ($r['statut'] === 'en_attente') {
+                                    $isCancelable = true;
+                                } elseif ($diff->days >= 1) { 
+                                    // S'il reste plus d'un jour (24h)
+                                    $isCancelable = true;
+                                }
+                            }
+                        ?>
+
+                        <?php if ($isCancelable && $r['statut'] !== 'refusee'): ?>
+                            <br><br>
+                            <form action="index.php?page=annuler_reservation" method="POST" onsubmit="return confirm('Voulez-vous vraiment annuler cette réservation ?');">
+                                <input type="hidden" name="id" value="<?= $r['id'] ?>">
+                                <button type="submit" class="btn-refuse" style="cursor:pointer; font-size:0.8em; padding:5px 10px;">
+                                    Annuler
+                                </button>
+                            </form>
+                        <?php endif; ?>
                     </div>
 
                 </div>
@@ -110,7 +146,6 @@
 
 
 
-    <!-- onglet : MES TRAJETS CONDUCTEUR -->
     <section id="conducteur" class="tab-content">
 
         <?php if ($user_role !== 'conducteur'): ?>
@@ -129,7 +164,10 @@
                     <div class="trajet-card-conducteur">
 
                         <div class="trajet-header">
-                            <h3><?= htmlspecialchars($t['depart']) ?> → <?= htmlspecialchars($t['arrivee']) ?></h3>
+                            <h3>
+                                <span class="trajet-id-badge">#<?= $t['id'] ?></span>
+                                <?= htmlspecialchars($t['depart']) ?> → <?= htmlspecialchars($t['arrivee']) ?>
+                            </h3>
 
                             <a href="index.php?page=supprimer_trajet&id=<?= $t['id'] ?>"
                             class="delete-btn"
@@ -145,7 +183,6 @@
                             <strong>Places restantes :</strong> <?= $t['places_disponibles'] ?>
                         </p>
 
-                        <!-- passagers en attente -->
                         <hr class="separator">
                         <h4 class="passenger-title">Passager(s) en attente :</h4>
 
@@ -164,40 +201,34 @@
                                 <div class="passenger-card">
 
                                     <div class="passenger-left">
+                                        <a href="index.php?page=voirprofil&id=<?= $p['passager_id'] ?>" class="driver-link">
+                                            <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="passenger-avatar">
 
-                                    <a href="index.php?page=voirprofil&id=<?= $p['passager_id'] ?>" class="driver-link">
-                                        <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="passenger-avatar">
-
-                                        <div class="passenger-info">
-                                            <?php
-                                                $prenom = explode(' ', trim($p['nom']))[0];
-                                                $prenom = ucfirst(strtolower($prenom));
-                                            ?>
-                                            <strong><?= htmlspecialchars($prenom) ?></strong>
-                                        </div>
-                                    </a>
-
-                                    <p class="passenger-places"><?= $p['places_reservees'] ?> place(s)</p>
-
-                                </div>
+                                            <div class="passenger-info">
+                                                <?php
+                                                    $prenom = explode(' ', trim($p['nom']))[0];
+                                                    $prenom = ucfirst(strtolower($prenom));
+                                                ?>
+                                                <strong><?= htmlspecialchars($prenom) ?></strong>
+                                            </div>
+                                        </a>
+                                        <p class="passenger-places"><?= $p['places_reservees'] ?> place(s)</p>
+                                    </div>
 
                                     <div class="passenger-actions">
+                                        <form action="index.php?page=reponse_reservation" method="POST" class="inline-form">
+                                            <input type="hidden" name="reservation_id" value="<?= $p['id'] ?>">
+                                            <input type="hidden" name="trajet_id" value="<?= $t['id'] ?>">
+                                            <input type="hidden" name="action" value="accepter">
+                                            <button class="btn-accept">Accepter</button>
+                                        </form>
 
-                                    <form action="index.php?page=reponse_reservation" method="POST" class="inline-form">
-                                        <input type="hidden" name="reservation_id" value="<?= $p['id'] ?>">
-                                        <input type="hidden" name="trajet_id" value="<?= $t['id'] ?>">
-                                        <input type="hidden" name="action" value="accepter">
-
-                                        <button class="btn-accept">Accepter</button>
-                                    </form>
-
-                                    <form action="index.php?page=reponse_reservation" method="POST" class="inline-form">
-                                        <input type="hidden" name="reservation_id" value="<?= $p['id'] ?>">
-                                        <input type="hidden" name="trajet_id" value="<?= $t['id'] ?>">
-                                        <input type="hidden" name="action" value="refuser">
-
-                                        <button class="btn-refuse">Refuser</button>
-                                    </form>
+                                        <form action="index.php?page=reponse_reservation" method="POST" class="inline-form">
+                                            <input type="hidden" name="reservation_id" value="<?= $p['id'] ?>">
+                                            <input type="hidden" name="trajet_id" value="<?= $t['id'] ?>">
+                                            <input type="hidden" name="action" value="refuser">
+                                            <button class="btn-refuse">Refuser</button>
+                                        </form>
 
                                         <?php
                                             $expire = new DateTime($p['expire_at']);
@@ -217,18 +248,14 @@
                                                 </svg>
                                                 <span class="timer-text">Expire dans : <?= $remaining ?></span>
                                             </span>
-                                            <?php else: ?>
-                                                <span class="reservation-expired">❌ Expirée</span>
-                                            <?php endif; ?>
+                                        <?php else: ?>
+                                            <span class="reservation-expired">❌ Expirée</span>
+                                        <?php endif; ?>
 
                                     </div>
-
                                 </div>
-
                             <?php endforeach; ?>
-
                         <?php endif; ?>
-
                     </div>
 
                 <?php endforeach; ?>
@@ -238,283 +265,285 @@
 
     </section>
 
-    <!-- onglet : TRAJETS À VENIR -->
-<section id="avenir" class="tab-content">
-    <h2>Mes réservations à venir</h2>
+    <section id="avenir" class="tab-content">
+        <h2>Mes réservations à venir</h2>
 
-    <?php
-    $now = new DateTime();
-    $found = false;
-
-    $trajets_futurs = $trajets_futurs ?? [];
-    foreach ($trajets_futurs as $r):
-        $dt = new DateTime($r['date_depart'] . ' ' . $r['heure_depart']);
-        if ($r['statut'] !== 'acceptee' || $dt <= $now) continue;
-        $found = true;
-    ?>
-        <div class="trajet-card-2">
-            <div class="trajet-top">
-                <div class="left">
-                    <a href="index.php?page=voirprofil&id=<?= $r['conducteur_id'] ?>" class="driver-link vertical">
-    <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($r['conducteur_avatar']) ?>" class="trajet-avatar">
-    
-    <?php
-        $parts = explode(' ', trim($r['conducteur_nom']));
-        $prenom = ucfirst(strtolower($parts[0]));
-    ?>
-    <strong><?= htmlspecialchars($prenom) ?></strong>
-</a>
-
-<small><?= htmlspecialchars($r['date_depart']) ?> — <?= htmlspecialchars($r['heure_depart']) ?></small>
-
-                    <hr class="driver-phone-separator">
-
-                    <?php
-                    $phone = preg_replace('/\D/', '', $r['conducteur_telephone'] ?? '');
-                    $formattedPhone = strlen($phone) === 10 ? implode(' ', str_split($phone, 2)) : ($r['conducteur_telephone'] ?? '');
-                    ?>
-                    <div class="driver-phone-block">
-                        <button class="btn-show-driver-phone" onclick="showDriverPhone(this)">Voir le numéro</button>
-                        <div class="driver-phone-number hidden">
-                            <span class="driver-phone-text"><?= htmlspecialchars($formattedPhone) ?></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="center">
-                    <h3><?= htmlspecialchars($r['depart']) ?> → <?= htmlspecialchars($r['arrivee']) ?></h3>
-                </div>
-
-                <div class="right">
-                    <strong><?= htmlspecialchars($r['prix']) ?> €</strong>
-                </div>
-            </div>
-
-            <hr class="separator">
-            <div class="passager-section-title">Passagers :</div>
-            <div class="passager-list">
-    <?php
-    $passagers = Reservation::getAcceptedPassengers($r['trajet_id']);
-    foreach ($passagers as $p):
-
-        // On ne garde que le prénom
-        $fullName = trim($p['nom']);
-        $parts    = preg_split('/\s+/', $fullName);
-        $prenom   = ucfirst(strtolower(array_shift($parts)));
-    ?>
-        <div class="passager-box">
-            <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="passager-avatar">
-            <span class="passager-name"><?= htmlspecialchars($prenom) ?></span>
-        </div>
-    <?php endforeach; ?>
-</div>
-        </div>
-    <?php endforeach; ?>
-
-    <?php if (!$found): ?>
-        <p>Aucun trajet futur réservé.</p>
-    <?php endif; ?>
-
-
-    <?php if ($user_role === "conducteur"): ?>
-        <h2>Mes trajets (conducteur) à venir</h2>
         <?php
-        $found2 = false;
-        foreach ($trajets_conducteur as $t):
-            $dt = new DateTime($t['date_depart'] . ' ' . $t['heure_depart']);
-            if ($dt <= $now) continue;
+        $now = new DateTime();
+        $found = false;
 
-            $passagers = Reservation::getAcceptedPassengers($t['id']);
-            if (empty($passagers)) continue;
-            $found2 = true;
+        $trajets_futurs = $trajets_futurs ?? [];
+        foreach ($trajets_futurs as $r):
+            $dt = new DateTime($r['date_depart'] . ' ' . $r['heure_depart']);
+            if ($r['statut'] !== 'acceptee' || $dt <= $now) continue;
+            $found = true;
         ?>
-            <div class="trajet-card-conducteur">
-                <div class="trajet-header">
-                    <h3><?= htmlspecialchars($t['depart']) ?> → <?= htmlspecialchars($t['arrivee']) ?></h3>
-                </div>
-                <p class="trajet-info">
-                    <strong>Date :</strong> <?= $t['date_depart'] ?> — <?= $t['heure_depart'] ?><br>
-                    <strong>Places restantes :</strong> <?= $t['places_disponibles'] ?>
-                </p>
-
-                <hr class="separator">
-                <h4 class="passager-section-title">Passagers :</h4>
-                <div class="accepted-passengers">
-                    <?php foreach ($passagers as $p): ?>
-                        <div class="mini-passenger">
-                        <a href="index.php?page=voirprofil&id=<?= $p['id'] ?>" class="driver-link vertical">
-                            <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="mini-passenger-avatar">
+            <div class="trajet-card-2">
+                <div class="trajet-top">
+                    <div class="left">
+                        <a href="index.php?page=voirprofil&id=<?= $r['conducteur_id'] ?>" class="driver-link vertical">
+                            <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($r['conducteur_avatar']) ?>" class="trajet-avatar">
+                            
                             <?php
-                                $parts = explode(' ', trim($p['nom']));
+                                $parts = explode(' ', trim($r['conducteur_nom']));
                                 $prenom = ucfirst(strtolower($parts[0]));
                             ?>
                             <strong><?= htmlspecialchars($prenom) ?></strong>
                         </a>
-                        <hr class="phone-separator">
+
+                        <small><?= htmlspecialchars($r['date_depart']) ?> — <?= htmlspecialchars($r['heure_depart']) ?></small>
+
+                        <hr class="driver-phone-separator">
+
                         <?php
-                            $phone = preg_replace('/\D/', '', $p['telephone'] ?? '');
-                            $formattedPhone = strlen($phone) === 10 ? implode(' ', str_split($phone, 2)) : ($p['telephone'] ?? '');
+                        $phone = preg_replace('/\D/', '', $r['conducteur_telephone'] ?? '');
+                        $formattedPhone = strlen($phone) === 10 ? implode(' ', str_split($phone, 2)) : ($r['conducteur_telephone'] ?? '');
                         ?>
-                        <div class="phone-reveal">
-                            <button class="btn-show-phone" onclick="showPhone(this)">Voir le numéro</button>
-                            <div class="phone-number hidden">
-                                <span class="phone-text"><?= htmlspecialchars($formattedPhone) ?></span>
+                        <div class="driver-phone-block">
+                            <button class="btn-show-driver-phone" onclick="showDriverPhone(this)">Voir le numéro</button>
+                            <div class="driver-phone-number hidden">
+                                <span class="driver-phone-text"><?= htmlspecialchars($formattedPhone) ?></span>
                             </div>
                         </div>
-
                     </div>
+
+                    <div class="center">
+                        <h3>
+                            <span class="trajet-id-badge">#<?= isset($r['trajet_id']) ? $r['trajet_id'] : $r['id'] ?></span>
+                            <?= htmlspecialchars($r['depart']) ?> → <?= htmlspecialchars($r['arrivee']) ?>
+                        </h3>
+                    </div>
+
+                    <div class="right">
+                        <strong><?= htmlspecialchars($r['prix']) ?> €</strong>
+                    </div>
+                </div>
+
+                <hr class="separator">
+                <div class="passager-section-title">Passagers :</div>
+                <div class="passager-list">
+                    <?php
+                    $passagers = Reservation::getAcceptedPassengers($r['trajet_id']);
+                    foreach ($passagers as $p):
+                        $fullName = trim($p['nom']);
+                        $parts    = preg_split('/\s+/', $fullName);
+                        $prenom   = ucfirst(strtolower(array_shift($parts)));
+                    ?>
+                        <div class="passager-box">
+                            <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="passager-avatar">
+                            <span class="passager-name"><?= htmlspecialchars($prenom) ?></span>
+                        </div>
                     <?php endforeach; ?>
                 </div>
             </div>
         <?php endforeach; ?>
 
-        <?php if (!$found2): ?>
-            <p>Aucun futur trajet publié.</p>
+        <?php if (!$found): ?>
+            <p>Aucun trajet futur réservé.</p>
         <?php endif; ?>
-    <?php endif; ?>
-</section>
 
 
-
-<!-- onglet : TRAJETS RÉALISÉS -->
-<section id="realises" class="tab-content">
-<?php
-$now = new DateTime();
-$foundPassager = false;
-?>
-
-<h2>Mes réservations réalisées</h2>
-
-<?php foreach ($trajets_realises_passager as $r): ?>
-    <?php
-        $dt = new DateTime($r['date_depart'] . ' ' . $r['heure_depart']);
-        if ($dt > $now) continue;
-
-        $foundPassager = true;
-
-        // Nom conducteur formaté
-        $fullC   = trim($r['conducteur_nom']);
-        $partsC  = preg_split('/\s+/', $fullC);
-        $prenomC = ucfirst(strtolower(array_shift($partsC)));
-        $nomC    = strtoupper(implode(' ', $partsC));
-        $displayConducteur = trim($prenomC . ' ' . $nomC);
-    ?>
-
-    <div class="trajet-card trajet-passe">
-
-        <div class="left">
-
-            <a href="index.php?page=voirprofil&id=<?= $r['conducteur_id'] ?>" class="driver-link vertical">
-                <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($r['conducteur_avatar']) ?>" class="trajet-avatar">
-                <strong><?= htmlspecialchars($displayConducteur) ?></strong>
-            </a>
-
-            <small><?= htmlspecialchars($r['date_depart']) ?> — <?= htmlspecialchars($r['heure_depart']) ?></small>
-        </div>
-
-        <div class="center">
-            <h3><?= htmlspecialchars($r['depart']) ?> → <?= htmlspecialchars($r['arrivee']) ?></h3>
-        </div>
-
-        <div class="right avis-right">
-            <a href="index.php?page=laisser_avis&trajet_id=<?= $r['trajet_id'] ?>&mode=passager" class="link-avis">
-                Laisser un avis
-            </a>
-        </div>
-
-        <hr class="separator">
-
-        <div class="passengers-section">
-            <strong>Passagers :</strong>
-            <div class="passenger-list">
-                <?php
-                $pax = Reservation::getAcceptedPassengers($r['trajet_id']);
-                foreach ($pax as $p):
-                    $full   = trim($p['nom']);
-                    $parts  = preg_split('/\s+/', $full);
-                    $prenom = ucfirst(strtolower(array_shift($parts)));
-                    $nom    = strtoupper(implode(' ', $parts));
-                    $display = trim($prenom . ' ' . $nom);
-                ?>
-                    <div class="mini-passenger">
-                        <!-- lien vers profil passager -->
-                        <a href="index.php?page=voirprofil&id=<?= $p['id'] ?>" class="driver-link vertical">
-                            <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="mini-avatar">
-                            <span><?= htmlspecialchars($display) ?></span>
-                        </a>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-
-    </div>
-<?php endforeach; ?>
-
-<?php if (!$foundPassager): ?>
-    <p>Aucune réservation réalisée.</p>
-<?php endif; ?>
-
-
-<?php if ($user_role === 'conducteur'): ?>
-    <h2>Mes trajets (conducteur) réalisés</h2>
-
-    <?php
-    $foundConducteur = false;
-    foreach ($trajets_realises_conducteur as $t):
-        $dt = new DateTime($t['date_depart'] . ' ' . $t['heure_depart']);
-        if ($dt > $now) continue;
-
-        $foundConducteur = true;
-        $rp = Reservation::getAcceptedPassengers($t['id']);
-        $placesReservees = count($rp);
-    ?>
-        <div class="trajet-card-conducteur trajet-passe">
-            <div class="trajet-header">
-                <h3><?= htmlspecialchars($t['depart']) ?> → <?= htmlspecialchars($t['arrivee']) ?></h3>
-                <a href="index.php?page=laisser_avis&trajet_id=<?= $t['id'] ?>&mode=conducteur" class="link-avis">
-                    Laisser un avis
-                </a>
-            </div>
-
-            <p class="trajet-info">
-                <strong>Date :</strong> <?= htmlspecialchars($t['date_depart']) ?> — <?= htmlspecialchars($t['heure_depart']) ?><br>
-                <strong>Places réservées :</strong> <?= $placesReservees ?>
-            </p>
-
-            <hr class="separator">
-
-            <?php if (!$rp): ?>
-                <p style="color:#777;font-style:italic;">Aucun passager n'a participé.</p>
-            <?php else: ?>
-    <h4 class="passenger-title">Passagers :</h4>
-
-    <div class="passenger-list">
-        <?php foreach ($rp as $p): ?>
+        <?php if ($user_role === "conducteur"): ?>
+            <h2>Mes trajets (conducteur) à venir</h2>
             <?php
-                $full   = trim($p['nom']);
-                $parts  = preg_split('/\s+/', $full);
-                $prenom = ucfirst(strtolower(array_shift($parts)));
-                $nom    = strtoupper(implode(' ', $parts));
-                $display = trim($prenom . ' ' . $nom);
+            $found2 = false;
+            foreach ($trajets_conducteur as $t):
+                $dt = new DateTime($t['date_depart'] . ' ' . $t['heure_depart']);
+                if ($dt <= $now) continue;
+
+                $passagers = Reservation::getAcceptedPassengers($t['id']);
+                if (empty($passagers)) continue;
+                $found2 = true;
             ?>
-            <div class="mini-passenger">
-                <!-- lien vers profil passager -->
-                <a href="index.php?page=voirprofil&id=<?= $p['id'] ?>" class="driver-link vertical">
-                    <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="mini-avatar">
-                    <span><?= htmlspecialchars($display) ?></span>
-                </a>
+                <div class="trajet-card-conducteur">
+                    <div class="trajet-header">
+                        <h3>
+                            <span class="trajet-id-badge">#<?= $t['id'] ?></span>
+                            <?= htmlspecialchars($t['depart']) ?> → <?= htmlspecialchars($t['arrivee']) ?>
+                        </h3>
+                    </div>
+                    <p class="trajet-info">
+                        <strong>Date :</strong> <?= $t['date_depart'] ?> — <?= $t['heure_depart'] ?><br>
+                        <strong>Places restantes :</strong> <?= $t['places_disponibles'] ?>
+                    </p>
+
+                    <hr class="separator">
+                    <h4 class="passager-section-title">Passagers :</h4>
+                    <div class="accepted-passengers">
+                        <?php foreach ($passagers as $p): ?>
+                            <div class="mini-passenger">
+                                <a href="index.php?page=voirprofil&id=<?= $p['id'] ?>" class="driver-link vertical">
+                                    <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="mini-passenger-avatar">
+                                    <?php
+                                        $parts = explode(' ', trim($p['nom']));
+                                        $prenom = ucfirst(strtolower($parts[0]));
+                                    ?>
+                                    <strong><?= htmlspecialchars($prenom) ?></strong>
+                                </a>
+                                <hr class="phone-separator">
+                                <?php
+                                    $phone = preg_replace('/\D/', '', $p['telephone'] ?? '');
+                                    $formattedPhone = strlen($phone) === 10 ? implode(' ', str_split($phone, 2)) : ($p['telephone'] ?? '');
+                                ?>
+                                <div class="phone-reveal">
+                                    <button class="btn-show-phone" onclick="showPhone(this)">Voir le numéro</button>
+                                    <div class="phone-number hidden">
+                                        <span class="phone-text"><?= htmlspecialchars($formattedPhone) ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+
+            <?php if (!$found2): ?>
+                <p>Aucun futur trajet publié.</p>
+            <?php endif; ?>
+        <?php endif; ?>
+    </section>
+
+
+
+    <section id="realises" class="tab-content">
+        <?php
+        $now = new DateTime();
+        $foundPassager = false;
+        ?>
+
+        <h2>Mes réservations réalisées</h2>
+
+        <?php foreach ($trajets_realises_passager as $r): ?>
+            <?php
+                $dt = new DateTime($r['date_depart'] . ' ' . $r['heure_depart']);
+                if ($dt > $now) continue;
+
+                $foundPassager = true;
+
+                $fullC   = trim($r['conducteur_nom']);
+                $partsC  = preg_split('/\s+/', $fullC);
+                $prenomC = ucfirst(strtolower(array_shift($partsC)));
+                $nomC    = strtoupper(implode(' ', $partsC));
+                $displayConducteur = trim($prenomC . ' ' . $nomC);
+            ?>
+
+            <div class="trajet-card trajet-passe">
+
+                <div class="left">
+                    <a href="index.php?page=voirprofil&id=<?= $r['conducteur_id'] ?>" class="driver-link vertical">
+                        <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($r['conducteur_avatar']) ?>" class="trajet-avatar">
+                        <strong><?= htmlspecialchars($displayConducteur) ?></strong>
+                    </a>
+                    <small><?= htmlspecialchars($r['date_depart']) ?> — <?= htmlspecialchars($r['heure_depart']) ?></small>
+                </div>
+
+                <div class="center">
+                    <h3>
+                        <span class="trajet-id-badge">#<?= isset($r['trajet_id']) ? $r['trajet_id'] : $r['id'] ?></span>
+                        <?= htmlspecialchars($r['depart']) ?> → <?= htmlspecialchars($r['arrivee']) ?>
+                    </h3>
+                </div>
+
+                <div class="right avis-right">
+                    <a href="index.php?page=laisser_avis&trajet_id=<?= $r['trajet_id'] ?>&mode=passager" class="link-avis">
+                        Laisser un avis
+                    </a>
+                </div>
+
+                <hr class="separator">
+
+                <div class="passengers-section">
+                    <strong>Passagers :</strong>
+                    <div class="passenger-list">
+                        <?php
+                        $pax = Reservation::getAcceptedPassengers($r['trajet_id']);
+                        foreach ($pax as $p):
+                            $full   = trim($p['nom']);
+                            $parts  = preg_split('/\s+/', $full);
+                            $prenom = ucfirst(strtolower(array_shift($parts)));
+                            $nom    = strtoupper(implode(' ', $parts));
+                            $display = trim($prenom . ' ' . $nom);
+                        ?>
+                            <div class="mini-passenger">
+                                <a href="index.php?page=voirprofil&id=<?= $p['id'] ?>" class="driver-link vertical">
+                                    <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="mini-avatar">
+                                    <span><?= htmlspecialchars($display) ?></span>
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
             </div>
         <?php endforeach; ?>
-    </div>
-<?php endif; ?>
-        </div>
-    <?php endforeach; ?>
 
-    <?php if (!$foundConducteur): ?>
-        <p>Aucun trajet réalisé en tant que conducteur.</p>
-    <?php endif; ?>
-<?php endif; ?>
-</section>
+        <?php if (!$foundPassager): ?>
+            <p>Aucune réservation réalisée.</p>
+        <?php endif; ?>
+
+
+        <?php if ($user_role === 'conducteur'): ?>
+            <h2>Mes trajets (conducteur) réalisés</h2>
+
+            <?php
+            $foundConducteur = false;
+            foreach ($trajets_realises_conducteur as $t):
+                $dt = new DateTime($t['date_depart'] . ' ' . $t['heure_depart']);
+                if ($dt > $now) continue;
+
+                $foundConducteur = true;
+                $rp = Reservation::getAcceptedPassengers($t['id']);
+                $placesReservees = count($rp);
+            ?>
+                <div class="trajet-card-conducteur trajet-passe">
+                    <div class="trajet-header">
+                        <h3>
+                            <span class="trajet-id-badge">#<?= $t['id'] ?></span>
+                            <?= htmlspecialchars($t['depart']) ?> → <?= htmlspecialchars($t['arrivee']) ?>
+                        </h3>
+                        <a href="index.php?page=laisser_avis&trajet_id=<?= $t['id'] ?>&mode=conducteur" class="link-avis">
+                            Laisser un avis
+                        </a>
+                    </div>
+
+                    <p class="trajet-info">
+                        <strong>Date :</strong> <?= htmlspecialchars($t['date_depart']) ?> — <?= htmlspecialchars($t['heure_depart']) ?><br>
+                        <strong>Places réservées :</strong> <?= $placesReservees ?>
+                    </p>
+
+                    <hr class="separator">
+
+                    <?php if (!$rp): ?>
+                        <p style="color:#777;font-style:italic;">Aucun passager n'a participé.</p>
+                    <?php else: ?>
+                        <h4 class="passenger-title">Passagers :</h4>
+                        <div class="passenger-list">
+                            <?php foreach ($rp as $p): ?>
+                                <?php
+                                    $full   = trim($p['nom']);
+                                    $parts  = preg_split('/\s+/', $full);
+                                    $prenom = ucfirst(strtolower(array_shift($parts)));
+                                    $nom    = strtoupper(implode(' ', $parts));
+                                    $display = trim($prenom . ' ' . $nom);
+                                ?>
+                                <div class="mini-passenger">
+                                    <a href="index.php?page=voirprofil&id=<?= $p['id'] ?>" class="driver-link vertical">
+                                        <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($p['avatar']) ?>" class="mini-avatar">
+                                        <span><?= htmlspecialchars($display) ?></span>
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+
+            <?php if (!$foundConducteur): ?>
+                <p>Aucun trajet réalisé en tant que conducteur.</p>
+            <?php endif; ?>
+        <?php endif; ?>
+    </section>
+
 </main>
 
 <div id="trajetConfirmModal" class="confirm-modal">
@@ -541,4 +570,3 @@ $foundPassager = false;
 
 </body>
 </html>
-

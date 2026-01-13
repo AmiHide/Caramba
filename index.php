@@ -31,6 +31,12 @@ if ($page === 'reset') {
     exit;
 }
 
+if ($page === 'annuler_reservation') {
+    require_once __DIR__ . '/app/controllers/AnnulerReservationController.php';
+    (new AnnulerReservationController())->index();
+    exit;
+}
+
 if ($page === 'home') {
     $controller = new HomeController();
     $controller->index();
@@ -183,7 +189,7 @@ if ($page === 'verify_email') {
     require_once __DIR__ . '/app/controllers/VerifyEmailController.php';
     (new VerifyEmailController())->index();
     exit;
-}
+}   
 
 if ($page === 'verifnum') {
     $controller = new VerifyPhoneController();

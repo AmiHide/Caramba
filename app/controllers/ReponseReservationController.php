@@ -30,19 +30,17 @@ class ReponseReservationController
 
         global $pdo;
 
-
+        // --- CORRECTION ICI ---
+        // On récupère simplement 'places_disponibles' car cette colonne
+        // est déjà mise à jour lors de l'acceptation précédente.
         $stmt = $pdo->prepare("
-            SELECT t.*, 
-                   (t.places_disponibles - (
-                        SELECT COALESCE(SUM(places_reservees), 0)
-                        FROM reservations 
-                        WHERE trajet_id = t.id
-                        AND statut = 'acceptee'
-                   )) AS places_restantes
+            SELECT t.*, t.places_disponibles AS places_restantes
             FROM trajets t
             WHERE t.id = ?
               AND t.conducteur_id = ?
         ");
+        // ----------------------
+        
         $stmt->execute([$trajetId, $userId]);
         $trajet = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -74,13 +72,16 @@ class ReponseReservationController
 
         if ($action === "accepter") {
 
+            // Cette fonction mettra à jour la BDD (places_disponibles - places_reservees)
             $ok = Reservation::accepter($resId, $trajetId, $trajet["places_restantes"]);
-require_once __DIR__ . '/../models/Notification.php';
+            
+            require_once __DIR__ . '/../models/Notification.php';
 
-Notification::add(
-    $reservation['passager_id'],
-    "Votre réservation pour {$trajet['depart']} → {$trajet['arrivee']} a été acceptée."
-);
+            Notification::add(
+                $reservation['passager_id'],
+                "Votre réservation pour {$trajet['depart']} → {$trajet['arrivee']} a été acceptée."
+            );
+            
             if ($ok) {
                 $_SESSION["flash_success"] = "Réservation acceptée";
             } else {
@@ -90,12 +91,12 @@ Notification::add(
         } elseif ($action === "refuser") {
 
             $ok = Reservation::refuser($resId);
-require_once __DIR__ . '/../models/Notification.php';
+            require_once __DIR__ . '/../models/Notification.php';
 
-Notification::add(
-    $reservation['passager_id'],
-    "Votre réservation pour {$trajet['depart']} → {$trajet['arrivee']} a été refusée."
-);
+            Notification::add(
+                $reservation['passager_id'],
+                "Votre réservation pour {$trajet['depart']} → {$trajet['arrivee']} a été refusée."
+            );
 
             $_SESSION["flash_success"] = $ok
                 ? "Réservation refusée ❌"

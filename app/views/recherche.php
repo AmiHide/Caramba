@@ -6,10 +6,23 @@
     <title>Recherche - Caramba</title>
     <link rel="stylesheet" href="/Caramba/public/css/style.css">
 
-    <!-- Flatpickr (calendrier) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
+
+    <style>
+        /* Style pour l'ID du trajet (identique à mes trajets) */
+        .trajet-id-badge {
+            font-size: 0.8em;
+            color: #666;
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 8px;
+            vertical-align: middle;
+            font-weight: normal;
+        }
+    </style>
 </head>
 
 <body>
@@ -113,7 +126,6 @@
 
 <h4 style="font-size:20px;margin-bottom:15px;">Préférences</h4>
 
-<!-- musique -->
 <label class="pref-check">
     <input type="checkbox" name="musique" value="1"
            <?= isset($_GET["musique"]) ? "checked" : "" ?>>
@@ -124,7 +136,6 @@
     </span>
 </label>
 
-<!-- fumeur -->
 <label class="pref-check">
     <input type="checkbox" name="fumeur" value="1"
            <?= isset($_GET["fumeur"]) ? "checked" : "" ?>>
@@ -136,7 +147,6 @@
     </span>
 </label>
 
-<!-- animaux -->
 <label class="pref-check">
     <input type="checkbox" name="animaux" value="1"
            <?= isset($_GET["animaux"]) ? "checked" : "" ?>>
@@ -190,11 +200,7 @@
                                     <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($t['avatar'] ?? 'user-icon.png') ?>" 
                                         class="trajet-avatar">
 
-                                    <?php if (User::isSuperDriver($t['conducteur_id'])): ?>
-                                        <img src="/Caramba/public/img/superdriver.svg"
-                                            class="superdriver-overlay"
-                                            alt="Super Driver">
-                                    <?php endif; ?>
+                                    
                                 </div>
 
                                 <?php
@@ -215,6 +221,7 @@
 
                         <div class="trajet-middle">
                             <p class="trajet-route">
+                                <span class="trajet-id-badge">#<?= $t['id'] ?></span>
                                 <?= htmlspecialchars($t['depart']) ?> →
                                 <?= htmlspecialchars($t['arrivee']) ?>
                             </p>

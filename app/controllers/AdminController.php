@@ -15,6 +15,8 @@ class AdminController
         $trajets = Trajet::getAllTrajets();
         $demandesConducteurs = User::getPendingConducteurs();
 
+        $reservations = Reservation::getAllReservations();
+        
         if (isset($_GET['action'], $_GET['id'])) {
             $id = (int) $_GET['id'];
             $action = $_GET['action'];

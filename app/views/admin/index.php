@@ -95,7 +95,7 @@
     </section>
 
 
-    <!-- users -->
+    <!-- users  -->
     <section class="admin-section">
         <h2>Utilisateurs inscrits</h2>
 
@@ -155,6 +155,55 @@
             <?php endforeach; ?>
             </tbody>
         </table>
+    </section>
+    
+    <section class="admin-section">
+        <h2>Toutes les Réservations</h2>
+
+        <?php if (empty($reservations)): ?>
+            <p>Aucune réservation trouvée.</p>
+        <?php else: ?>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th> <th>Passager</th>
+                        <th>Trajet</th>
+                        <th>Places</th>
+                        <th>Statut</th>
+                        <th>Date Trajet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($reservations as $res): ?>
+                    <tr>
+                        <td><strong>#<?= $res['id'] ?></strong></td>
+                        
+                        <td>
+                            <?= htmlspecialchars($res['passager_nom']) ?>
+                            <br>
+                            <small><?= htmlspecialchars($res['passager_email']) ?></small>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($res['depart']) ?> &rarr; <?= htmlspecialchars($res['arrivee']) ?>
+                        </td>
+                        <td><?= $res['places_reservees'] ?></td>
+                        <td>
+                            <?php if($res['statut'] == 'acceptee'): ?>
+                                <span class="badge badge-conducteur" style="background:green;">Acceptée</span>
+                            <?php elseif($res['statut'] == 'en_attente'): ?>
+                                <span class="badge badge-passager" style="background:orange;">En attente</span>
+                            <?php elseif($res['statut'] == 'refusee'): ?>
+                                <span class="badge badge-admin" style="background:red;">Refusée</span>
+                            <?php else: ?>
+                                <?= htmlspecialchars($res['statut']) ?>
+                            <?php endif; ?>
+                        </td>
+                         <td><?= htmlspecialchars($res['date_depart']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
     </section>
 
 

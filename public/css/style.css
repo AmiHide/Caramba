@@ -5405,3 +5405,15 @@ textarea {
 .mobile-menu {
     display: none !important;
 }
+
+.trajet-id-badge {
+    font-size: 0.8em;
+    color: #666;
+    background: #eee;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-right: 8px;
+    vertical-align: middle;
+    font-weight: normal;
+    }
+  
