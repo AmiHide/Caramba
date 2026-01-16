@@ -4,19 +4,7 @@
     <meta charset="UTF-8">
     <title>Mes trajets - Caramba</title>
     <link rel="stylesheet" href="/Caramba/public/css/style.css">
-    <style>
-        /* Petit style inline pour l'ID du trajet */
-        .trajet-id-badge {
-            font-size: 0.8em;
-            color: #666;
-            background: #eee;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-right: 8px;
-            vertical-align: middle;
-            font-weight: normal;
-        }
-    </style>
+        
 </head>
 
 <body>

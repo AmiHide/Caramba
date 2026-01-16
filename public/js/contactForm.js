@@ -11,7 +11,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     .then(response => response.text())
     .then(result => {
         // Correction 2 : On vérifie ce que répond le PHP
-        console.log("Réponse serveur :", result); // Regardez la console (F12) !
+        console.log("Réponse serveur :", result); // Regarde la console (F12) !
 
         if (result.trim() === 'SUCCESS') {
             showToast("✔ Votre message a été envoyé !");

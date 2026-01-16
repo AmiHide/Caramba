@@ -13,15 +13,27 @@ class Mailer {
 
     // Configuration commune pour éviter de répéter les mots de passe
     private static function getConfiguredMailer() {
+        // Chargement des informations d'environement 
+        $envFile = __DIR__ . '/../../.env';
+
+        if (file_exists($envFile)) {
+            $env = parse_ini_file($envFile);
+        } else {
+            // Fallback ou erreur si le .env n'est pas là
+            throw new Exception("Fichier .env introuvable pour la configuration mail.");
+        }
+
         $mail = new PHPMailer(true);
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'caramba.assistance@gmail.com';
-        $mail->Password   = 'lvbz oyej jpoq ogoa'; // Votre mot de passe d'application
+        
+        $mail->Username   = $env['email'];
+        $mail->Password   = $env['password']; 
+
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
-        $mail->setFrom('caramba.assistance@gmail.com', 'Caramba');
+        $mail->setFrom($env['email'], 'Caramba');
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
         
