@@ -145,6 +145,8 @@ if (session_status() === PHP_SESSION_NONE) {
 document.addEventListener("DOMContentLoaded", () => {
   const burger = document.getElementById("burgerBtn");
   const navLinks = document.getElementById("navLinks");
+  const notifMenu = document.getElementById("notifDropdown");
+  const profileDropdown = document.querySelector(".profile-dropdown");
 
   if (!burger || !navLinks) return;
 
@@ -152,13 +154,24 @@ document.addEventListener("DOMContentLoaded", () => {
     navLinks.classList.remove("open");
     burger.classList.remove("active");
     burger.setAttribute("aria-expanded", "false");
+    burger.setAttribute("aria-label", "Ouvrir le menu");
+  };
+
+  const openMenu = () => {
+    // ferme les autres menus si besoin
+    if (notifMenu) notifMenu.classList.remove("show");
+    if (profileDropdown) profileDropdown.classList.remove("active");
+
+    navLinks.classList.add("open");
+    burger.classList.add("active");
+    burger.setAttribute("aria-expanded", "true");
+    burger.setAttribute("aria-label", "Fermer le menu");
   };
 
   burger.addEventListener("click", (e) => {
     e.stopPropagation();
-    const isOpen = navLinks.classList.toggle("open");
-    burger.classList.toggle("active", isOpen);
-    burger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    const isOpen = navLinks.classList.contains("open");
+    isOpen ? closeMenu() : openMenu();
   });
 
   navLinks.querySelectorAll("a").forEach(a => {
@@ -172,10 +185,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 1180) closeMenu();
+    if (window.innerWidth > 1050) closeMenu();  // ✅ 1050 et pas 1180
   });
 });
 </script>
+
 
 
 <script>
@@ -183,37 +197,19 @@ function toggleNotifMenu() {
     const menu = document.getElementById("notifDropdown");
     const isVisible = menu.classList.contains("show");
 
-    menu.classList.toggle("show");
+    // ✅ Ferme le menu burger si ouvert
+    document.getElementById("navLinks")?.classList.remove("open");
+    document.getElementById("burgerBtn")?.classList.remove("active");
 
+    menu.classList.toggle("show");
 
     if (!isVisible) {
         const badge = document.querySelector(".notif-badge");
         if (badge) badge.remove();
     }
 }
-
-function clearAllNotifications() {
-    fetch("index.php?page=clear_notifications")
-        .then(() => {
-            document.querySelectorAll(".notif-row").forEach(row => {
-                row.classList.add("removing");
-                setTimeout(() => row.remove(), 250);
-            });
-
-            const badge = document.querySelector(".notif-badge");
-            if (badge) badge.remove();
-        });
-}
-
-document.addEventListener("click", function(event) {
-    const menu = document.getElementById("notifDropdown");
-    const btn = document.querySelector(".notif-btn");
-
-    if (!btn.contains(event.target) && !menu.contains(event.target)) {
-        menu.classList.remove("show");
-    }
-});
 </script>
+
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {

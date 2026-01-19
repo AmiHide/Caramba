@@ -12,6 +12,10 @@ class ReserverController
 
         $trajetId = (int) $_GET['id'];
 
+        require_once __DIR__ . '/../models/Trajet.php';
+        require_once __DIR__ . '/../models/Reservation.php';
+        require_once __DIR__ . '/../models/User.php';
+
         $trajet = Trajet::getByIdWithConducteur($trajetId);
         if (!$trajet) {
             echo "Trajet introuvable.";
@@ -43,11 +47,15 @@ class ReserverController
                 require_once __DIR__ . '/../models/Notification.php';
 
                 Notification::add(
-                $trajet['conducteur_id'],
-                "Nouvelle demande de réservation pour le trajet " .
-                htmlspecialchars($trajet['depart']) . " → " . htmlspecialchars($trajet['arrivee'])
+                    $trajet['conducteur_id'],
+                    "Nouvelle demande de réservation pour le trajet " .
+                    htmlspecialchars($trajet['depart']) . " → " . htmlspecialchars($trajet['arrivee'])
                 );
                 $_SESSION['success'] = "Votre réservation a été envoyée !";
+
+            } else {
+                // AJOUT DU MESSAGE D'ERREUR SI DÉJÀ RÉSERVÉ
+                $_SESSION['error'] = "Vous avez déjà une réservation en cours ou acceptée pour ce trajet.";
             }
 
             header("Location: index.php?page=reserver&id=" . $trajetId);
@@ -63,6 +71,10 @@ class ReserverController
 
         $successMessage = $_SESSION['success'] ?? "";
         unset($_SESSION['success']);
+
+        // Récupération message d'erreur pour l'afficher dans la vue si nécessaire
+        $errorMessage = $_SESSION['error'] ?? "";
+        unset($_SESSION['error']);
 
         $trajet['is_superdriver'] = User::isSuperDriver($trajet['conducteur_id']);
 

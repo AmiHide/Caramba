@@ -17,8 +17,26 @@ class SupprimerTrajetController
         }
 
         $id = (int) $_GET['id'];
+        $userId = $_SESSION['user']['id'];
 
-        require_once __DIR__ . '/../models/Trajet.php';
+        // Vérifions que le trajet appartient bien au conducteur connecté
+        $trajet = Trajet::getByIdWithConducteur($id);
+
+        if (!$trajet || $trajet['conducteur_id'] != $userId) {
+            $_SESSION['flash_error'] = "Vous n'avez pas le droit de supprimer ce trajet.";
+            header("Location: index.php?page=mestrajets");
+            exit;
+        }
+
+        // Vérifions si le trajet est déjà passé
+        $dateDepart = new DateTime($trajet['date_depart'] . ' ' . $trajet['heure_depart']);
+        $now = new DateTime();
+
+        if ($dateDepart < $now) {
+            $_SESSION['flash_error'] = "Impossible de supprimer un trajet déjà passé.";
+            header("Location: index.php?page=mestrajets");
+            exit;
+        }
 
         $deleted = Trajet::deleteTrajet($id);
 

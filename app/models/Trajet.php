@@ -327,4 +327,25 @@ public static function getPublicHistory(int $userId)
         $stmt = $pdo->prepare("DELETE FROM trajets WHERE id = ?");
         return $stmt->execute([$id]);
     }
+
+
+    /**
+     * Récupère le top 5 des trajets les plus proposés (groupés par Depart -> Arrivee)
+     */
+    public static function getTopTrajets($limit = 5)
+    {
+        global $pdo; // Utilisation de la globale $pdo au lieu de Database::getInstance()
+        
+        $sql = "SELECT depart, arrivee, COUNT(*) as total
+                FROM trajets
+                GROUP BY depart, arrivee
+                ORDER BY total DESC
+                LIMIT :limit";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

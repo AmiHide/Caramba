@@ -12,7 +12,9 @@ class Reservation
         $sql = $pdo->prepare("
             SELECT COUNT(*)
             FROM reservations
-            WHERE passager_id = ? AND trajet_id = ?
+            WHERE passager_id = ? 
+              AND trajet_id = ?
+              AND statut IN ('en_attente', 'acceptee')
         ");
         $sql->execute([$userId, $trajetId]);
 
@@ -162,5 +164,64 @@ class Reservation
 
         $sql->execute([$trajetId]);
         return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public static function getAllReservations(): array
+    {
+        global $pdo;
+
+        // On récupère l'ID de la réservation (r.id) ainsi que les infos du passager et du trajet
+        $sql = $pdo->query("
+            SELECT r.*, 
+                   u.nom AS passager_nom, 
+                   u.email AS passager_email,
+                   t.depart, t.arrivee, t.date_depart
+            FROM reservations r
+            JOIN users u ON u.id = r.passager_id
+            JOIN trajets t ON t.id = r.trajet_id
+            ORDER BY r.id DESC
+        ");
+        
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    // Récupère une réservation par son ID
+    public static function getById(int $id)
+    {
+        global $pdo;
+        $sql = $pdo->prepare("SELECT * FROM reservations WHERE id = ?");
+        $sql->execute([$id]);
+        return $sql->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Annule une réservation : supprime la ligne et recrédite les places si nécessaire
+    public static function annuler(int $id): bool
+    {
+        global $pdo;
+
+        $reservation = self::getById($id);
+        if (!$reservation) return false;
+
+        try {
+            $pdo->beginTransaction();
+
+            // Si la réservation était acceptée, on remet les places dispos
+            if ($reservation['statut'] === 'acceptee') {
+                $update = $pdo->prepare("
+                    UPDATE trajets 
+                    SET places_disponibles = places_disponibles + ? 
+                    WHERE id = ?
+                ");
+                $update->execute([$reservation['places_reservees'], $reservation['trajet_id']]);
+            }
+
+            // Suppression définitive de la réservation
+            $delete = $pdo->prepare("DELETE FROM reservations WHERE id = ?");
+            $delete->execute([$id]);
+
+            $pdo->commit();
+            return true;
+        } catch (Exception $e) {
+            $pdo->rollBack();
+            return false;
+        }
     }
 }

@@ -103,7 +103,7 @@
 
             <p style="
                 position:absolute;
-                bottom:0;
+                bottom:-25px;
                 right:0;
                 margin:0;
                 font-size:14px;

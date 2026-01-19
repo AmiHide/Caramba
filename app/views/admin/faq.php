@@ -5,6 +5,7 @@
     <title>Administration FAQ - Caramba</title>
     <link rel="icon" type="png" href="/Caramba/public/img/Caramba-logo.png">
     <link rel="stylesheet" href="/Caramba/public/css/style.css">
+    <link rel="stylesheet" href="/Caramba/public/css/responsive.css">
 </head>
 <body>
 

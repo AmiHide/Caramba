@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../models/Mailer.php';
+
 class ForgotController {
 
     public function index() {
@@ -18,14 +20,15 @@ class ForgotController {
 
                 User::setResetToken($email, $token, $expire);
 
-                // lien local (test l'envoi auto par mail nxt step)
-                $resetLink = "http://localhost/caramba/public/index.php?page=reset&token=$token";
-
-                $message = "Un lien de réinitialisation a été généré :<br><br>
-                            <a href='$resetLink'>$resetLink</a>";
+                // Appel statique (::) qui correspond maintenant à votre Mailer
+                if (Mailer::sendPasswordReset($email, $token)) {
+                    $message = "Un email de réinitialisation a été envoyé à l'adresse indiquée.";
+                } else {
+                    $message = "Une erreur technique est survenue lors de l'envoi de l'email.";
+                }
 
             } else {
-                $message = "Cet e-mail n'existe pas.";
+                $message = "Si cette adresse correspond à un compte, un email a été envoyé.";
             }
         }
 

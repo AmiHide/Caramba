@@ -13,9 +13,15 @@ class ContactController {
             $email   = $_POST["email"] ?? "";
             $message = $_POST["message"] ?? "";
 
-            $ok = Contact::envoyerMail($nom, $email, $message);
+            $result = Contact::envoyerMail($nom, $email, $message);
 
-            echo $ok ? "SUCCESS" : "ERROR";
+            // Si le retour est strictement true -> SUCCESS, sinon on affiche l'erreur
+            if ($result === true) {
+                echo "SUCCESS";
+            } else {
+                // Affiche l'erreur renvoyée par le modèle (ex: Password incorrect)
+                echo $result; 
+            }
             exit;
         }
     }
