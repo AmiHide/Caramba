@@ -18,6 +18,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <a href="index.php?page=home">Accueil</a>
         <a href="index.php?page=recherche">Rechercher un covoiturage</a>
         <a href="index.php?page=faq">FAQ</a>
+
     </nav>
 
     <div class="user-section">
@@ -61,7 +62,8 @@ if (session_status() === PHP_SESSION_NONE) {
                     <span class="notif-badge"><?= $notifications_count ?></span>
                 <?php endif; ?>
             </button>
-
+            
+                    
     <div class="notif-dropdown" id="notifDropdown">
 
         <?php if ($notifications_count == 0): ?>

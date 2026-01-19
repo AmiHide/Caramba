@@ -51,6 +51,8 @@ body {
 
 
 .site-title {
+    transition: color 0.5s;
+
     font-family: 'Poppins', sans-serif;
     font-weight: 600;      
     letter-spacing: 0.5px; 
@@ -67,10 +69,12 @@ body {
 
 
 .nav-links a {
-  margin: 0 20px;
-  text-decoration: none;
-  color: #111;
-  font-weight: 600;
+    transition: color 0,5s;
+
+    margin: 0 20px;
+    text-decoration: none;
+    color: #111;
+    font-weight: 600;
 }
 
 .user-section {
@@ -96,8 +100,11 @@ body {
   transition: transform 0.1s ease, background-color 0.2s ease;
 }
 .log-btn:hover {
-  background-color: #1f1f1f;
-  transform: translateY(1px);
+    transition: color 0.5s;
+
+    color: #2b2b2b;               
+    background-color: var(--color-blanc);
+    transform: translateY(1px);
 }
 .log-btn:active {
   transform: translateY(2px);
@@ -644,9 +651,9 @@ body {
 
     /* couleur rose EXACTE de ta charte */
     background: url('data:image/svg+xml;utf8,\
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">\
-<path fill="%23eacbc8" d="M0,160 C300,80 500,180 720,140 C940,100 1200,60 1440,140 V0 H0 Z"/>\
-</svg>');
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">\
+    <path fill="%23eacbc8" d="M0,160 C300,80 500,180 720,140 C940,100 1200,60 1440,140 V0 H0 Z"/>\
+    </svg>');
 
     background-repeat: no-repeat;
     background-size: cover;
@@ -654,7 +661,7 @@ body {
     z-index: 1;
 }
 
-/* --- Formulaire --- */
+/* Formulaire */
 .connexion-box {
   position: relative;
   z-index: 2;
@@ -1424,6 +1431,7 @@ textarea {
     color: #fff;
     padding: 8px 18px;
     border-radius: 10px;
+    
 }
 
 /* Dropdown profil */
@@ -5416,4 +5424,16 @@ textarea {
     vertical-align: middle;
     font-weight: normal;
     }
-  
+
+/* --- AJOUT : Le logo devient blanc au survol --- */
+.logo-link:hover {
+    transition: color 0.2s;
+
+    color: #ffffff !important; /* Force la couleur blanche */
+}
+
+/* --- AJOUT : Les liens deviennent blancs au survol --- */
+.nav-links a:hover {
+    transition: color 0.2s;
+    color: #ffffff !important; /* Force la couleur blanche */
+}

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Caramba</title>
-  <link rel="icon" type="png" href="/Caramba/public/img/logo_site.png">
+  <link rel="icon" type="image/png" href="/Caramba/public/img/Caramba-logo.png">
   <link rel="stylesheet" href="/Caramba/public/css/style.css">
   <link rel="stylesheet" href="/Caramba/public/css/responsive.css">
       <!-- Flatpickr (calendrier) -->
@@ -232,8 +232,8 @@ window.autocompleteVilles = [
 ];
 </script>
 
-<script src="js/autocomplete.js"></script>
-<script src="js/preventCache.js"></script>
+<script src="/Caramba/public/js/autocomplete.js"></script>
+<script src="/Caramba/public/js/preventCache.js"></script>
 
 </body>
 </html>
