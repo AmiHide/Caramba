@@ -29,7 +29,7 @@
             <div class="left-info">
 
                 <a href="index.php?page=voirprofil&id=<?= $trajet['conducteur_id'] ?>" class="driver-link">
-                    <img src="uploads/avatars/<?= htmlspecialchars($trajet['conducteur_avatar']) ?>" class="trajet-avatar">
+                    <img src="/Caramba/public/uploads/avatars/<?= htmlspecialchars($trajet['conducteur_avatar']) ?>" class="trajet-avatar">
                     <strong><?= htmlspecialchars($prenomConducteur) ?></strong>
                 </a>
 
@@ -106,7 +106,7 @@
                 $prenomP = ucfirst(strtolower($prenomP[0]));
             ?>
                 <div class="passenger-mini wide">
-                    <img src="uploads/avatars<?= '/' . htmlspecialchars($p['avatar']) ?>">
+                    <img src="/Caramba/public/uploads/avatars<?= '/' . htmlspecialchars($p['avatar']) ?>">
                     <span><?= htmlspecialchars($prenomP) ?></span>
                 </div>
             <?php endforeach; ?>
