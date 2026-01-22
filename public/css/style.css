@@ -1,0 +1,5488 @@
+:root {
+  /* Charte graphique */
+  --color-rose-1: #f4DAD7; /* Rose claire */
+  --color-rose-2: #eacbc8; /* Rose foncé */ 
+  --color-blanc: #ffffff; /* blanc */
+  --color-noir: #2b2b2b;    /* noir (hors texte) */
+  --color-vert-1: #b7c8b3; /* vert claire */
+  --color-vert-2: #577867; /* vert foncer */
+  --color-text: #111111;      /* texte principal */
+  --color-subtext: #666666;   /* texte secondaire */
+  --color-border: #333333;    /* contours */
+  --color-input-bg: #f4f4f4;  /* champs de saisie */
+
+  /* Typographie */
+  --font-main: "Montserrat", sans-serif;
+  --font-size-title: 48px;
+  --font-size-subtitle: 24px;
+  --font-size-text: 16px;
+
+  /* Espacements */
+  --padding-section: 100px;
+  --radius: 6px;
+  --shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+
+  /* Couleurs d'état */
+  --color-success: var(--color-vert-2);
+  --color-error: #E74C3C;
+  --color-warning: #F1C40F;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-rose-2);
+  padding: 5px 60px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+
+.site-title {
+    transition: color 0.5s;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;      
+    letter-spacing: 0.5px;
+}
+
+
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+
+.nav-links a {
+    transition: color 0,5s;
+
+    margin: 0 20px;
+    text-decoration: none;
+    color: #111;
+    font-weight: 600;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.burger{
+  display: none;
+  background: none;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.burger span{
+  display: block;
+  width: 28px;
+  height: 3px;
+  background: #111;
+  margin: 6px 0;
+  border-radius: 999px;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+
+
+
+/* design bouton connexion page d'accueil */
+.log-btn {
+  display: inline-block;
+  background-color: #2b2b2b;     /* noir */
+  color: #ffffff;               /* texte blanc */
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 13px;
+  border: none;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  text-decoration: none;        /* enlève le soulignement sur <a> */
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+.log-btn:hover {
+    transition: color 0.5s;
+
+    color: #2b2b2b;               
+    background-color: var(--color-blanc);
+    transform: translateY(1px);
+}
+.log-btn:active {
+  transform: translateY(2px);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.user-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  color: #444;
+}
+
+.user-name {
+  font-weight: bold;
+  color: #222;
+}
+
+.main-content {
+  position: relative;
+  background-color: #eacbc8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 100px 80px;
+  overflow: hidden;
+}
+
+/* Supprime l'ancien ::after */
+.main-content::after {
+  content: none;
+}
+
+/* Ajoute le SVG en fond avec une vraie forme de vague */
+.main-content::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 180px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="1" d="M0,288L60,266.7C120,245,240,203,360,181.3C480,160,600,160,720,165.3C840,171,960,181,1080,176C1200,171,1320,149,1380,138.7L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+}
+
+/* fond blanc pour la zone de recherche */
+.search-box {
+  background-color: white;
+  border: 2px solid #333;
+  border-radius: 6px;
+  padding: 25px;
+  width: 320px;
+  position: relative;
+  z-index: 2;
+}
+
+.search-box label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  display: block;
+  color: #222;
+  font-weight: bold;
+}
+
+/* Zone de recherche de trajet depuis la page d'accueil (UNIQUEMENT dans .search-box) */
+.search-box .input-field {
+  display: flex;
+  align-items: center;
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  padding: 6px 10px;
+}
+
+.search-box .input-field input {
+  border: none;
+  outline: none;
+  background: none;
+  flex: 1;
+  font-size: 14px;
+}
+
+.search-box .passengers input {
+  width: 40px;
+  text-align: center;
+}
+
+.search-box .input-field {
+  position: relative;
+}
+
+.search-box .input-field:has(select) .icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.search-box .input-field:has(select) select {
+  padding-left: 40px !important;
+}
+
+.search-box .input-field:has(select) {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+.search-box .input-field:has(select) select {
+  width: 100%;
+  padding: 12px 14px 12px 40px !important;
+  border: 1px solid #ddd !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  appearance: none;
+}
+
+/* Icône dans le rectangle */
+.search-box .input-field:has(select) .icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.search-box .input-field:has(select)::after {
+  content: "▾";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Date + passagers dans la search-box */
+.search-box .input-field:has(input[type="date"]),
+.search-box .input-field.passengers {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 10px 14px;
+}
+
+
+.search-btn {
+  width: 100%;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hero-text {
+  z-index: 2;
+  top: -70px;
+  position: relative;
+}
+
+.hero-text h1 {
+  font-size: 48px;
+  color: #111;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.avantages {
+  text-align: left;
+  padding: 80px 80px;
+  background-color: #fff;
+}
+
+.avantages h2 {
+  font-size: 32px;
+  margin-bottom: 60px;
+  color: #111;
+}
+
+.avantage-container {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+} 
+
+/*--- Section A propos ---*/
+.about {
+  position: relative;
+  padding: 100px 80px;
+  min-height: 600px; /* augmente la hauteur pour voir toute la vague */
+  background-color: #f2d6d3;
+  clip-path: path("M0,50 Q20,0 180,50 T300,20 T3000,150 L1800,600 Q1200,600 900,560 T200,650 T0,10 Z");
+  overflow: visible;
+}
+
+.about-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.about-text {
+  flex: 1 1 50%;
+  color: #111;
+}
+
+.about-text h2 {
+  font-size: 32px;
+  margin-bottom: 50px;
+}
+
+.about-text h3 {
+  font-size: 18px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.about-text p {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+  max-width: 500px;
+}
+
+.about-image {
+  flex: 1 1 40%;
+  display: flex;
+  justify-content: left;
+}
+
+.about-image img {
+  width: 500px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.avantage {
+  width: 260px;
+  text-align: left;
+}
+
+.avantage h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+.avantage p {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.5;
+}
+
+/*---logo caramba de la page d'accueil ---*/
+.logo {
+    width: 90px;              
+    height: 90px;             
+    border-radius: 50%;
+    margin-right: 12px;
+    transform: translateX(0); 
+}
+
+.avt {
+    width: 300px;              
+    height: 300px;             
+    margin-right: 30px;
+    transform: translateX(-20px); 
+}
+.icon
+{
+    width: 20px;            
+    height: 20px;
+    margin-right: 8px;
+
+}
+
+.securite-section {
+  position: relative;
+  margin-top: 20px;
+  min-height: 600px; 
+  background-color: #f7dcd7;
+  padding: 80px 20px 160px; /* un peu plus en bas pour que la vague du bas ait la place */
+  clip-path: path("M0,20 Q150,0 80,70 T900,35 T1440,100 L1440,600 Q1200,580 900,500 T400,520 T0,600 Z");
+  overflow: hidden;
+}
+
+.securite-container {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.securite-container .texte {
+  flex: 1 1 400px;
+  max-width: 500px;
+}
+
+.securite-container h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.securite-container p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.securite-container .btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 18px;
+  background-color: #eaeaea;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.securite-container .btn:hover {
+  background-color: #d4d4d4;
+}
+
+.securite-container .image {
+  flex: 800  1600 400px;
+  text-align: right;
+  
+}
+
+.securite-container img {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 12px;
+}
+
+/*---Section Avis page d'accueil ---*/
+/* --- AVIS CLIENTS --- */
+.avis-section {
+    margin-top: 60px;
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.avis-section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.avis-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.avis-card {
+    background: #fff;
+    padding: 20px;
+    width: 330px;
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    text-align: left;
+    transition: transform 0.15s ease;
+}
+
+.avis-card:hover {
+    transform: translateY(-3px);
+}
+
+.avis-message {
+    font-style: italic;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.avis-note {
+    margin-bottom: 12px;
+}
+
+.star {
+    font-size: 20px;
+    color: #ddd;
+}
+
+.star.filled {
+    color: #ffb4ac;
+}
+
+.avis-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avis-user img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avis-nom {
+    font-weight: 600;
+}
+
+.avis-id {
+    font-size: 13px;
+    color: #777;
+}
+
+/*=== bas de page ===*/
+.footer {
+  background-color: #fff;
+  border-top: 1px solid #eee;
+  padding: 50px 20px;
+  font-family: "Inter", sans-serif;
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.footer-col h4, 
+.footer-col h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.footer-col ul {
+  align-content: right;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 8px;
+}
+
+.footer-col ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.footer-col ul li a:hover {
+  color: var(--color-rose-2);
+}
+
+.footer-col.brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-separator {
+    display: none;
+}
+
+.social-icon img {
+  width: 24px;
+  height: 24px;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.social-icon img:hover {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
+  }
+  .footer-col.brand {
+    grid-column: span 2;
+  }
+  }
+
+
+/*---BACKGROUND AVEC VAGUE ROSE (page connexion) ---*/
+.connexion-bg {
+    position: relative;
+    width: 100%;
+    background: #ffffff; 
+    padding-top: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Vague rose en haut */
+.connexion-bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 220px; 
+
+    /* couleur rose EXACTE de ta charte */
+    background: url('data:image/svg+xml;utf8,\<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">\<path fill="%23eacbc8" d="M0,160 C300,80 500,180 720,140 C940,100 1200,60 1440,140 V0 H0 Z"/>\</svg>');
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">\<path fill="%23eacbc8" d="M0,160 C300,80 500,180 720,140 C940,100 1200,60 1440,140 V0 H0 Z"/>\</svg>');
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    z-index: 1;
+}
+
+/* --- Formulaire --- */
+.connexion-box {
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+  padding: 40px 50px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  max-width: 480px;
+  width: 90%;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.connexion-box h2 {
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #000;
+}
+
+.connexion-box label {
+  display: block;
+  text-align: left;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #222;
+}
+
+.connexion-box input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+}
+
+.connexion-box input:focus {
+  outline: none;
+  border-color: #eacbc8;
+}
+
+.connexion-box input[type="email"],
+.connexion-box input[type="password"] {
+    width: calc(100% - 28px); 
+}
+
+.connexion-box .forgot-left {
+    display: inline-block;   
+    text-align: left;
+    width: auto;            
+    cursor: pointer;
+    margin: -12px 0 15px 2px;
+    font-size: 14px;
+    color: #3765ff;
+    text-decoration: none;
+}
+.connexion-box .forgot-left:hover {
+    text-decoration: underline;
+}
+
+.forgot-wrapper {
+     margin-top: -30px;
+     margin-bottom: 20px;
+    text-align: left;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.links a {
+  color: #3765ff;
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+.submit-btn {
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #333;
+}
+
+/* === Message d'erreur connexion === */
+.login-error {
+  color: #a42c2c;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 12px;
+  animation: fadeInError 0.35s ease-out;
+  width: 100%;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes fadeInError {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+/* === Inputs flottants premium === */
+.floating-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.floating-group input {
+    width: 100%;
+    padding: 20px 12px 10px; 
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f9f9f9;
+    font-size: 15px;
+    transition: border-color .25s;
+}
+
+.floating-group input:focus {
+    outline: none;
+    border-color: #e2b2ae; /* ton rose */
+}
+
+.floating-group label {
+    position: absolute;
+    top: 16px;          /* reste BIEN dans le champ */
+    left: 12px;
+    font-size: 15px;
+    color: #777;
+    pointer-events: none;
+    transition: 0.25s ease;
+}
+
+/* État actif (focus ou texte présent) */
+.floating-group input:focus + label,
+.floating-group input:not(:placeholder-shown) + label {
+    top: 4px;           /* REMONTE mais reste DANS le champ */
+    left: 10px;
+    font-size: 12px;    /* plus petit mais propre */
+    color: #777;        /* NE CHANGE PAS DE COULEUR */
+    background: transparent; /* pas de fond ! */
+}
+
+
+/*--- PAGE REGISTER ---*/
+.register-content
+{
+    max-width: 900px; 
+    margin: clamp(24px,5vw,56px) auto; 
+    padding:0 16px;
+}
+.h1_register
+{   
+    margin:10px 0 24px;
+    text-align:center; 
+    font-size:28px; 
+    line-height:1.2;
+    font-weight:800; 
+    letter-spacing:.2px;
+}
+.card
+{
+    background:var(--card);
+    border-radius:20px;
+    padding:50px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    border:1px solid rgba(0,0,0,.05);
+}
+.grid
+{
+    display:grid; 
+    gap:18px;
+    grid-template-columns: repeat(4,1fr);
+}
+.col-1
+{
+    grid-column:span 2;
+}
+.col-2
+{
+    grid-column:span 4;
+}
+.col-3
+{
+  grid-column:span 2/4;
+}
+@media (max-width: 760px)
+{
+    .grid{ grid-template-columns:1fr; }
+    .col-1,.col-2,.col-3{ grid-column: 1; }
+}
+/* Boutons “segmented” (Homme/Femme etc.) */
+.seg
+{
+    display:flex; 
+    gap:10px;
+}
+.seg input{ 
+    display:none; 
+}
+.seg label{
+    user-select:none; 
+    cursor:pointer; 
+    padding:10px 14px; 
+    border-radius:10px;
+    border:1px solid var(--stroke); 
+    background:#fff; 
+    min-width:110px; 
+    text-align:center; 
+    font-weight:600;
+}
+.seg input:checked + label{
+    background:#111; 
+    color:#fff; 
+    border-color:#111;
+}
+
+/* Fichiers */
+.fiel {
+    position:relative; 
+    display:inline-flex; 
+    align-items:center; 
+    gap:10px;
+    padding:10px 14px; 
+    border-radius:10px; 
+    border:1px dashed var(--stroke); 
+    background:#fff; 
+    height:var(--field-h);
+    cursor: default;   /* ou rien du tout */
+}
+
+.file input{ 
+    position:absolute; 
+    inset:0; 
+    opacity:0; 
+    cursor:pointer; 
+}
+
+.warning-banner {
+    background: #fff5cc;
+    padding: 14px 16px;
+    border-left: 5px solid #f1c40f;
+    border-radius: 10px;
+    color: #7d6b00;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+
+
+/*--- Aides ---*/
+.row-inline
+{ 
+    display:flex; 
+    gap:18px; 
+    align-items:center; 
+}
+.muted
+{
+    color:var(--muted); 
+    font-size:.92rem; 
+}
+.actions
+{ 
+    display:flex; 
+    justify-content:center; 
+    margin-top:24px; 
+}
+
+/*--- soumettre de la page register ---*/
+.submit {
+    width: 100%;
+    max-width: 520px;
+    padding: 14px 0;
+    border: none;
+    border-radius: 10px;
+
+    background: #000;
+    color: #fff;
+
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: 0.2s ease;
+}
+
+.submit:hover {
+    background: #222;
+    transform: translateY(1px);
+}
+
+.submit:active {
+    transform: translateY(2px);
+}
+
+
+.foot {
+    margin-top: 10px;
+    font-size: .95rem;
+    text-align: center;             
+}
+.foot a{ 
+    color:#000; 
+    font-weight:700; 
+    text-decoration:none; 
+}
+.foot a:hover{ 
+    text-decoration:underline; 
+    text-underline-offset:3px; 
+}
+
+.checks
+{
+    display:flex; 
+    flex-direction:column; 
+    gap:10px; 
+    margin-top:6px;
+}
+.checks label{ 
+    font-weight:600; 
+}
+.checks input{ 
+    width:18px; 
+    height:18px; 
+}
+
+/* Champs du formulaire d'inscription */
+.card .input-field {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 10px 14px;
+  margin-top: 6px;
+}
+
+.card .input-field input,
+.card .input-field select {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  font-family: var(--font-main);
+}
+
+
+.card .input-field input[type="date"] {
+  padding-right: 10px;
+}
+
+
+.card .input-field input::placeholder {
+  color: #aaa;
+}
+
+
+.register-header {
+  background-color: var(--color-rose-2);
+  padding: 50px 20px 100px;
+  text-align: center;
+  position: relative;
+  overflow: visible;
+}
+
+.register-header h1 {
+  font-size: 30px;
+  font-weight: 800;
+  color: #111;
+}
+
+.register-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -30px;
+  width: 100%;
+  height: 220px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+
+  background-image: url("data:image/svg+xml;utf8,\<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'>\<path fill='%23ffffff' d='M0,256 C240,320 1200,320 1440,256 L1440,320 L0,320 Z' />\</svg>");
+}
+
+/* les boutons "Ajouter fichier */
+.file {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.file span {
+    display: inline-block;
+    background: #e9e9e9;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    border: 1px solid #ccc;
+    transition: all 0.25s ease;
+}
+
+.file span:hover {
+    background: #dcdcdc;
+    border-color: #b5b5b5;
+}
+
+.file input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+
+/*--- PAGE FAQ ---*/
+.faq-header {
+  background-color: var(--color-rose-2);
+  padding: 50px 20px 100px;      
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.faq-header h1 {
+  font-size: 30px;
+  font-weight: 800;
+  color: #111;
+}
+
+.faq-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -30px; 
+  width: 100%;
+  height: 220px; 
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+
+  background-image: url("data:image/svg+xml;utf8,\<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'>\<path fill='%23ffffff' d='M0,256 C240,320 1200,320 1440,256 L1440,320 L0,320 Z' />\</svg>");
+}
+
+/* Contenu FAQ */
+.faq-container {
+  max-width: 900px;
+  margin: 70px auto 100px;
+  padding: 0 20px;
+}
+
+.faq-item {
+  margin-bottom: 40px;
+}
+
+.faq-item h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.faq-item p {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* FAQ Accordéon Design */
+.faq-accordion {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+}
+
+.faq-question {
+    width: 100%;
+    padding: 18px 20px;
+    font-size: 17px;
+    font-weight: 700;
+    background: #fff;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-question .arrow {
+    transition: transform 0.3s;
+}
+
+.faq-question.active .arrow {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    background: #fafafa;
+    transition: max-height 0.35s ease;
+    padding: 0 20px;
+}
+
+.faq-answer p {
+    padding: 15px 0 20px;
+    margin: 0;
+    font-size: 15px;
+    color: #444;
+}
+
+
+/*--- PAGE CONTACT ---*/
+.contact-header {
+  background-color: var(--color-rose-2);
+  padding: 50px 20px 100px;  
+  text-align: center;
+  position: relative;
+  overflow: visible;
+}
+
+.contact-header h1 {
+  font-size: 30px;
+  font-weight: 800;
+  color: #111;
+}
+
+.contact-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -30px; 
+  width: 100%;
+  height: 220px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+
+  background-image: url("data:image/svg+xml;utf8,\<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'>\<path fill='%23ffffff' d='M0,256 C240,320 1200,320 1440,256 L1440,320 L0,320 Z' />\</svg>");
+}
+
+
+/*--- FORMULAIRE CONTACT ---*/
+.contact-container {
+    max-width: 900px;
+    margin: 40px auto 80px;
+    padding: 0 20px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.full {
+    width: 100%;
+}
+
+/*--- BUTTON ---*/
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    opacity: 0.9;
+}
+
+
+/*---  pop up notif animé de la page contact ---*/
+.toast {
+    position: fixed;
+    top: -80px;               
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4CAF50;
+    color: white;
+    padding: 15px 22px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 9999;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition:
+        top 0.5s cubic-bezier(.25,.1,.25,1),
+        opacity 0.5s ease;
+}
+
+.toast.show {
+    top: 20px;              
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.toast.success {
+    background: #4CAF50;
+}
+
+.toast.error {
+    background: #E53935;
+}
+
+
+/*--- message d'erreur sur la page de connexion ---*/
+.error-message {
+    background: #ffdddd;
+    border-left: 4px solid #ff5555;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    color: #b30000;
+    font-size: 14px;
+}
+
+
+/*--- pop up notif animé une fois connecté ---*/
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4CAF50;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 5000;
+}
+
+.toast.show { opacity: 1; }
+.hidden { display: none; }
+
+
+/*--- création d'un compte réussi message ---*/
+.success-banner {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 15px 25px;
+    background: #d4f5d4;
+    border-left: 6px solid #2ecc71;
+    color: #1e7c39;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.06);
+}
+
+.success-banner .icon {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2ecc71;
+}
+
+
+/* --- USER INFO NAVBAR --- */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Déconnexion à gauche */
+.logout-left {
+    background: #111;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 10px;
+}
+
+/* Dropdown profil */
+.profile-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.profile-header:hover {
+    background: #e5e5e5;
+}
+
+.profile-dropdown .avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+}
+
+.user-text {
+    line-height: 1;
+}
+
+.user-name {
+    font-weight: 600;
+}
+
+.user-id {
+    font-size: 12px;
+    color: #777;
+}
+
+.arrow {
+    font-size: 16px;
+    margin-left: 5px;
+    color: #555;
+}
+
+/* MENU DÉROULANT du profil user */
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 55px;
+    background: #fff;
+    width: 160px;
+    border-radius: 12px;
+    padding: 8px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: none;
+    z-index: 20;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.dropdown-menu a:hover {
+    background: #f3f3f3;
+}
+
+.profile-dropdown.active .dropdown-menu {
+    display: block;
+}
+
+
+
+
+/* BARRE DE RECHERCHE EN HAUT */
+.search-header {
+    width: 100%;
+    background: #eacbc8;
+    padding: 40px 0 60px;
+    text-align: center;
+}
+
+.search-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+/* Barre horizontale */
+/* Carte blanche derrière la barre de recherche horizontale */
+.search-top {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    /* NOUVEAU : fond façon "carte" */
+    background: #ffffff;
+    padding: 20px 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 13px rgb(0 0 0 / 10%);
+    width: fit-content;
+    max-width: 1100px;
+    margin: 0 auto;   /* centre la carte sous le titre */
+}
+
+
+.search-top .field {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.search-top label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #444;
+}
+
+.search-top select,
+.search-top input[type="date"],
+.search-top input[type="number"] {
+    padding: 10px 14px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: white;
+    width: 200px;
+}
+
+/* Bouton recherche */
+.btn-search {
+    padding: 12px 24px;
+    background: black;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn-search:hover {
+    opacity: .8;
+}
+
+
+
+/* ZONE FILTRES + RESULTATS (page recherche.php) */
+.recherche-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 50px 0;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 80px;
+}
+
+/* CONTENU DE FILTRES */
+.filtres {
+    width: 250px;
+    background: white;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 4px 13px rgba(0,0,0,0.10);
+    align-self: flex-start;
+    height: auto;
+    max-height: none; 
+}
+
+.filtres h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.filtres label {
+    font-size: 14px;
+    margin: 10px 0 5px;
+    display: block;
+}
+
+.filtres input,
+.filtres select {
+    width: 100%;
+    max-width: none;      
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.filtres-form label {
+    margin-top: 12px;
+    font-size: 14px;
+    display: block;
+}
+
+.filtres-form input,
+.filtres-form select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.btn-filtrer {
+    margin-top: 15px;
+    width: 100%;
+    background: black;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+/*--- zone préférence du filtre ---*/
+.pref-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.pref-check input {
+    display: none;
+}
+
+.check-box {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 2px solid #aaa;
+    position: relative;
+    transition: 0.2s;
+    display: flex;    
+}
+
+.pref-check input:checked + .check-box {
+    background: #131313;
+    border-color: #131313;
+}
+
+.pref-check input:checked + .check-box::after {
+    content: "✔";
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+}
+
+.pref-icon {
+    margin-left: auto;
+    width: 20px;
+    height: 20px;
+}
+
+.pref-icon svg {
+    width: 100%;
+    height: 100%;
+    color: #131313;
+}
+
+/* --- forcer les svg à droites --- */
+.pref-check {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+.check-box {
+    width: 20px !important;
+    height: 20px !important;
+    border: 2px solid #aaa !important;
+    border-radius: 5px !important;
+    flex-shrink: 0 !important;
+}
+
+.pref-icon {
+    margin-left: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 24px !important;
+    height: 24px !important;
+    flex-shrink: 0 !important;
+}
+
+.pref-icon svg {
+    width: 100% !important;
+    height: 100% !important;
+    color: #555 !important;
+}
+
+
+.result-count {
+    text-align: right;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 10px 5px 20px;
+    color: #444;
+}
+
+
+.loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 45px;
+    height: 45px;
+    margin: -22px 0 0 -22px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #222;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    z-index: 9999;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+
+/* Animation d'apparition des cartes */
+.trajet-card {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: fadeInUp 0.45s ease forwards;
+}
+
+
+/* Animation légèrement décalée entre chaque carte */
+.trajet-card:nth-child(1) { animation-delay: 0.05s; }
+.trajet-card:nth-child(2) { animation-delay: 0.10s; }
+.trajet-card:nth-child(3) { animation-delay: 0.15s; }
+.trajet-card:nth-child(4) { animation-delay: 0.20s; }
+.trajet-card:nth-child(5) { animation-delay: 0.25s; }
+/* prolonger si besoin */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+
+.recherche-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+
+/* Colonne résultats */
+.resultats {
+    flex: 1;
+}
+
+.resultats h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.empty-info {
+    font-size: 16px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+
+
+
+/* page publier trajet */
+.publish-container {
+    width: 90%;
+    max-width: 900px;
+    margin: 80px auto;
+}
+
+.publish-container h1 {
+    font-size: 32px;
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+.publish-box {
+    background: white;
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.publish-box input,
+.publish-box select,
+.publish-box textarea {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.publish-box textarea {
+    min-height: 100px;
+    resize: none;
+}
+
+.submit-publish {
+    margin-top: 10px;
+    padding: 14px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.submit-publish:hover {
+    opacity: 0.8;
+}
+
+.success-publish {
+    color: #2ecc71;
+    font-weight: bold;
+    text-align: center;
+}
+
+.error-msg {
+    color: #e74c3c;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* champ ville depart et arrivée */
+.ville-wrapper {
+    position: relative;
+}
+
+.ville-wrapper input {
+    width: 100%;
+    box-sizing: border-box;
+}
+.suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    max-height: 160px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+}
+
+.suggestion-item {
+    padding: 10px 12px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.suggestion-item:hover {
+    background: #f5f5f5;
+}
+
+.trajet-card {
+    background: white;
+    padding: 22px;
+    margin-bottom: 22px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.trajet-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.trajet-avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.trajet-driver {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.trajet-hour {
+    font-size: 14px;
+    color: #555;
+}
+
+.trajet-route {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.trajet-desc {
+    font-size: 14px;
+    color: #666;
+    margin-top: 3px;
+}
+
+.trajet-right {
+    text-align: right;
+}
+
+.trajet-price {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.trajet-middle {
+    margin-left: -70px; 
+}
+
+
+
+.btn-book {
+    background: black;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.trajet-detail {
+    margin-top: 20px;
+}
+
+.btn-book {
+    background: black;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.btn-book:hover {
+    opacity: 0.9;
+}
+
+.btn-reserver {
+    display: inline-block;
+    background: #000;
+    color: #fff !important;
+    padding: 10px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s ease-in-out;
+}
+
+.btn-reserver:hover {
+    background: #222;
+}
+
+
+
+
+/* PAGE MES TRAJETS */
+.trajets-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 60px auto;
+    padding-bottom: 80px;
+}
+
+.trajets-container h1 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 40px;
+}
+
+/* Onglets */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 15px;
+}
+
+.tab {
+    padding: 12px 22px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.tab.active {
+    background: black;
+    color: white;
+    border-color: black;
+}
+
+.tab.disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Cartes communes */
+.trajet-card {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.trajet-card .left,
+.trajet-card .center,
+.trajet-card .right {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Partie gauche */
+.trajet-avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+
+/* Partie droite */
+.right {
+    text-align: right;
+}
+
+/* Statuts de la réservation */
+.status {
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status.pending {
+    background: #FFF4CC;
+    color: #A67C00;
+}
+
+.status.ok {
+    background: #D9FFE3;
+    color: #1B8E3E;
+}
+
+.status.no {
+    background: #FFD6D6;
+    color: #C0392B;
+}
+
+/* Passagers en attente */
+.passager-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #F9F9F9;
+    padding: 12px 15px;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+
+.avatar-sm {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Boutons accepter/refuser */
+.btn-ok {
+    padding: 8px 14px;
+    background: #2ECC71;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.btn-no {
+    padding: 8px 14px;
+    background: #E74C3C;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.btn-ok:hover { background: #27AE60; }
+.btn-no:hover { background: #C0392B; }
+
+/* Message si pas conducteur */
+.not-conducteur {
+    background: #FFF4F4;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #FFB5B5;
+    color: #C70000;
+    font-weight: 600;
+}
+
+
+/* message confirmation supprimer le trajet */
+.flash-success {
+    background: #d4f8d4;
+    color: #267326;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.flash-error {
+    background: #ffd8d8;
+    color: #b40000;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+
+/* === PAGE ADMIN (panneau) === */
+.admin-main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.admin-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.admin-section {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-bottom: 40px;
+}
+
+.admin-section h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+/* TABLES */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+.admin-table th {
+    background: #f4f4f4;
+    padding: 12px;
+    text-align: left;
+    font-weight: 700;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* BADGES ROLES */
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.badge-admin {
+    background: #8e44ad;
+}
+
+.badge-conducteur {
+    background: #2ecc71;
+}
+
+.badge-passager {
+    background: #3498db;
+}
+
+/* BOUTONS ADMIN */
+.btn-admin-success {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #2ecc71;
+    color: #fff;
+    font-size: 13px;
+    text-decoration: none;
+}
+.btn-admin-success:hover {
+    background: #27ae60;
+}
+
+.admin-icon,
+.admin-table a {
+    text-decoration: none !important;
+}
+
+
+/* FLASH MESSAGES */
+.flash-success {
+    background: #d4f8df;
+    padding: 12px;
+    border-radius: 10px;
+    border-left: 5px solid #2ecc71;
+    margin-bottom: 20px;
+}
+
+.flash-error {
+    background: #ffd4d4;
+    padding: 12px;
+    border-radius: 10px;
+    border-left: 5px solid #e74c3c;
+    margin-bottom: 20px;
+}
+
+.admin-actions-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+    align-items: flex-start;
+}
+
+
+
+
+/* ==== ADMIN FAQ ==== */
+.admin-main {
+    max-width: 1000px;
+    margin: 40px auto 80px;
+    padding: 0 16px;
+}
+
+.admin-title {
+    font-size: 28px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-block {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+    padding: 24px 28px;
+    margin-bottom: 24px;
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.admin-form textarea {
+    width: 100%;
+    min-height: 80px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px 12px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.btn-admin-primary {
+    align-self: flex-start;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: none;
+    background: #000;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-admin-primary:hover {
+    opacity: .85;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.admin-table th,
+.admin-table td {
+    border-bottom: 1px solid #eee;
+    padding: 8px 10px;
+    vertical-align: center;
+    text-align: left;
+    
+}
+
+.admin-table th {
+    font-weight: 700;
+    background: #fafafa;
+}
+
+.btn-admin-danger {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #e53935;
+    color: #fff;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.btn-admin-danger:hover {
+    background: #c62828;
+}
+
+.admin-form textarea {
+    width: 97%;           
+    align-self: flex-start;
+}
+
+
+/* --- ADMIN TOOLBAR --- */
+.admin-toolbar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.admin-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    background: var(--color-rose-2);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+.admin-btn:hover {
+    background: #d4afac;
+    transform: translateY(-2px);
+}
+
+/* Versions désactivées */
+.admin-btn.disabled {
+    background: #777;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.admin-btn.disabled:hover {
+    background: #777;
+    transform: none;
+}
+
+
+
+/*zone de recherche (depuis l'accueil) */
+.search-box .city-input {
+    width: 100%;
+    font-size: 14px;
+    border: 1px solid #ddd !important;
+    border-radius: 10px !important;
+    background: #fff !important;
+    padding: 12px 14px 12px 40px !important; /* même padding que select */
+    outline: none;
+    box-sizing: border-box;
+}
+
+.search-box .input-field:has(.city-input) {
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+.search-box .input-field .icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.autocomplete-list {
+    position: absolute;
+    top: 48px; /* pile sous ton champ */
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    max-height: 180px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    display: none; /* cachée par défaut */
+}
+
+/* éléments de la liste */
+.autocomplete-list div {
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.autocomplete-list div:hover {
+    background: #f4f4f4;
+}
+
+
+
+
+
+
+
+/* champ texte zone recherche départ / arrivée page recherche */
+.search-top .city-input {
+    padding: 10px 14px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: white;
+    width: 200px;
+    box-sizing: border-box;
+}
+
+
+.autocomplete-list {
+    position: absolute;
+    margin-top: 4px;
+    width: 315px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    max-height: 180px;
+    overflow-y: auto;
+    z-index: 9999;
+    display: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Items de la liste */
+.autocomplete-list div {
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.autocomplete-list div:hover {
+    background: #f4f4f4;
+}
+
+.search-top .field {
+    position: relative;   
+}
+
+
+
+/* ==== PAGE PROFIL / MON COMPTE ==== */
+.account-container {
+    max-width: 1000px;
+    margin: 40px auto 80px;
+    padding: 0 20px;
+}
+
+.account-container h1 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+.account-card {
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.04);
+    padding: 35px 30px;
+    margin-bottom: 25px;
+}
+
+.account-header-card {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.account-avatar-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.account-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatar-form .btn-outline {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid #111;
+    font-size: 13px;
+    cursor: pointer;
+    background: #fff;
+}
+
+.account-header-info h2 {
+    margin: 0 0 4px;
+}
+
+.account-header-info p {
+    margin: 0;
+    color: #555;
+}
+
+.account-date-inscription {
+    margin-top: 5px;
+    font-size: 13px;
+    color: #888;
+}
+
+.account-form {
+    margin-top: 18px;
+}
+
+.account-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 40px;
+    row-gap: 22px;
+    margin-top: 15px;
+}
+
+.account-grid-conducteur {
+    margin-bottom: 8px;
+}
+
+/* champ date */
+.field label {
+    display: block;
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+.field input,
+.field select {
+    width: 100%;
+    padding: 9px 11px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.field input:disabled {
+    background: #f7f7f7;
+    color: #888;
+}
+
+.field input,
+.field select {
+    width: 100% !important;
+    min-width: 0; /* <-- évite le rétrécissement visuel */
+    box-sizing: border-box;
+}
+
+.account-separator {
+    margin: 22px 0 16px;
+    border: none;
+    border-top: 1px solid #eee;
+}
+
+.account-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+.badge-superdriver { background: #f4DAD7; color: #856c6a; }
+.badge-success { background: #d4f5dd; color: #1f7a3a; }
+.badge-warning { background: #ffe8c7; color: #a66300; }
+.badge-info    { background: #e0f0ff; color: #1f5f9a; }
+.badge-neutral { background: #f2f2f2; color: #555; }
+
+.prefs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px 22px;
+    margin-top: 6px;
+}
+
+.pref-group span {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.pref-buttons {
+    display: inline-flex;
+    border-radius: 999px;
+    background: #f5f5f5;
+    padding: 3px;
+    gap: 3px;
+}
+
+.pref-btn {
+    cursor: pointer;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: background .15s, color .15s;
+}
+
+.pref-btn input {
+    display: none;
+}
+
+.pref-btn.active {
+    background: #111;
+    color: #fff;
+}
+
+.account-actions {
+    margin-top: 22px;
+    text-align: right;
+}
+
+.btn-primary {
+    padding: 8px 20px;
+    border-radius: 999px;
+    border: none;
+    background: #111;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-primary:hover {
+    opacity: .8;
+}
+
+/* Message en attente admin */
+.doc-waiting {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #555;
+}
+
+/* Historique rapide */
+.account-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.link-more {
+    font-size: 14px;
+    text-decoration: underline;
+    color: #111;
+}
+
+.history-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 10px;
+}
+
+.history-card {
+    min-width: 180px;
+    flex: 1 1 200px;
+    max-width: 230px;
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 13px;
+}
+
+.history-card-future {
+    background: #fbe4e4;
+}
+
+.history-card-past {
+    background: #b7c8b3; 
+}
+
+.history-title {
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.history-price {
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.history-role {
+    font-size: 12px;
+    color: #555;
+}
+
+/* Flash messages */
+.flash-success {
+    background: #d4f5dd;
+    color: #1f7a3a;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.flash-error {
+    background: #ffe8c7;
+    color: #a66300;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* --- Sécurité / Mon compte --- */
+.account-security h2 {
+    margin-bottom: 8px;
+}
+
+.security-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 18px;
+}
+
+.security-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px 24px;
+}
+
+.security-item {
+    background: #f9f9fb;
+    border-radius: 16px;
+    padding: 14px 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+}
+
+.security-item h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+}
+
+.security-item p {
+    margin: 0 0 12px;
+    font-size: 14px;
+    color: #555;
+}
+
+.security-btn {
+    display: inline-block;
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1px solid #111;
+    font-size: 13px;
+    text-decoration: none;
+    color: #111;
+    background: #fff;
+    transition: background .15s, color .15s, box-shadow .15s;
+}
+
+.security-btn:hover {
+    background: #111;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* champ pour edit la desc depuis mon compte */
+.textarea-field {
+    width: 100%;
+    max-width: 915px; 
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* lien redirigeable depuis mon compte vers profil public */
+.account-header-card {
+    position: relative;
+}
+
+.view-public-link {
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+    font-size: 14px;
+    color: #000;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.view-public-link:hover {
+    text-decoration: underline;
+}
+
+/* section documents (mon compte) */
+.documents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.doc-item {
+    background: white;
+    border-radius: 14px;
+    padding: 2px 24px 22px 24px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.doc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px; 
+}
+
+.doc-expire-info {
+    font-size: 13px;
+    color: #e0a7a2;
+    font-weight: 600;
+}
+
+/* Badges statut */
+.doc-status {
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    width: fit-content;
+}
+
+.doc-valid { 
+    background:#e7f8ec; 
+    color:#0f8a43; 
+}
+
+.doc-missing { 
+    background:#fde8e8; 
+    color:#d19b96;
+}
+
+/* Lien doc */
+.doc-view {
+    display:flex;
+    align-items:center;
+    font-size:14px;
+    color:#222;
+    font-weight:500;
+}
+
+/* Extra info */
+.doc-extra p {
+    margin: 4px 0;
+    font-size: 13px;
+    color:#444;
+}
+
+.doc-valid-admin {
+    color:#0f8a43;
+}
+
+.doc-await {
+    color:#C05C56;
+}
+
+.doc-denied {
+    color:#cc0000;
+}
+
+/* Bouton upload */
+.doc-upload-btn {
+    background:#111;
+    color:white;
+    padding:8px 22px;
+    border-radius:999px;
+    cursor:pointer;
+    font-size:14px;
+    display:inline-block;
+}
+
+.doc-upload-btn:hover {
+    opacity: .8;
+}
+
+.doc-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    text-align: center;   
+    gap: 12px;            
+    margin-top: 6px;
+}
+
+.account-badges-top {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+
+
+
+
+
+/* === Profil public === */
+.public-profile h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-rating {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+}
+
+
+.profile-rating-text {
+    font-weight: 500;
+}
+
+.profile-rating-sub {
+    font-weight: 400;
+    color: #777;
+    font-size: 13px;
+}
+
+/* Liste des avis */
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 35px;
+}
+
+.review-card {
+    border-radius: 14px;
+    background: #fafafa;
+    padding: 10px 12px;
+}
+
+.review-header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.review-avatar img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.review-meta {
+    flex: 1;
+}
+
+.review-sub {
+    font-size: 12px;
+    color: #777;
+    margin-top: 2px;
+}
+
+.review-note {
+    font-size: 13px;
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.review-comment {
+    margin: 8px 0 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.badge-neutral {
+    background: #bcd5fce0; 
+    color: #0f3670e0;      
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.prefs-line {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 10px;
+}
+
+.prefs-line span {
+    display: inline-flex;       
+    align-items: center;        
+    gap: 6px;                   
+    font-size: 15px;
+}
+
+.prefs-line span svg {
+    width: 20px;
+    height: 20px;
+    margin: 0;                  
+    flex-shrink: 0;             
+}
+
+
+.pref-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    width: 170px;      
+}
+
+.pref-icon {
+    width: 25px;
+    height: 25px;
+    color: #2B2B2B;
+}
+
+.pref-badge {
+    padding: 3px 10px;
+    font-size: 13px;
+    border-radius: 10px;     
+    display: inline-block;
+    width: 105px;           
+    text-align: center;
+}
+
+.pref-yes {
+    background: #D6F5D6;
+    color: #2E7D32;
+}
+
+.pref-no {
+    background: #F5D6D6;
+    color: #C62828;
+}
+
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+    margin-top: 10px;
+}
+
+.history-card {
+    padding: 14px 18px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+}
+
+/* Futurs trajets → rose/saumon */
+.history-card-future {
+    background: #fde8e8;
+}
+
+/* Passés → vert pâle */
+.history-card-past {
+    background: #b7c8b3;
+}
+
+.history-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.history-price {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.history-role {
+    font-size: 13px;
+    color: #444;
+}
+
+.star,
+.profile-rating-star,
+.review-note-star {
+    color: #ffb4ac !important;
+    font-size: 20px !important;
+}
+
+.star.empty {
+    color: #ddd !important;
+}
+
+
+
+
+
+
+/* bouton avis sur la page mes trajets */
+.avis-right {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+}
+
+.link-avis {
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link-avis:hover {
+    text-decoration: underline;
+}
+
+.trajet-card,
+.trajet-card-conducteur {
+    position: relative;
+}
+
+
+
+/* === page formulaire avis === */
+.avis-wrapper {
+    width: 480px;
+    margin: 60px auto;
+    padding: 35px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+/* —— TITRE —— */
+.avis-title {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.avis-nom {
+    color: #222;
+}
+
+/* ——LABELS —— */
+.label {
+    font-weight: 600;
+    display: block;
+    text-align: left;
+    margin: 10px 0 6px;
+}
+
+/* ——RATING —— */
+.rating {
+    direction: rtl;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 28px;
+    color: #ccc;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #ffb4ac;
+}
+
+.note-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* ——TEXTAREA —— */
+.avis-textarea {
+    width: 100%;
+    max-width: 480px;
+    height: 110px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 12px;
+    resize: none;
+    outline: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.avis-textarea:focus {
+    border-color: #ffb400;
+    box-shadow: 0 0 6px rgba(255,180,0,0.3);
+}
+
+/* —— BUTTON —— */
+.btn-envoyer {
+    width: 100%;
+    margin-top: 22px;
+    padding: 12px;
+    background: #000;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .2s;
+}
+
+.btn-envoyer:hover {
+    background: #222;
+}
+
+
+
+/* === POP up apres avoir laissé un avis du trajet === */
+.popup-success {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4caf50;
+    color: white;
+    padding: 14px 22px;
+    border-radius: 6px;
+    font-size: 15px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    z-index: 9999;
+    animation: fadeIn 0.5s ease-out;
+    transition: opacity 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+
+
+/* Espace mes trajets réservation/futur/réalisés (conducteur only) */
+.trajet-card-conducteur {
+    background: white;
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.trajet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.trajet-header h3 {
+    font-size: 19px;
+    margin: 0;
+    font-weight: 700;
+}
+
+.delete-btn {
+    font-size: 20px;
+    text-decoration: none;
+    color: #444;
+    transition: 0.2s;
+}
+.delete-btn:hover {
+    color: #ff3f3f;
+}
+
+.trajet-info {
+    margin: 12px 0 20px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.passenger-title {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.no-passengers {
+    color: #777;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+/* Carte passager */
+.passenger-card {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.passenger-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.passenger-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.passenger-name {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.passenger-places {
+    font-size: 13px;
+    color: #666;
+}
+
+.passenger-actions a {
+    padding: 6px 14px;
+    border-radius: 8px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.passenger-actions {
+    display: flex;
+    gap: 12px; /* espace propre */
+}
+
+.btn-accept, .btn-refuse {
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-accept {
+    background: #2ecc71;
+}
+
+.btn-refuse {
+    background: #e74c3c;
+}
+
+.btn-accept:hover,
+.btn-refuse:hover {
+    opacity: 0.85;
+    cursor: pointer;
+}
+
+
+
+/* === Conteneur des passagers acceptés mes trajets à venir (conducteur) === */
+.accepted-passengers {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.mini-passenger {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    padding: 8px 14px;
+    border-radius: 8px; 
+    min-width: 160px;   
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.mini-passenger-avatar {
+    width: 36px;   /* Légèrement plus grand */
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.mini-passenger-name {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+
+
+
+
+/* === Conteneur des passagers "trajets à venir" (passager/conducteur) === */
+.trajet-card-2 {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+.trajet-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.separator {
+    margin: 20px 0;
+    border: none;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.passager-section-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.passager-list {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.trajet-top .left {
+    display: flex;
+    flex-direction: column;  
+    align-items: flex-start; 
+    gap: 3px;               
+}
+
+.passager-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background: #fff;                     
+    border: 1px solid #e5e5e5;           
+    padding: 8px 14px;                    
+    border-radius: 8px;                  
+    min-width: 160px;                   
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); 
+}
+
+.passager-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.passager-name {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+
+/* === style des passagers pour les trajets réalisés (conducteur) === */
+.passenger-card {
+    background: #fff !important;
+    border: 1px solid #e5e5e5;
+    padding: 8px 14px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: fit-content;     
+    min-width: 160px;
+    margin-bottom: 12px;
+}
+
+.passenger-avatar {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.passenger-name {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    margin: 0;
+}
+
+.passenger-places {
+    font-size: 13px;
+    color: #666;
+    margin: 0;
+}
+
+.passenger-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+/* === Conteneur trajet/passager de la page mes trajets réalisés (passager) === */
+.passengers-section {
+    margin-top: 25px;
+}
+
+.separator {
+    margin: 10px 0 15px;
+    border: none;
+    border-top: 1px solid #e5e5e5;
+    width: 100%;
+}
+
+.passenger-list {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.mini-passenger {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    padding: 6px 10px;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.mini-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.trajet-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;     
+}
+
+.passengers-section {
+    width: 100%;
+    margin-top: 0px;
+}
+
+.passengers-section strong {
+    display: block;
+    margin-bottom: 8px; 
+}
+
+.trajet-card.trajet-passe .center {
+    flex: 1 1 100%;
+    text-align: center;
+    margin-top: -150px;
+}
+
+/* Conteneur des passagers */
+.passenger-list,
+.passager-list,
+.accepted-passengers {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.mini-passenger,
+.passager-box,
+.passenger-card {  
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    padding: 8px 14px;
+    border-radius: 8px;
+    min-width: 160px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    width: fit-content;
+}
+
+.mini-avatar,
+.passager-avatar,
+.passenger-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.mini-passenger span,
+.passager-box .passager-name,
+.passager-card .passenger-name,
+.passenger-left span {
+    font-size: 15px;
+    font-weight: 700; 
+    color: #000;
+}
+
+.passenger-places {
+    font-size: 13px;
+    color: #666;
+}
+
+.passenger-left span {
+    font-size: 15px;
+    font-weight: 700 !important;
+    color: #000;
+}
+
+.passenger-list-realises {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+
+/* Hover sur avatar + prénom (page rechercher) */
+.driver-link:hover {
+    background: rgba(0,0,0,0.05);
+    cursor: pointer;
+}
+
+/* Réduction du léger décalage */
+.trajet-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Avatar rond propre */
+.trajet-avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+
+/* === Page réserver un trajet === */
+.page-container {
+    max-width: 950px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.box {
+    background:white;
+    border-radius:18px;
+    padding:25px 30px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+    margin-bottom:35px;
+}
+
+/* BOX 1 - CARTE TRAJET */
+.trajet-card-top {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.left-info {
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.trajet-avatar {
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.trajet-title {
+    font-size:22px;
+    font-weight:600;
+    margin-top:12px;
+    text-align:center;
+}
+
+/* BOX 2 */
+.section-title {
+    font-size:19px;
+    font-weight:600;
+    margin-bottom:12px;
+}
+
+.bio-text {
+    font-size:15px;
+    line-height:1.5;
+    color:#444;
+    margin-bottom:20px;
+}
+
+
+.passenger-mini {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#f6f6f6;
+    padding:8px 14px;
+    border-radius:10px;
+    width:fit-content;
+    margin-bottom:8px;
+}
+
+.passenger-mini img {
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+/* BUTTONS */
+.btn-row {
+    display:flex;
+    justify-content:space-between;
+    margin-top:30px;
+}
+
+.btn-back {
+    padding:10px 23px;
+    background:black;
+    color:white;
+    border-radius:8px;
+    text-decoration:none;
+    transition:0.2s;
+}
+.btn-back:hover {
+    background:#333;
+}
+
+
+.btn-confirm {
+    padding:10px 23px;
+    background:#48883a;
+    color:white;
+    border-radius:8px;
+    text-decoration:none;
+    transition:0.2s;
+}
+.btn-confirm:hover {
+    opacity: .8;
+    cursor: pointer;
+}
+
+.btn-back,
+.btn-confirm {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1; 
+}
+
+.box hr {
+    border:0;
+    border-top:1px solid #e5e5e5;
+    margin:25px 0;
+}
+
+/* Passager élargi */
+.passenger-mini.wide {
+    width: 220px;
+}
+
+/* HR plus fin */
+.box hr {
+    border-top: 1px solid #ddd !important;
+}
+
+/* Popup succès */
+.success-popup {
+    text-align:center;
+    background:#2ecc71;
+    color:white;
+    padding:12px 20px;
+    border-radius:8px;
+    margin-bottom:25px;
+}
+
+/* Style normal (base) */
+.driver-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px;               
+    border-radius: 10px;        
+    text-decoration: none;
+    color: inherit;
+    transition: background .2s; 
+}
+
+/* Hover page reserver */
+.driver-link:hover {
+    background: rgba(0,0,0,0.05);
+    cursor: pointer;
+}
+
+.driver-link .trajet-avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.pref-icon {
+    width: 25x;          
+    height: 25px;
+    vertical-align: -3px; 
+    margin-right: 6px;    
+    display: inline-block;
+    color: currentColor;  
+}
+
+.vehicle-line {
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center; 
+    gap: 6px;
+    margin: 4px 0;
+}
+
+
+
+/* bouton numero du tel côté conducteur vers passager */
+.phone-separator {
+    border: 0;
+    border-top: 1px solid #efefef;
+    margin: 8px 0 12px;
+}
+
+/* Conteneur */
+.phone-reveal {
+    margin-top: 5px;
+    text-align: center;
+}
+
+/* Bouton noir avant affichage */
+.btn-show-phone {
+    background: black;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.btn-show-phone:hover {
+    background: #333;
+}
+
+/* Numéro affiché après clic */
+.phone-number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    font-weight: 600;
+    color: #333;
+    opacity: 1;
+}
+
+/* Icône */
+.phone-icon {
+    font-size: 18px;
+}
+
+/* Caché par défaut */
+.hidden {
+    display: none;
+}
+
+/* Animation premium */
+.fade-slide {
+    animation: fadeSlide 0.35s ease forwards;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+/* bouton numero du tel côté passager vers conducteur */
+.driver-phone-separator {
+    border: 0;
+    border-top: 1px solid #efefef;
+    margin: 8px 0 12px;
+}
+
+/* Conteneur */
+.driver-phone-block {
+    margin-top: 5px;
+    text-align: left; /* garde aligné avec tes infos conducteur */
+}
+
+/* Bouton noir (identique côté conducteur) */
+.btn-show-driver-phone {
+    background: black;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.btn-show-driver-phone:hover {
+    background: #333;
+}
+
+/* Numéro affiché après clic — VERSION PREMIUM */
+.driver-phone-number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    font-weight: 600;
+    color: #000000;
+    opacity: 1;
+}
+
+/* Texte */
+.driver-phone-text {
+    font-size: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+.fade-slide {
+    animation: fadeSlide 0.35s ease forwards;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+/* warning sur la page publier un trajet */
+.profile-warning {
+    background: #fff5cc;
+    border: 1px solid #ffe08a;
+    padding: 15px;
+    border-radius: 10px;
+    color: #8a6d00;
+    margin-bottom: 20px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.btn-edit-profile {
+    display: inline-block;
+    margin-top: 8px;
+    background: #000;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+}
+.btn-edit-profile:hover {
+    background: #333;
+}
+
+
+/* message succès ou non (sur les pages concernés par flash_success) */
+.flash-msg {
+    position: relative;
+    padding: 8px 40px 12px 15px;
+    margin: 10px auto;
+    border-radius: 6px;
+    max-width: 1000px;
+    opacity: 1;
+    transition: opacity .4s ease;
+    align-items: center;
+    
+}
+
+.flash-success {
+    background: #D4F8E8;
+    color: #046A38;
+    border: 1px solid #7CD1A9;
+}
+
+.flash-error {
+    background: #F8D4D4;
+    color: #A30000;
+    border: 1px solid #E29292;
+}
+
+.close-flash {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    cursor: pointer;
+    opacity: .6;
+}
+
+.close-flash:hover {
+    opacity: 1;
+}
+
+
+
+
+/* === Vérification téléphone  page mon compte === */
+.verify-phone-card {
+    margin-top: 20px;
+}
+
+.verify-phone-warning {
+    background: #fff8e6;
+    border: 1px solid #f0d9a5;
+    padding: 18px 22px;
+    border-radius: 14px;
+}
+
+.verify-phone-warning h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.verify-desc {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.btn-verify-phone {
+    display: inline-block;
+    background: #000;
+    color: #fff;
+    padding: 9px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: .25s;
+}
+
+.btn-verify-phone:hover {
+    background: #333;
+}
+
+.verify-phone-success {
+    background: #eaf8ee;
+    border: 1px solid #b9e4c3;
+    padding: 14px 18px;
+    border-radius: 14px;
+    color: #1b5e37;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+
+
+
+/* === Vérification numéro (page verifnum) === */
+.verify-box {
+    width: 100%;
+    max-width: 420px;    
+    margin: 50px auto;
+    padding: 50px 35px;   
+    background: #fff;
+    border-radius: 22px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.10);
+    text-align: left;
+}
+
+.verify-box h3 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.verify-box .verify-desc {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.verify-box .field {
+    margin-bottom: 25px;
+}
+
+.verify-box input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: .2s;
+}
+
+.verify-box input:focus {
+    border-color: #000;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.07);
+}
+
+.verify-box .btn-verify-phone {
+    margin-top: 10px;
+    font-size: 16px;
+    padding: 14px 22px;   
+}
+
+.verify-box .resend-link {
+    display: block;
+    margin-top: 25px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+
+
+/* page mestrajets espacer entre le footer et le contenu body */
+.trajets-container {
+    min-height: calc(100vh - 500px); 
+}
+
+
+
+
+/* css pour le svg timer et ❌ */
+.reservation-timer {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    gap: -15px;
+    top: 2px;
+}
+.reservation-timer svg {
+    vertical-align: middle;
+    margin-right: 2px; 
+}
+
+.reservation-expired {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    gap: -15px;
+    top: 0px;
+}
+
+
+
+
+/* === bandeau mode admin page profil === */
+.admin-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+.admin-link:hover {
+    color: #e67e22;
+    text-decoration: underline;
+}
+
+.admin-banner {
+    position: sticky;
+    top: 10px;
+    margin: 10px auto 20px auto; 
+    z-index: 999;
+
+    background: #fff3e0;
+    text-align: center;
+    border: 1px solid #f0b27a;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    color: #7d5100;
+    font-size: 15px;
+}
+
+
+
+
+/* === page laisser avis === */
+.form-container {
+    width: 500px;
+    margin: 50px auto 120px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+.form-container label {
+    font-weight: 600;
+    margin-top: 15px;
+    display: block;
+}
+
+.rating {
+    display: flex;
+    justify-content: left;
+    margin: -6px 0 18px 5px; 
+}
+.rating label {
+    font-size: 26px;
+    color: #ddd;
+    cursor: pointer;
+    margin-right: 4px;
+    transition: color 0.2s ease;
+}
+.rating input {
+    display: none;
+}
+.rating input:checked ~ label {
+    color: #ffb4ac;
+}
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #ffb4ac;
+}
+
+.form-container textarea {
+    margin-top : 10px;
+    width: 100%;
+    height: 110px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.submit-btn {
+    margin-top: 15px;
+    padding: 12px 18px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    width: 100%;
+    transition: background 0.2s ease;
+}
+.submit-btn:hover {
+    background: #444;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+
+/* === page cgu & mentions légales === */
+.legal-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    min-height: calc(100vh - 400px);
+    flex-wrap: wrap;
+}
+
+.legal-section {
+    flex: 1;
+    min-width: 450px;
+}
+
+.legal-section h2 {
+    font-size: 24px;
+    color: #222;
+    width: 92%;
+    border-bottom: 2px solid var(--color-rose-2);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+@media(max-width: 900px) {
+    .legal-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+}
+
+.legal-column {
+    flex: 1 1 480px; 
+    max-width: 480px;
+    text-align: justify; 
+    line-height: 1.6;
+}
+
+.legal-column h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #111;
+}
+
+.legal-column p {
+    color: #333;
+    margin-bottom: 16px;
+}
+
+
+
+
+/* === backoffice - cgu & mentions légales === */
+.admin-tabs {
+    display: flex;
+    justify-content: center; 
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.admin-tab {
+    background: #f3f3f3;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.admin-tab:hover {
+    transform: translateY(-2px);
+}
+
+.admin-tab.active {
+    background: var(--color-rose-2);
+    color: #fff;
+}
+
+.admin-section-content {
+    display: none;
+}
+
+.admin-section-content.active {
+    display: block;
+}
+
+.admin-textarea {
+    width: 100%;
+    min-height: 140px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.admin-submit {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.admin-submit:hover {
+    background: #219150;
+}
+
+.block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.editable-title {
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    background: transparent;
+    width: 80%;
+    outline: none;
+    transition: 0.2s;
+}
+
+.editable-title:focus {
+    border-bottom: 1px solid #aaa;
+}
+
+.add-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.add-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.add-btn-circle {
+  background: var(--color-rose-2);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.add-btn-circle:hover {
+  transform: scale(1.1);
+  /*box-shadow: 0 3px 6px rgba(0,0,0,0.25);*/
+}
+
+.admin-main .actions button,
+.admin-main .actions a {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 6px;
+  transition: transform 0.15s ease;
+}
+
+
+.admin-main .actions button:hover,
+.admin-main .actions a:hover {
+  transform: scale(1.1);
+}
+
+.editable-title[readonly] {
+  border: none;
+  background: transparent;
+  cursor: default;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.editable-title:not([readonly]) {
+  cursor: text;
+  border-bottom: 1px solid #aaa;
+}
+
+
+
+
+/* === modal (confirmation suppression message) === */
+.confirm-modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px);
+}
+
+.confirm-content {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  width: 380px;
+  max-width: 90%;
+  padding: 25px 30px;
+  text-align: center;
+  animation: popIn 0.25s ease-out;
+}
+
+.confirm-content h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 20px;
+}
+
+.confirm-content p {
+  font-size: 15px;
+  color: #555;
+  margin: 10px 0 20px;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn-confirm-yes {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+.btn-confirm-yes:hover {
+  background: #c0392b;
+}
+
+.btn-confirm-no {
+  background: #f3f3f3;
+  color: #333;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+.btn-confirm-no:hover {
+  background: #ddd;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+
+
+
+/* ===== barre d'onglets mes trajets ===== */
+.tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 40px;
+    position: relative;
+    background: #fff;
+    padding: 15px 25px;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+.tab {
+    position: relative;
+    padding: 12px 25px;
+    background: transparent;
+    border: none;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+    color: #444;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.tab:hover:not(.disabled) {
+    color: #000;
+    transform: translateY(-1px);
+}
+
+.tab.active {
+    color: #000;
+    font-weight: 700;
+}
+
+.tab.active {
+    background: rgba(0,0,0,0.03);
+    border-radius: 10px;
+}
+
+.tabs::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(6px);
+    z-index: -1;
+}
+
+.tab-underline {
+  position: absolute;
+  bottom: 0;
+  height: 3px;
+  background: #eacbc8;
+  border-radius: 3px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.delete-btn:hover {
+  transform: scale(1.1);
+}
+
+
+
+
+/* === 3 box préférences (mes trajets) === */
+.prefs-grid-pro {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  justify-content: center;
+}
+
+.pref-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 14px 20px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+  min-width: 200px;
+}
+
+.pref-card:hover {
+ box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+}
+
+/* === ICONES === */
+.pref-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: #000;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.pref-icon-wrap svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+/* === TEXTE === */
+.pref-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pref-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.pref-status {
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 3px;
+  border-radius: 8px;
+  padding: 3px 8px;
+  display: inline-block;
+  transition: 0.3s ease;
+}
+
+.pref-status.yes {
+  color: #1a7f37;
+  background: #eaf8ee;
+}
+
+.pref-status.no {
+  color: #c0392b;
+  background: #fdebea;
+}
+
+
+
+
+
+/* ===== MENU DÉROULANT ===== */
+.profile-dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    background: #fff;
+    width: 180px;
+    border-radius: 14px;
+    padding: 10px 0;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: all 0.25s ease;
+    z-index: 20;
+}
+
+.dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    right: 20px;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    transform: rotate(45deg);
+    box-shadow: -2px -2px 4px rgba(0,0,0,0.05);
+    z-index: -1;
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.dropdown-menu a svg {
+    width: 16px;
+    height: 16px;
+    color: #444;
+}
+
+.dropdown-menu a:hover {
+    background: #f8f8f8;
+    color: #000;
+    padding-left: 22px; /* léger mouvement fluide */
+}
+
+.profile-dropdown.active .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.profile-dropdown.active .dropdown-menu {
+    animation: dropdownFade 0.25s ease forwards;
+}
+
+@keyframes dropdownFade {
+    0% {
+        opacity: 0;
+        transform: translateY(-8px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+}
+
+
+
+
+/* === FLATPICKR CARAMBA MINIMAL === */
+.flatpickr-calendar {
+  font-family: "Inter", "Poppins", sans-serif;
+  border-radius: 16px !important;
+  overflow: hidden;
+  border: 1px solid #f4d9d7;
+  background: #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  animation: fadeSlide 0.25s ease-out;
+  transform-origin: top center;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Bande rose poudrée du haut */
+.flatpickr-months {
+  background: #fce8e5;
+  height: 48px;
+  border-bottom: 1px solid #f3d1cc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flatpickr-current-month {
+  font-weight: 600;
+  color: #222;
+  font-size: 15px;
+}
+
+.flatpickr-prev-month, .flatpickr-next-month {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: 0.2s ease;
+}
+
+/* Jours */
+.flatpickr-weekday {
+  font-weight: 600;
+  color: #555;
+  font-size: 13px;
+  background: #fff;
+}
+
+.flatpickr-day {
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  color: #333;
+}
+.flatpickr-day:hover {
+  background: #fde7e4;
+  color: #000;
+}
+
+.flatpickr-day.today {
+  border: 1px solid #fff !important;
+  background: #f4c2bc;
+  color: #000;
+  font-weight: 600;
+}
+.flatpickr-day.selected {
+  background: #f4c2bc !important;
+  color: #000 !important;
+  font-weight: 600;
+}
+
+/* Pied du calendrier */
+.flatpickr-calendar .flatpickr-button {
+  color: #eacbc8;
+  font-weight: 600;
+  font-size: 13px;
+  transition: 0.2s;
+}
+.flatpickr-calendar .flatpickr-button:hover {
+  color: #000 !important;
+}
+
+/* Espacement interne */
+.flatpickr-days {
+  padding: 10px 6px !important;
+}
+
+.flatpickr-calendar {
+    min-width: 325px !important; /* augmente la largeur */
+}
+
+/* ajout svg calendrier page recherche */
+.date-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.date-input-wrapper input[type="date"] {
+    width: 100%;
+    padding-right: 42px !important; /* espace pour l’icône */
+    cursor: pointer;
+}
+
+.date-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* pour que les clics ouvrent le calendrier */
+    display: flex;
+    align-items: center;
+}
+
+.date-icon svg {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+}
+
+.date-input-wrapper input:hover + .date-icon svg {
+    opacity: 1;
+}
+
+
+
+
+
+/* === Champ date pour la page d'accueil === */
+.search-box .date-input-wrapper {
+    background: #fff !important;
+    border: 1px solid #e6e6e6 !important;
+    border-radius: 10px !important;
+    height: 42px !important;
+    padding: 0 12px !important;
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 10px;
+}
+
+.search-box .date-icon-home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.search-box .date-icon-home svg {
+    width: 18px;
+    height: 18px;
+}
+
+.search-box .date-input-wrapper input[type="date"],
+.search-box .date-input-wrapper .flatpickr-input {
+    background: transparent !important;
+    border: none !important;
+    height: 100% !important;
+    font-size: 14px;
+    width: 100%;
+    padding: 0 !important;
+    outline: none !important;
+    box-sizing: border-box;
+}
+
+.search-box .date-input-wrapper .flatpickr-input[readonly] {
+    background: transparent !important;
+}
+
+
+
+
+
+/* Zone avatar + prénom en colonne */
+.driver-link.vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+    padding: 2px 4px; 
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Hover */
+.driver-link.vertical:hover {
+    background: rgba(0,0,0,0.03);
+    cursor: pointer;
+}
+
+/* Avatar */
+.driver-link.vertical .trajet-avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Prénom */
+.driver-name {
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 3px;
+}
+
+/* Date / heure */
+.driver-date {
+    display: block;
+    margin-top: 4px;
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+}
+
+
+
+
+/*=== fix les cartes passagers ===*/
+
+/* onglet trajets à venir */
+#avenir .passager-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+#avenir .passager-box {
+    flex-direction: column;      
+    align-items: center;
+    justify-content: center;
+    min-width: 90px;             
+    padding: 8px 10px;
+}
+
+#avenir .passager-name {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+/* ===== Mes trajets > Trajets à venir (côté passager) ===== */
+#avenir .trajet-top .left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+    justify-content: center;
+    text-align: center;    
+}
+
+#avenir .trajet-top .left .trajet-avatar {
+    margin-bottom: 4px;
+}
+
+#avenir .trajet-top .left small {
+    margin-top: 2px;
+}
+
+/* onglet trajets réalisés */
+#realises .mini-passenger,
+#realises .passenger-card,
+#realises .passager-box {
+    min-width: 120px;   
+    padding: 6px 10px;  
+    width: fit-content;    
+}
+
+
+
+
+
+/* === Message Aucun résultat (page Recherche) === */
+.no-results {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: #555;
+    padding: 30px 0;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+    letter-spacing: 0.3px;
+}
+
+/* Petite animation premium */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+
+
+
+/* === style notif / liste déroulante === */
+.notif-wrapper {
+    position: relative;
+    margin-right: 3px;
+}
+
+.notif-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    padding: 5px;
+}
+
+.notif-btn svg {
+    width: 26px;
+    height: 26px;
+}
+
+/* Pastille rouge */
+.notif-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #ff3333;
+    color: white;
+    padding: 2px 6px;
+    font-size: 12px;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+/* Menu déroulant */
+.notif-dropdown {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+
+    position: absolute;
+    right: 0;
+
+    margin-top: 12px;
+    width: 260px;
+    background: white;
+    border-radius: 10px;
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    padding: 10px 0;
+    z-index: 1500;
+
+    transition: opacity .25s ease, transform .25s ease;
+}
+
+/* État ouvert */
+.notif-dropdown.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Ligne notification */
+.notif-row {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+
+    font-family: 'Inter', sans-serif;
+    transition: background .2s ease-in-out;
+}
+
+.notif-row:last-child {
+    border-bottom: none;
+}
+
+/* Survol */
+.notif-row:hover {
+    background: #fafafa;
+}
+
+/* Lien interne */
+.notif-link {
+    color: #333;
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 500;
+    text-decoration: none;
+    display: block;
+    white-space: pre-line;
+}
+
+/* "Aucune notification" */
+.notif-empty {
+    text-align: center;
+    padding: 12px;
+    color: #777;
+    font-family: 'Inter';
+}
+
+/* Bouton supprimer */
+.notif-clear-btn {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background: none;
+    border: none;
+    border-top: 1px solid #eee;
+
+    color: #666;
+    cursor: pointer;
+    font-family: 'Inter';
+    font-size: 14px;
+    transition: color .2s ease;
+}
+
+.notif-clear-btn:hover {
+    color: #222;
+}
+
+/* Animation suppression */
+.notif-row.removing {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity .25s ease, transform .25s ease;
+}
+
+
+/* update modif page cgu_mentions */
+.legal-update-date  {
+    text-align: right;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    margin-top: 20px;
+    font-family: "Inter", sans-serif;
+}
+
+
+
+/* === SVG du badge Super Driver === */
+.super-driver-badge {
+    width: 26px;
+    height: 26px;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+.driver-avatar-wrapper {
+    position: relative;
+    width: 55px;     
+    height: 55px;
+}
+
+.trajet-avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.superdriver-overlay {
+    position: absolute;
+    top: -4px; 
+    left: -4px;
+    width: 63px;   
+    height: 63px;
+    pointer-events: none; 
+}
+
+.mobile-menu {
+    display: none;
+}
+
+.trajet-id-badge {
+    font-size: 0.8em;
+    color: #666;
+    background: #eee;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-right: 8px;
+    vertical-align: middle;
+    font-weight: normal;
+    }
+    
+.trajet-id-badge {
+    font-size: 0.8em;
+    color: #666;
+    background: #eee;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-right: 8px;
+    vertical-align: middle;
+    font-weight: normal;
+}
+
+
+/* --- AJOUT : Le logo devient blanc au survol --- */
+.logo-link:hover {
+    transition: color 0.2s;
+
+    color: #ffffff !important; /* Force la couleur blanche */
+}
+
+/* --- AJOUT : Les liens deviennent blancs au survol --- */
+.nav-links a:hover {
+    transition: color 0.2s;
+    color: #ffffff !important; /* Force la couleur blanche */
+}

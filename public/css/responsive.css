@@ -1,0 +1,240 @@
+/* =========================
+   BASE (sécurité)
+========================= */
+* { box-sizing: border-box; }
+img { max-width: 100%; height: auto; }
+
+/* =========================
+   TABLETTE (<= 1024px)
+========================= */
+@media (max-width: 1024px) {
+  .navbar { padding: 10px 20px; } /* ✅ corrigé 1Opx -> 10px */
+  .nav-links a { margin: 0 12px; }
+
+  .main-content { padding: 70px 30px; gap: 30px; }
+  .avantages, .about, .securite-section { padding: 70px 30px; }
+
+  .about-image img { width: 380px; }
+  .search-top { max-width: 95%; }
+
+  /* Cartes trajet */
+  .trajet-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .trajet-right {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .trajet-middle { margin-left: 0; }
+}
+
+/* =========================
+   BURGER + MENU DÉROULANT (<= 1050px)
+   - Cache les liens desktop
+   - Affiche burger
+   - nav-links devient dropdown
+========================= */
+@media (max-width: 1100px) {
+  .navbar{
+    position: relative;
+    flex-wrap: nowrap;
+    gap: 10px;
+    padding: 12px 16px;
+  }
+
+  .burger{
+    display: block;
+    margin-left: auto;
+    order: 2;
+  }
+
+  .user-section{
+    order: 3;
+    margin-left: 0;
+    gap: 10px;
+  }
+
+  .user-text{ display: none; }
+
+  /* ✅ cache les liens par défaut */
+  .nav-links{
+    display: none !important;
+    position: absolute;
+    top: 100%;
+    left: 12px;
+    right: 12px;
+    flex-direction: column;
+    gap: 8px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 12px;
+    margin-top: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    z-index: 9999;
+  }
+
+  /* ✅ visible uniquement quand JS ajoute .open */
+  .nav-links.open{
+    display: flex !important;
+  }
+
+  .nav-links a{
+    margin: 0;
+    padding: 14px 16px;
+    border-radius: 10px;
+    text-align: left;
+  }
+
+  .nav-links a:hover{
+    background: rgba(0,0,0,0.05);
+  }
+
+  /* ✅ animation burger */
+  .burger.active span:nth-child(1){
+    transform: translateY(8px) rotate(45deg);
+  }
+  .burger.active span:nth-child(2){
+    opacity: 0;
+  }
+  .burger.active span:nth-child(3){
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+/* =========================
+   MOBILE (<= 768px)
+   (layout général, mais PAS la navbar liens => gérée par 1050px)
+========================= */
+@media (max-width: 768px) {
+
+  .site-title { font-size: 20px; }
+  .logo { width: 60px; height: 60px; }
+
+  /* HERO (page accueil) */
+  .main-content {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 50px 16px 120px;
+    gap: 20px;
+  }
+
+  .hero-text { top: 0; text-align: center; }
+  .hero-text h1 { font-size: 32px; }
+
+  .search-box {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* Sections */
+  .avantages, .about, .securite-section { padding: 50px 16px; }
+
+  .avantages h2,
+  .about-text h2,
+  .securite-container h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  /* ABOUT */
+  .about-content { flex-direction: column; }
+  .about-text p { max-width: 100%; }
+  .about-image { justify-content: center; }
+  .about-image img { width: 260px; }
+
+  /* SECURITE */
+  .securite-container { flex-direction: column; gap: 25px; }
+  .securite-container .image { text-align: center; }
+  .securite-container img { max-width: 320px; }
+
+  /* AVIS */
+  .avis-card { width: 100%; max-width: 520px; }
+
+  /* PAGE RECHERCHE (barre en haut) */
+  .search-header h1 { font-size: 28px }
+
+  .search-top {
+    max-width: 95%;
+    margin: 0 16px;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .search-top .field { width: 100%; }
+  .search-top select,
+  .search-top input[type="date"],
+  .search-top input[type="number"],
+  .search-top .city-input { width: 100%; }
+
+  .btn-search { width: 100%; justify-content: center; }
+
+  /* PAGE RECHERCHE (filtres + résultats) */
+  .recherche-container {
+    flex-direction: column;
+    gap: 18px;
+    padding: 25px 0;
+    width: 100%;
+  }
+
+  .filtres,
+  .resultats{
+    width: calc(100% - 32px);
+    margin: 0 auto;
+  }
+
+  /* Cartes trajet */
+  .trajet-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .trajet-right {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .trajet-middle { margin-left: 0; }
+
+  /* FORMULAIRES largeur fixe -> fluide */
+  .connexion-box,
+  .avis-wrapper,
+  .form-container,
+  .verify-box {
+    width: calc(100% - 32px);
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 28px 18px;
+  }
+
+  .card { padding: 22px; }
+}
+
+/* =========================
+   PETIT MOBILE (<= 480px)
+========================= */
+@media (max-width: 480px) {
+  .hero-text h1 { font-size: 28px; }
+  .search-header h1 { font-size: 26px; }
+
+  .trajet-route { font-size: 16px; }
+  .trajet-price { font-size: 18px; }
+
+  .footer-container { grid-template-columns: 1fr; }
+  .footer-col.brand { grid-column: auto; }
+}
